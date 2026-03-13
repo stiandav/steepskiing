@@ -1,0 +1,17 @@
+@import "tailwindcss";
+
+@theme {
+  --color-navy: #1B2A4A;
+  --color-cream: #F5F0EB;
+  --font-serif: var(--font-serif);
+  --font-sans: var(--font-sans);
+}
+
+:root {
+  scroll-padding-top: 80px;
+}
+
+body {
+  background-color: var(--color-cream);
+  color: var(--color-navy);
+}
