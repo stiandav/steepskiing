@@ -1,6 +1,8 @@
 import type { Metadata } from 'next'
 import { playfair, inter } from '@/lib/fonts'
 import { LenisProvider } from '@/components/layout/LenisProvider'
+import { StickyNav } from '@/components/layout/StickyNav'
+import { Footer } from '@/components/layout/Footer'
 import './globals.css'
 
 export const metadata: Metadata = {
@@ -13,7 +15,11 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     <html lang="en" className={`${playfair.variable} ${inter.variable}`}>
       <body className="bg-cream text-navy font-sans antialiased">
         <LenisProvider>
-          {children}
+          <StickyNav />
+          <main className="min-h-screen pt-20">
+            {children}
+          </main>
+          <Footer />
         </LenisProvider>
       </body>
     </html>
