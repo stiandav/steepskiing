@@ -1,7 +1,6 @@
 import type { Metadata } from 'next'
 import Image from 'next/image'
 import { cormorant, inter } from '@/lib/fonts'
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
 import { LenisProvider } from '@/components/layout/LenisProvider'
 import { StickyNav } from '@/components/layout/StickyNav'
 import { Footer } from '@/components/layout/Footer'

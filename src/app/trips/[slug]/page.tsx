@@ -8,16 +8,16 @@ import { Badge } from '@/components/ui/Badge'
 import { InquiryForm } from '@/components/contact/InquiryForm'
 import { formatPrice, getStatusBadge } from '@/lib/utils'
 
-// Placeholder images per destination
-const PLACEHOLDER_IMAGES: Record<string, string> = {
+// Destination hero images — replace with Chris's real photography when available
+const DESTINATION_IMAGES: Record<string, string> = {
   'switzerland-2026':
-    'https://images.unsplash.com/photo-1551524164-687a55dd1126?w=1600&q=85',
+    'https://images.unsplash.com/photo-1531366936337-7c912a4589a7?w=1600&q=85',
   'chile-2026':
-    'https://images.unsplash.com/photo-1547201240-67e2f55a3085?w=1600&q=85',
+    'https://images.unsplash.com/photo-1606664515524-ed2f786a0bd6?w=1600&q=85',
   'japan-2027':
-    'https://images.unsplash.com/photo-1605540436563-5bca919ae766?w=1600&q=85',
+    'https://images.unsplash.com/photo-1542332213-31f87348057f?w=1600&q=85',
   'antarctica-2027':
-    'https://images.unsplash.com/photo-1517783999520-f068d7431a60?w=1600&q=85',
+    'https://images.unsplash.com/photo-1547683905-f686c993aae5?w=1600&q=85',
 }
 
 interface Props {
@@ -48,7 +48,7 @@ export default async function TripPage({ params }: Props) {
     .filter(Boolean)
 
   const { label: statusLabel, variant: statusVariant } = getStatusBadge(trip.status)
-  const heroSrc = PLACEHOLDER_IMAGES[trip.slug] ?? trip.heroImage
+  const heroSrc = DESTINATION_IMAGES[trip.slug] ?? trip.heroImage
 
   return (
     <>
@@ -104,7 +104,7 @@ export default async function TripPage({ params }: Props) {
             {/* Description */}
             <div>
               <h2 className="font-serif text-2xl font-medium text-navy mb-4">
-                About this camp
+                Why I run this camp
               </h2>
               <p className="text-navy/70 leading-relaxed">{trip.description}</p>
             </div>
@@ -201,7 +201,7 @@ export default async function TripPage({ params }: Props) {
             {tripGuides.length > 0 && (
               <div>
                 <h2 className="font-serif text-2xl font-medium text-navy mb-6">
-                  Your guides
+                  Who you&apos;ll ski with
                 </h2>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                   {tripGuides.map((guide) => {
@@ -239,9 +239,9 @@ export default async function TripPage({ params }: Props) {
             <div className="sticky top-28 rounded-2xl border border-navy/10 bg-white p-8 shadow-sm">
               {trip.status === 'sold-out' ? (
                 <div className="text-center py-6">
-                  <p className="font-serif text-lg text-navy">This camp is sold out.</p>
+                  <p className="font-serif text-lg text-navy">This one&apos;s full.</p>
                   <p className="mt-2 text-sm text-navy/60">
-                    Inquire to join the waitlist or ask about future dates.
+                    Reach out and I&apos;ll put you on the waitlist or we can talk about future dates.
                   </p>
                   <Link
                     href="/contact"
@@ -262,9 +262,13 @@ export default async function TripPage({ params }: Props) {
       <div className="border-t border-navy/10 bg-cream/50">
         <div className="mx-auto max-w-7xl px-6 lg:px-10 py-12 flex flex-col sm:flex-row items-center justify-between gap-6">
           <p className="text-navy/60 text-sm">
-            Questions? Email{' '}
+            Questions? Email me at{' '}
             <a href="mailto:chris@steepskiing.com" className="text-navy hover:underline">
               chris@steepskiing.com
+            </a>
+            {' '}or DM{' '}
+            <a href="https://www.instagram.com/steepskiing/" target="_blank" rel="noopener noreferrer" className="text-navy hover:underline">
+              @steepskiing
             </a>
           </p>
           <Link
