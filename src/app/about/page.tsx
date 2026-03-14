@@ -3,6 +3,8 @@ import Image from 'next/image'
 import Link from 'next/link'
 import { guides } from '@/data/guides'
 import { testimonials } from '@/data/testimonials'
+import { AnimateIn } from '@/components/ui/AnimateIn'
+import { TimelineSection } from '@/components/about/TimelineSection'
 
 export const metadata: Metadata = {
   title: 'About Chris Davenport — Ski Guide & Mountain Athlete',
@@ -99,17 +101,21 @@ export default function AboutPage() {
 
       {/* Credentials */}
       <section className="mx-auto max-w-7xl px-6 lg:px-10 py-20">
-        <h2 className="font-serif text-3xl font-medium text-navy mb-10">
-          Credentials
-        </h2>
+        <AnimateIn>
+          <h2 className="font-serif text-3xl font-medium text-navy mb-10">
+            Credentials
+          </h2>
+        </AnimateIn>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-          {credentials.map(({ label, value }) => (
-            <div key={label} className="flex gap-6 rounded-xl border border-navy/10 p-5">
+          {credentials.map(({ label, value }, i) => (
+            <AnimateIn key={label} delay={i * 0.06}>
+            <div className="flex gap-6 rounded-xl border border-navy/10 p-5">
               <span className="text-xs font-medium uppercase tracking-wide text-navy/40 w-36 flex-shrink-0 pt-0.5">
                 {label}
               </span>
               <span className="text-sm text-navy leading-relaxed">{value}</span>
             </div>
+            </AnimateIn>
           ))}
         </div>
       </section>
@@ -120,23 +126,7 @@ export default function AboutPage() {
           <h2 className="font-serif text-3xl font-medium text-navy mb-12">
             Career highlights
           </h2>
-          <div className="space-y-0">
-            {timeline.map(({ year, event }, i) => (
-              <div key={year} className="flex gap-8 pb-10 relative">
-                {/* Vertical line */}
-                {i < timeline.length - 1 && (
-                  <div className="absolute left-[3.25rem] top-6 bottom-0 w-px bg-navy/10" />
-                )}
-                <div className="font-serif text-sm font-medium text-navy/40 w-20 flex-shrink-0 pt-0.5">
-                  {year}
-                </div>
-                <div className="relative">
-                  <div className="absolute -left-[1.85rem] top-1.5 h-2 w-2 rounded-full bg-navy/30" />
-                  <p className="text-navy/70 leading-relaxed">{event}</p>
-                </div>
-              </div>
-            ))}
-          </div>
+          <TimelineSection items={timeline} />
         </div>
       </section>
 
