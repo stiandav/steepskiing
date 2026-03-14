@@ -12,6 +12,7 @@ export default function Home() {
 
   return (
     <>
+      {/* Hero — full-bleed, floats behind nav */}
       <HeroSection />
 
       {/* Trips grid */}
@@ -25,14 +26,10 @@ export default function Home() {
               Guided ski camps.
             </h2>
           </div>
-          <Link
-            href="/ski-camps"
-            className="text-sm font-medium text-navy/60 hover:text-navy transition-colors"
-          >
+          <Link href="/ski-camps" className="text-sm font-medium text-navy/60 hover:text-navy transition-colors">
             View all camps →
           </Link>
         </AnimateIn>
-
         <TripGrid trips={sortedTrips} />
       </section>
 
@@ -43,9 +40,7 @@ export default function Home() {
       {testimonials.length > 0 && (
         <section className="mx-auto max-w-3xl px-6 lg:px-10 py-20 md:py-28 text-center">
           <AnimateIn>
-            <p className="text-xs font-medium tracking-widest text-navy/40 uppercase mb-8">
-              From the field
-            </p>
+            <p className="text-xs font-medium tracking-widest text-navy/40 uppercase mb-8">From the field</p>
             <blockquote className="font-serif text-2xl md:text-3xl font-medium text-navy leading-relaxed">
               &ldquo;{testimonials[0].quote}&rdquo;
             </blockquote>
