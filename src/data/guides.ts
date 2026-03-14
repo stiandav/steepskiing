@@ -1,0 +1,57 @@
+import type { GuideData } from '@/types'
+
+export const guides: GuideData[] = [
+  {
+    id: 'chris-davenport',
+    name: 'Chris Davenport',
+    role: 'Head Guide',
+    bio: "2x World Extreme Skiing Champion (1996, 1997). IFMGA/AMGA-certified mountain guide with 30+ years leading athletes and guests through the world's most committing ski terrain. First to ski all 54 Colorado 14ers in a single season. 36 Warren Miller and MSP film appearances.",
+    image: '/images/guides/chris-davenport.jpg',
+    instagram: 'steepskiing',
+    tripIds: ['switzerland-2026', 'chile-2026', 'japan-2027', 'antarctica-2027'],
+  },
+  {
+    id: 'mike-douglas',
+    name: 'Mike Douglas',
+    role: 'Co-guide',
+    bio: 'Ski pioneer and longtime collaborator. Creator of twin-tip skiing, co-founder of the Newschool movement, and one of the most respected athletes in the ski industry. A force on any mountain.',
+    image: '/images/guides/mike-douglas.jpg',
+    instagram: 'mikedskier',
+    tripIds: ['switzerland-2026', 'chile-2026', 'japan-2027'],
+  },
+  {
+    id: 'ingrid-backstrom',
+    name: 'Ingrid Backstrom',
+    role: 'Co-guide',
+    bio: 'One of the most accomplished freeride skiers in the world. Known for her fearless lines in Chamonix and Alaska, Ingrid brings world-class technical skiing and warmth to every camp.',
+    image: '/images/guides/ingrid-backstrom.jpg',
+    instagram: 'ingridbackstrom',
+    tripIds: ['switzerland-2026', 'chile-2026', 'japan-2027'],
+  },
+  {
+    id: 'cody-townsend',
+    name: 'Cody Townsend',
+    role: 'Co-guide',
+    bio: 'Completing The Fifty — skiing the 50 classic ski descents of North America. Known for the most viewed ski run in the world in the 2013 Warren Miller film. Elite technical skier and guide.',
+    image: '/images/guides/cody-townsend.jpg',
+    instagram: 'codytownsend',
+    tripIds: ['chile-2026'],
+  },
+  {
+    id: 'elyse-saugstad',
+    name: 'Elyse Saugstad',
+    role: 'Co-guide',
+    bio: 'World Freeride World Tour Champion. Avalanche survivor turned safety advocate. One of the most accomplished big mountain skiers of her generation, known for grace under pressure in consequential terrain.',
+    image: '/images/guides/elyse-saugstad.jpg',
+    instagram: 'elyse_saugstad',
+    tripIds: ['chile-2026'],
+  },
+  {
+    id: 'tatsuya-tayagaki',
+    name: 'Tatsuya Tayagaki',
+    role: 'Local Guide',
+    bio: "Expert local guide based in Myoko, Japan. Deep knowledge of the Lotte Arai terrain and surrounding backcountry. Essential for navigating Japan's legendary snowpack safely.",
+    image: '/images/guides/tatsuya-tayagaki.jpg',
+    tripIds: ['japan-2027'],
+  },
+]

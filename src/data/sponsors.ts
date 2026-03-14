@@ -1,0 +1,88 @@
+import type { SponsorData } from '@/types'
+
+export const sponsors: SponsorData[] = [
+  {
+    id: 'dps-skis',
+    name: 'DPS Skis',
+    logo: '/images/sponsors/dps-skis.svg',
+    url: 'https://dpsskis.com',
+    category: 'skis',
+  },
+  {
+    id: 'norrona',
+    name: 'Norrøna',
+    logo: '/images/sponsors/norrona.svg',
+    url: 'https://norrona.com',
+    category: 'apparel',
+  },
+  {
+    id: 'scarpa',
+    name: 'SCARPA',
+    logo: '/images/sponsors/scarpa.svg',
+    url: 'https://scarpa.net',
+    category: 'boots',
+  },
+  {
+    id: 'atk',
+    name: 'ATK',
+    logo: '/images/sponsors/atk.svg',
+    url: 'https://atkbindings.com',
+    category: 'bindings',
+  },
+  {
+    id: 'aspen-snowmass',
+    name: 'Aspen Snowmass',
+    logo: '/images/sponsors/aspen-snowmass.svg',
+    url: 'https://aspensnowmass.com',
+    category: 'resort',
+  },
+  {
+    id: 'mountainflow',
+    name: 'mountainflow eco-wax',
+    logo: '/images/sponsors/mountainflow.svg',
+    url: 'https://mountainflowwax.com',
+    category: 'wax',
+  },
+  {
+    id: 'phantom-glide',
+    name: 'PHANTOM Glide',
+    logo: '/images/sponsors/phantom-glide.svg',
+    url: 'https://phantomglide.com',
+    category: 'ski-care',
+  },
+  {
+    id: 'outeru',
+    name: 'OuterU',
+    logo: '/images/sponsors/outeru.svg',
+    url: 'https://outeru.com',
+    category: 'performance',
+  },
+  {
+    id: 'aniiu',
+    name: 'Aniiu',
+    logo: '/images/sponsors/aniiu.svg',
+    url: 'https://aniiu.com',
+    category: 'apparel',
+  },
+  {
+    id: 'ortovox',
+    name: 'Ortovox',
+    logo: '/images/sponsors/ortovox.svg',
+    url: 'https://ortovox.com',
+    category: 'safety',
+  },
+  {
+    id: 'pow',
+    name: 'Protect Our Winters',
+    logo: '/images/sponsors/pow.svg',
+    url: 'https://protectourwinters.org',
+    category: 'advocacy',
+  },
+  {
+    id: 'revelshine',
+    name: 'Revelshine',
+    logo: '/images/sponsors/revelshine.svg',
+    url: 'https://revelshine.com',
+    category: 'ski-care',
+  },
+]
