@@ -4,8 +4,6 @@ import { CdLogo } from '@/components/ui/CdLogo'
 
 export function Footer() {
   const currentYear = new Date().getFullYear()
-  const col1 = footerLinks.slice(0, Math.ceil(footerLinks.length / 2))
-  const col2 = footerLinks.slice(Math.ceil(footerLinks.length / 2))
 
   return (
     <footer className="bg-navy text-cream">
@@ -59,14 +57,18 @@ export function Footer() {
 
           <div className="md:col-span-2 grid grid-cols-2 gap-8">
             <ul className="space-y-3">
-              {col1.map((link) => (
-                <li key={link.href}><Link href={link.href} className="text-sm text-cream/60 hover:text-cream transition-colors">{link.label}</Link></li>
-              ))}
+              <li><Link href="/ski-camps" className="text-sm text-cream/60 hover:text-cream transition-colors font-medium">Ski Camps</Link></li>
+              <li className="pl-3"><Link href="/trips/chile-2026" className="text-sm text-cream/40 hover:text-cream/80 transition-colors">↳ Portillo, Chile</Link></li>
+              <li className="pl-3"><Link href="/trips/antarctica-2027" className="text-sm text-cream/40 hover:text-cream/80 transition-colors">↳ Antarctica</Link></li>
+              <li className="pl-3"><Link href="/trips/japan-2027" className="text-sm text-cream/40 hover:text-cream/80 transition-colors">↳ Japan</Link></li>
+              <li className="pl-3"><Link href="/trips/switzerland-2026" className="text-sm text-cream/40 hover:text-cream/80 transition-colors">↳ Switzerland</Link></li>
+              <li className="pt-1"><Link href="/media" className="text-sm text-cream/60 hover:text-cream transition-colors">Media</Link></li>
             </ul>
             <ul className="space-y-3">
-              {col2.map((link) => (
-                <li key={link.href}><Link href={link.href} className="text-sm text-cream/60 hover:text-cream transition-colors">{link.label}</Link></li>
-              ))}
+              <li><Link href="/gear" className="text-sm text-cream/60 hover:text-cream transition-colors">Gear</Link></li>
+              <li><Link href="/journal" className="text-sm text-cream/60 hover:text-cream transition-colors">Journal</Link></li>
+              <li><Link href="/about" className="text-sm text-cream/60 hover:text-cream transition-colors">About</Link></li>
+              <li><Link href="/contact" className="text-sm text-cream/60 hover:text-cream transition-colors">Contact</Link></li>
             </ul>
           </div>
         </div>

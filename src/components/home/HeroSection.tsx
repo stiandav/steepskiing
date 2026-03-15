@@ -68,10 +68,10 @@ export function HeroSection() {
   return (
     <section
       ref={sectionRef}
-      className="relative flex min-h-screen items-end overflow-hidden bg-slate-200"
+      className="relative flex min-h-screen items-end overflow-hidden bg-cream"
     >
       {/* Background — scale-110 gives GSAP room to move without revealing edges */}
-      <div ref={imageRef} className="absolute inset-0 scale-110">
+      <div ref={imageRef} className="absolute inset-0 scale-125">
         <Image
           src="/images/hero_shot.jpg"
           alt="Chris Davenport skiing steep open terrain from above"
@@ -111,7 +111,7 @@ export function HeroSection() {
             className="mt-6 text-base md:text-lg text-navy/65 leading-relaxed max-w-xl"
           >
             I lead small-group ski camps in the places I love most — Portillo, the Swiss Alps,
-            Japan&apos;s Lotte Arai, and Antarctica. Terrain you won&apos;t find on your own.
+            Japan&apos;s Lotte Arai, and Antarctica. Terrain unlike anywhere else.
           </p>
 
           <div data-hero-item className="mt-8 flex flex-wrap gap-4">

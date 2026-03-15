@@ -14,19 +14,24 @@ export default function SkiCampsPage() {
 
   return (
     <div className="mx-auto max-w-7xl px-6 lg:px-10 pt-28 pb-20">
-      <AnimateIn className="mb-16">
-        <p className="text-xs font-medium tracking-widest text-navy/40 uppercase mb-4">
-          2026 &amp; 2027 Seasons
-        </p>
-        <h1 className="font-serif text-5xl md:text-7xl font-light text-navy leading-tight max-w-2xl">
-          The camps I&apos;ve built my career around.
-        </h1>
-        <p className="mt-6 text-navy/60 leading-relaxed max-w-xl text-lg">
-          Every destination on this list is somewhere I&apos;ve spent years — sometimes decades —
-          understanding the terrain, the snow, and the best way to experience it safely.
-          These aren&apos;t package tours. They&apos;re expeditions I put my name on.
-        </p>
-      </AnimateIn>
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-end mb-16">
+        <AnimateIn>
+          <p className="text-xs font-medium tracking-widest text-navy/40 uppercase mb-4">
+            2026 &amp; 2027 Seasons
+          </p>
+          <h1 className="font-serif text-5xl md:text-7xl font-light text-navy leading-tight">
+            The camps I&apos;ve built my career around.
+          </h1>
+        </AnimateIn>
+        <AnimateIn delay={0.1}>
+          <p className="text-navy/60 leading-relaxed text-lg">
+            Every destination on this list is somewhere I&apos;ve spent years —
+            sometimes decades — understanding the terrain, the snow, and what
+            it takes to ski it safely and well. These aren&apos;t package tours.
+            They&apos;re expeditions I put my name on.
+          </p>
+        </AnimateIn>
+      </div>
 
       {/* Grid */}
       <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-6">

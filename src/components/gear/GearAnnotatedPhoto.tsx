@@ -147,12 +147,7 @@ export function GearAnnotatedPhoto() {
             onMouseLeave={() => setActivePin(null)}
             aria-label={`${pin.label} — ${pin.brand}`}
           >
-            {/* Pulsing outer ring */}
-            <span
-              className={`absolute inset-0 rounded-full scale-[2.8] ${
-                activePin === pin.id ? 'animate-ping bg-cream/40' : 'animate-ping bg-cream/20'
-              }`}
-            />
+
             {/* Numbered dot */}
             <span
               className={`relative flex h-7 w-7 items-center justify-center rounded-full text-xs font-bold border-2 shadow-lg transition-all ${

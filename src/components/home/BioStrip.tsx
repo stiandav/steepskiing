@@ -1,18 +1,10 @@
 import Link from 'next/link'
-import { CountUp } from '@/components/ui/CountUp'
+import Image from 'next/image'
 import { AnimateIn } from '@/components/ui/AnimateIn'
 
-const stats = [
-  { value: 30, suffix: '+', label: 'Ski films' },
-  { value: 20, suffix: '+', label: 'Years guiding' },
-  { value: 54, suffix: '', label: 'Colorado 14ers' },
-  { value: 4, suffix: '', label: 'Continents guided' },
-]
-
 /**
- * Dark bio / credibility strip on the home page.
- * Stats use CountUp so they animate when they scroll into view.
- * The text block uses AnimateIn for a fade+slide entrance.
+ * Dark bio strip on the home page.
+ * Portrait photo on the right replaces the animated stats grid.
  */
 export function BioStrip() {
   return (
@@ -42,19 +34,16 @@ export function BioStrip() {
           </Link>
         </AnimateIn>
 
-        {/* Stats with CountUp */}
-        <div className="grid grid-cols-2 gap-6">
-          {stats.map(({ value, suffix, label }, i) => (
-            <AnimateIn key={label} delay={i * 0.1}>
-              <div className="border border-cream/10 rounded-2xl p-6">
-                <p className="font-serif text-4xl font-medium text-cream">
-                  <CountUp value={value} suffix={suffix} />
-                </p>
-                <p className="mt-1 text-sm text-cream/50">{label}</p>
-              </div>
-            </AnimateIn>
-          ))}
-        </div>
+        <AnimateIn delay={0.15} className="relative h-[480px] rounded-2xl overflow-hidden">
+          <Image
+            src="/images/guides/chris_portrait.avif"
+            alt="Chris Davenport — mountain guide and professional skier"
+            fill
+            className="object-cover object-top"
+            sizes="(min-width: 768px) 50vw, 100vw"
+          />
+          <div className="absolute inset-0 bg-gradient-to-t from-navy/30 to-transparent" />
+        </AnimateIn>
       </div>
     </section>
   )

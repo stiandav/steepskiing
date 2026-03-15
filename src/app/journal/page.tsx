@@ -11,7 +11,7 @@ export const metadata: Metadata = {
 const POSTS = [
   {
     href: '#',
-    image: 'https://images.unsplash.com/photo-1551524164-687a55dd1126?w=800&q=80',
+    image: '/images/portillo.jpg',
     imageAlt: 'Skier descending steep mountain face',
     date: 'March 10, 2026',
     category: 'Trip Report',
@@ -21,7 +21,7 @@ const POSTS = [
   },
   {
     href: '#',
-    image: 'https://images.unsplash.com/photo-1605540436563-5bca919ae766?w=800&q=80',
+    image: '/images/ant.jpg',
     imageAlt: 'Skis laid out on snow',
     date: 'February 28, 2026',
     category: 'Gear',
@@ -99,9 +99,9 @@ const FIELD_NOTES = [
 export default function JournalPage() {
   return (
     <>
-      {/* ── Hero ──────────────────────────────────────────────────── */}
+      {/* ── Hero — two-column so posts visible on load ─────────── */}
       <section className="mx-auto max-w-7xl px-6 lg:px-10 pt-36 pb-20">
-        <div className="max-w-2xl">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-end">
           <AnimateIn>
             <p className="text-xs font-medium tracking-widest text-navy/40 uppercase mb-5">
               Field notes
@@ -109,55 +109,14 @@ export default function JournalPage() {
             <h1 className="font-serif text-6xl md:text-7xl font-medium text-navy leading-none tracking-tight">
               The Journal.
             </h1>
-            <p className="mt-8 text-navy/60 text-lg leading-relaxed">
-              I write when I have something worth saying. Field notes from expeditions,
-              gear I&apos;m thinking about, places worth visiting. Subscribe and I&apos;ll
-              drop it in your inbox.
+          </AnimateIn>
+          <AnimateIn delay={0.1}>
+            <p className="text-navy/60 text-lg leading-relaxed">
+              I write when I have something worth saying — field notes from expeditions,
+              gear decisions, things I&apos;m seeing out there. No schedule, just when
+              something&apos;s worth putting down.
             </p>
           </AnimateIn>
-        </div>
-      </section>
-
-      {/* ── Newsletter ────────────────────────────────────────────── */}
-      <section className="bg-navy text-cream">
-        <div className="mx-auto max-w-7xl px-6 lg:px-10 py-20">
-          <div className="max-w-xl">
-            <AnimateIn>
-              <h2 className="font-serif text-4xl md:text-5xl font-medium leading-tight">
-                Get it in<br />your inbox.
-              </h2>
-              <p className="mt-5 text-cream/60 text-base leading-relaxed">
-                I send occasional dispatches — early access to new camps, trip notes,
-                snow reports from wherever I am. No algorithm. Just email.
-              </p>
-            </AnimateIn>
-
-            <form
-              action="https://app.flodesk.com/forms/REPLACE_WITH_FORM_ID/subscribe"
-              method="POST"
-              className="mt-8"
-            >
-              <input type="hidden" name="fl_form_id" value="REPLACE_WITH_FORM_ID" />
-              <div className="flex flex-col sm:flex-row gap-3">
-                <input
-                  type="email"
-                  name="email"
-                  required
-                  placeholder="your@email.com"
-                  className="flex-1 rounded-full bg-white/10 border border-cream/20 px-5 py-3.5 text-sm text-cream placeholder:text-cream/30 focus:outline-none focus:border-cream/50 focus:bg-white/15 transition-all"
-                />
-                <button
-                  type="submit"
-                  className="rounded-full bg-cream text-navy px-7 py-3.5 text-sm font-medium hover:bg-cream/90 transition-colors flex-shrink-0"
-                >
-                  Subscribe
-                </button>
-              </div>
-              <p className="mt-3 text-xs text-cream/30">
-                No spam, unsubscribe any time.
-              </p>
-            </form>
-          </div>
         </div>
       </section>
 
@@ -291,6 +250,48 @@ export default function JournalPage() {
           >
             View upcoming camps
           </Link>
+        </div>
+      </section>
+
+      {/* ── Newsletter — bottom ─────────────────────────────────── */}
+      <section className="bg-navy text-cream">
+        <div className="mx-auto max-w-7xl px-6 lg:px-10 py-20">
+          <div className="max-w-xl">
+            <AnimateIn>
+              <h2 className="font-serif text-4xl md:text-5xl font-medium leading-tight">
+                Get it in<br />your inbox.
+              </h2>
+              <p className="mt-5 text-cream/60 text-base leading-relaxed">
+                I send occasional dispatches — early access to new camps, trip notes,
+                snow reports from wherever I am. No algorithm. Just email.
+              </p>
+            </AnimateIn>
+            <form
+              action="https://app.flodesk.com/forms/REPLACE_WITH_FORM_ID/subscribe"
+              method="POST"
+              className="mt-8"
+            >
+              <input type="hidden" name="fl_form_id" value="REPLACE_WITH_FORM_ID" />
+              <div className="flex flex-col sm:flex-row gap-3">
+                <input
+                  type="email"
+                  name="email"
+                  required
+                  placeholder="your@email.com"
+                  className="flex-1 rounded-full bg-white/10 border border-cream/20 px-5 py-3.5 text-sm text-cream placeholder:text-cream/30 focus:outline-none focus:border-cream/50 focus:bg-white/15 transition-all"
+                />
+                <button
+                  type="submit"
+                  className="rounded-full bg-cream text-navy px-7 py-3.5 text-sm font-medium hover:bg-cream/90 transition-colors flex-shrink-0"
+                >
+                  Subscribe
+                </button>
+              </div>
+              <p className="mt-3 text-xs text-cream/30">
+                No spam, unsubscribe any time.
+              </p>
+            </form>
+          </div>
         </div>
       </section>
     </>

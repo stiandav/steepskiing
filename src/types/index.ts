@@ -48,7 +48,6 @@ export interface SponsorData {
     | 'boots'
     | 'bindings'
     | 'resort'
-    | 'wax'
     | 'safety'
     | 'advocacy'
     | 'performance'

@@ -17,11 +17,10 @@ const CATEGORY_LABELS: Record<SponsorData['category'], string> = {
   boots: 'Boots',
   bindings: 'Bindings',
   resort: 'Resort Partner',
-  wax: 'Wax & Glide',
+  'ski-care': 'Ski Care',
   safety: 'Safety',
   advocacy: 'Advocacy',
   performance: 'Performance',
-  'ski-care': 'Ski Care',
   'partner': 'Partners',
 }
 
@@ -31,7 +30,6 @@ const CATEGORY_ORDER: SponsorData['category'][] = [
   'bindings',
   'apparel',
   'safety',
-  'wax',
   'ski-care',
   'performance',
   'resort',
@@ -43,9 +41,9 @@ const GEAR_DESCRIPTIONS: Partial<Record<string, string>> = {
   'dps-skis':
     "DPS Skis are built for the terrain I seek — deep powder, couloirs, and everything in between. The Pagoda Tour 112 RP is my go-to for ski mountaineering days when I need a ski that performs both ways: up and down.",
   norrona:
-    "Norrøna outerwear is what I reach for when conditions are at their worst. The Lofoten collection is designed for the mountains, not the resort parking lot — and that difference shows the moment a storm rolls in.",
+    "Norrøna builds the best ski mountaineering outerwear I've found. The Lofoten line is technical in a way that actually matters — waterproof, articulated for big movement, and designed by people who ski in serious conditions. I've worn it from Chamonix to Antarctica.",
   aniiu:
-    "Aniiu builds performance base layers that work hard in the skin track and keep me comfortable at the belay. Warmth that doesn't compromise mobility.",
+    "Aniiu builds tough, high-performance gloves. They hold up in real conditions and keep my hands warm without sacrificing dexterity. That's the whole job.",
   scarpa:
     "SCARPA boots deliver the precision and power transfer I need on steep technical terrain. I've returned to the Maestrale RS season after season — it's the right tool for ski mountaineering where every edge hold matters.",
   atk:
@@ -57,13 +55,13 @@ const GEAR_DESCRIPTIONS: Partial<Record<string, string>> = {
   'phantom-glide':
     "PHANTOM Glide is a permanent base treatment I use on my touring skis. One application lasts the season — and it glides as well as any kick wax without the mess.",
   revelshine:
-    "Revelshine is a wine worth drinking. I pour it at base camp and at home — good skiing deserves good wine.",
+    "Revelshine is a wine worth drinking. I've poured it on top of peaks and at home after long days in the mountains. Good skiing deserves good wine.",
   outeru:
     "OuterU is the recovery and performance side of my training. Keeping the body ready for the demands of ski mountaineering is as important as the skiing itself.",
   'aspen-snowmass':
-    "Aspen Snowmass is my home mountain. This is where I train, where I coach, and where I push my skiing every season. The Elk Camp terrain has shaped my approach to steep skiing as much as anywhere I've traveled.",
+    "Aspen Snowmass is home. It's where I train, where I push my skiing every season, and where my kids learned to ski. There's no place I know better.",
   pow:
-    "Protect Our Winters is doing the most important work in our sport. I've been involved with POW since early days because without snowpack, none of this matters. I encourage every skier I meet to get involved.",
+    "Protect Our Winters is the most important organization in skiing. The mountains I've built my career on are changing. POW does something real about it — they move policy, they move votes, they move the needle. Get involved.",
 }
 
 export default function GearPage() {
@@ -75,20 +73,28 @@ export default function GearPage() {
 
   return (
     <>
-      {/* Hero */}
+      {/* Hero — two-column so gear map is visible on load */}
       <section className="mx-auto max-w-7xl px-6 lg:px-10 pt-28 pb-16 md:pb-20">
-        <div className="max-w-2xl">
-          <p className="text-xs font-medium tracking-widest text-navy/40 uppercase mb-4">
-            Equipment
-          </p>
-          <h1 className="font-serif text-6xl md:text-7xl font-medium text-navy leading-tight">
-            Thirty years of<br />dialing in the kit.
-          </h1>
-          <p className="mt-6 text-navy/60 text-lg leading-relaxed">
-            I&apos;ve refined what I carry and ski on down to what actually works when the terrain
-            gets serious. These are the brands I use, trust, and am proud to represent.
-            Nothing is here because of a deal — everything is here because I&apos;d use it anyway.
-          </p>
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-end">
+          <div>
+            <p className="text-xs font-medium tracking-widest text-navy/40 uppercase mb-4">
+              Equipment
+            </p>
+            <h1 className="font-serif text-6xl md:text-7xl font-medium text-navy leading-tight">
+              Thirty years of<br />dialing in the kit.
+            </h1>
+          </div>
+          <div>
+            <p className="text-navy/60 text-lg leading-relaxed">
+              I&apos;ve refined what I carry and ski on down to what actually works when the
+              terrain gets serious. These are the brands I use, trust, and am proud to
+              represent. I don&apos;t use brands I don&apos;t believe in.
+            </p>
+            <p className="mt-4 text-navy/60 leading-relaxed">
+              Nothing on this list is here because of a deal — it&apos;s here because
+              I&apos;d be skiing on it regardless.
+            </p>
+          </div>
         </div>
       </section>
 
@@ -136,10 +142,13 @@ export default function GearPage() {
                         className="group flex gap-6 rounded-2xl border border-navy/10 p-6 hover:border-navy/25 hover:shadow-sm transition-all h-full"
                       >
                         {/* Logo placeholder */}
-                        <div className="flex-shrink-0 h-12 w-12 rounded-xl bg-navy/5 flex items-center justify-center">
-                          <span className="text-xs font-bold text-navy/40 uppercase">
-                            {sponsor.name.slice(0, 2)}
-                          </span>
+                        <div className="flex-shrink-0 h-12 w-12 rounded-xl bg-white border border-navy/10 flex items-center justify-center overflow-hidden p-1.5">
+                          {/* eslint-disable-next-line @next/next/no-img-element */}
+                          <img
+                            src={sponsor.logo}
+                            alt={sponsor.name}
+                            className="max-h-full max-w-full object-contain"
+                          />
                         </div>
 
                         <div className="flex-1">
@@ -180,8 +189,7 @@ export default function GearPage() {
                 seen people get into trouble in the latest and most expensive gear on the market.
               </p>
               <p className="text-navy/60 leading-relaxed">
-                When you book a camp or trip, I&apos;ll send a full recommended kit list tuned to
-                the specific terrain we&apos;ll be on. Questions before then?{' '}
+                Happy to answer any gear or equipment questions.{' '}
                 <a
                   href="mailto:chris@steepskiing.com"
                   className="text-navy font-medium hover:underline"

@@ -16,8 +16,8 @@ export const trips: TripData[] = [
     currency: 'USD',
     spotsTotal: 8,
     spotsRemaining: 2,
-    status: 'nearly-sold-out',
-    urgencyLabel: 'Nearly sold out — Next departure March 14',
+    status: 'sold-out',
+    urgencyLabel: 'Sold out',
     heroImage: '/images/trips/switzerland/hero.jpg',
     destination: 'Engelberg, Switzerland',
     country: 'Switzerland',
@@ -60,7 +60,7 @@ export const trips: TripData[] = [
       ],
     },
     inquiryEmails: ['chris@steepskiing.com', 'mikedskier@gmail.com'],
-    sortOrder: 1,
+    sortOrder: 4,
   },
   {
     slug: 'chile-2026',
@@ -104,7 +104,7 @@ export const trips: TripData[] = [
       { name: 'Portillo Reservations', email: 'reservas@skiportillo.com' },
       { name: 'Daniela', email: 'daniela@skiportillo.com' },
     ],
-    sortOrder: 2,
+    sortOrder: 1,
   },
   {
     slug: 'japan-2027',
@@ -193,6 +193,6 @@ export const trips: TripData[] = [
     bookingContacts: [
       { name: 'Ice Axe Expeditions', email: 'info@iceaxe.com', role: 'Expedition partner' },
     ],
-    sortOrder: 4,
+    sortOrder: 2,
   },
 ]

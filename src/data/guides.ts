@@ -16,7 +16,7 @@ export const guides: GuideData[] = [
     role: 'Co-guide',
     bio: 'Ski pioneer and longtime collaborator. Creator of twin-tip skiing, co-founder of the Newschool movement, and one of the most respected athletes in the ski industry. A force on any mountain.',
     image: 'https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=200&q=80',
-    instagram: 'mikedskier',
+    instagram: 'mikedski',
     tripIds: ['switzerland-2026', 'chile-2026', 'japan-2027'],
   },
   {
@@ -43,7 +43,7 @@ export const guides: GuideData[] = [
     role: 'Co-guide',
     bio: 'World Freeride World Tour Champion. Avalanche survivor turned safety advocate. One of the most accomplished big mountain skiers of her generation, known for grace under pressure in consequential terrain.',
     image: 'https://images.unsplash.com/photo-1535914254981-b5012eebbd15?w=200&q=80',
-    instagram: 'elyse_saugstad',
+    instagram: 'elysesaugstad',
     tripIds: ['chile-2026'],
   },
   {
@@ -52,6 +52,7 @@ export const guides: GuideData[] = [
     role: 'Local Guide',
     bio: "Expert local guide based in Myoko, Japan. Deep knowledge of the Lotte Arai terrain and surrounding backcountry. Essential for navigating Japan's legendary snowpack safely.",
     image: 'https://images.unsplash.com/photo-1605540436563-5bca919ae766?w=200&q=80',
+    instagram: 'tatsuya_tayagaki',
     tripIds: ['japan-2027'],
   },
 ]

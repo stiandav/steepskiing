@@ -12,7 +12,6 @@ export function StickyNav() {
   const [menuOpen, setMenuOpen] = useState(false)
   const progress = useScrollProgress()
   const scrolled = progress > 0.05
-  const overHero = !scrolled // matches scrolled threshold exactly — no invisible-text zone
 
   return (
     <>
@@ -26,15 +25,15 @@ export function StickyNav() {
       >
         <nav className="mx-auto flex h-full max-w-7xl items-center justify-between px-6 lg:px-10">
           <Link href="/" aria-label="Chris Davenport — home" onClick={() => setMenuOpen(false)}
-            className={`transition-opacity hover:opacity-70 ${overHero ? 'text-cream' : 'text-navy'}`}>
-            <CdLogo variant={overHero ? 'light' : 'dark'} />
+            className={`transition-opacity hover:opacity-70 ${'text-navy'}`}>
+            <CdLogo variant="dark" />
           </Link>
 
           <ul className="hidden md:flex items-center gap-7">
             {navLinks.map((link) => (
               <li key={link.href}>
                 <Link href={link.href}
-                  className={`text-sm font-medium tracking-wide transition-colors ${overHero ? 'text-cream/80 hover:text-cream' : 'text-navy/70 hover:text-navy'}`}>
+                  className={`text-sm font-medium tracking-wide transition-colors ${'text-navy/70 hover:text-navy'}`}>
                   {link.label}
                 </Link>
               </li>
@@ -43,18 +42,18 @@ export function StickyNav() {
 
           <div className="flex items-center gap-3">
             <Link href="/contact"
-              className={`hidden md:inline-flex items-center rounded-full border px-5 py-2 text-sm font-medium transition-colors ${overHero ? 'border-cream/50 text-cream hover:bg-cream/10' : 'border-navy text-navy hover:bg-navy hover:text-cream'}`}>
+              className={`hidden md:inline-flex items-center rounded-full border px-5 py-2 text-sm font-medium transition-colors ${'border-navy text-navy hover:bg-navy hover:text-cream'}`}>
               Inquire
             </Link>
             <button aria-label={menuOpen ? 'Close menu' : 'Open menu'} aria-expanded={menuOpen}
               onClick={() => setMenuOpen((p) => !p)}
-              className={`flex h-9 w-9 items-center justify-center rounded-full transition-colors md:hidden ${overHero ? 'hover:bg-cream/10' : 'hover:bg-navy/10'}`}>
-              <HamburgerIcon open={menuOpen} light={overHero} />
+              className={`flex h-9 w-9 items-center justify-center rounded-full transition-colors md:hidden ${'hover:bg-navy/10'}`}>
+              <HamburgerIcon open={menuOpen} light={false} />
             </button>
             <button aria-label={menuOpen ? 'Close menu' : 'Open menu'} aria-expanded={menuOpen}
               onClick={() => setMenuOpen((p) => !p)}
-              className={`hidden md:flex h-9 w-9 items-center justify-center rounded-full transition-colors ${overHero ? 'hover:bg-cream/10' : 'hover:bg-navy/10'}`}>
-              <HamburgerIcon open={menuOpen} light={overHero} />
+              className={`hidden md:flex h-9 w-9 items-center justify-center rounded-full transition-colors ${'hover:bg-navy/10'}`}>
+              <HamburgerIcon open={menuOpen} light={false} />
             </button>
           </div>
         </nav>
