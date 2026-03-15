@@ -48,7 +48,7 @@ export default function SkiCampsPage() {
           },
           {
             title: 'DM or email me directly',
-            body: "I don't do online checkouts. Reach out via Instagram (@steepskiing) or email — a quick conversation makes sure the camp is the right fit before you commit.",
+            body: 'Reach out via Instagram (@steepskiing) or email — a quick conversation makes sure the camp is the right fit before you commit.',
           },
         ].map(({ title, body }) => (
           <AnimateIn key={title}>

@@ -45,7 +45,7 @@ export function Footer() {
               <a href="https://www.instagram.com/steepskiing/" target="_blank" rel="noopener noreferrer" aria-label="Instagram @steepskiing" className="text-cream/50 hover:text-cream transition-colors">
                 <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5" /><circle cx="12" cy="12" r="4" /><circle cx="17.5" cy="6.5" r="0.5" fill="currentColor" stroke="none" /></svg>
               </a>
-              <a href="https://www.facebook.com/steepskiing/" target="_blank" rel="noopener noreferrer" aria-label="Facebook @steepskiing" className="text-cream/50 hover:text-cream transition-colors">
+              <a href="https://www.facebook.com/ChrisDavenport/" target="_blank" rel="noopener noreferrer" aria-label="Facebook @steepskiing" className="text-cream/50 hover:text-cream transition-colors">
                 <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z" /></svg>
               </a>
               <a href="https://www.linkedin.com/in/chris-davenport-182a233/" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn" className="text-cream/50 hover:text-cream transition-colors">

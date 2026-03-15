@@ -141,9 +141,7 @@ export function GearAnnotatedPhoto() {
           <button
             key={pin.id}
             style={{ left: `${pin.x}%`, top: `${pin.y}%` }}
-            className={`absolute -translate-x-1/2 -translate-y-1/2 z-10 group transition-transform duration-200 ${
-              activePin === pin.id ? 'scale-125' : 'hover:scale-125'
-            }`}
+            className="absolute -translate-x-1/2 -translate-y-1/2 z-10 group"
             onClick={() => setActivePin(activePin === pin.id ? null : pin.id)}
             onMouseEnter={() => setActivePin(pin.id)}
             onMouseLeave={() => setActivePin(null)}

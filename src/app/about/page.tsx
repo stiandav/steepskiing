@@ -32,11 +32,11 @@ const timeline = [
 
 // Unique photos per guide — swap with real headshots
 const GUIDE_PHOTOS: Record<string, string> = {
-  'mike-douglas':   'https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=600&q=80',
-  'ingrid-backstrom': 'https://images.unsplash.com/photo-1548126032-079a0fb0099d?w=600&q=80',
-  'cody-townsend':  'https://images.unsplash.com/photo-1481889335927-32e1b8af4f1b?w=600&q=80',
-  'elyse-saugstad': 'https://images.unsplash.com/photo-1535914254981-b5012eebbd15?w=600&q=80',
-  'tatsuya-tayagaki': 'https://images.unsplash.com/photo-1605540436563-5bca919ae766?w=600&q=80',
+  'mike-douglas':     '/images/guides/mike.jpg',
+  'ingrid-backstrom': '/images/guides/ingrid.jpg',
+  'cody-townsend':    '/images/guides/cody.jpg',
+  'elyse-saugstad':   '/images/guides/elyse.jpg',
+  'tatsuya-tayagaki': '/images/guides/tatsuya.jpg',
 }
 
 export default function AboutPage() {
@@ -77,7 +77,7 @@ export default function AboutPage() {
             {/* Portrait */}
             <AnimateIn delay={0.2} className="relative h-[520px] rounded-3xl overflow-hidden">
               <Image
-                src="https://images.unsplash.com/photo-1551524559-8af4e6624178?w=800&q=85"
+                src="/images/guides/chris_portrait.avif"
                 alt="Chris Davenport — professional skier and mountain guide"
                 fill
                 className="object-cover object-top"

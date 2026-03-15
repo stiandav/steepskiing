@@ -12,7 +12,7 @@ export function StickyNav() {
   const [menuOpen, setMenuOpen] = useState(false)
   const progress = useScrollProgress()
   const scrolled = progress > 0.05
-  const overHero = progress < 0.12
+  const overHero = !scrolled // matches scrolled threshold exactly — no invisible-text zone
 
   return (
     <>

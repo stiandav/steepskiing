@@ -69,11 +69,19 @@ const PHOTOS = [
 
 const PRESS = [
   {
-    outlet: 'Powder Magazine',
-    headline: 'The Man Who Skied All 54 Colorado 14ers',
-    year: '2007',
+    outlet: 'Warren Miller Entertainment',
+    headline: 'Three Decades on Film: A Career Retrospective',
+    year: '2023',
     description:
-      'The story of how I decided to link every fourteener in a single season — on skis. The planning, the weather, the close calls.',
+      "Warren Miller produced a short doc on what it's been like to ski for their cameras since 1993. Surreal to watch.",
+    url: '#',
+  },
+  {
+    outlet: "Men's Journal",
+    headline: 'What It Takes to Ski Professionally for 30 Years',
+    year: '2019',
+    description:
+      "Longevity in action sports isn't talked about enough. This piece got at something real about how I've stayed healthy and motivated.",
     url: '#',
   },
   {
@@ -85,22 +93,6 @@ const PRESS = [
     url: '#',
   },
   {
-    outlet: 'Warren Miller Entertainment',
-    headline: 'Three Decades on Film: A Career Retrospective',
-    year: '2023',
-    description:
-      "Warren Miller produced a short doc on what it's been like to ski for their cameras since 1993. Surreal to watch.",
-    url: '#',
-  },
-  {
-    outlet: 'Skiing Magazine',
-    headline: 'The World Extreme Skiing Champion You Should Know',
-    year: '1997',
-    description:
-      "Profile after back-to-back world titles. It felt strange to be the subject. I was still figuring out who I was as an athlete.",
-    url: '#',
-  },
-  {
     outlet: 'National Geographic Adventure',
     headline: 'Last Wild Mountains: Skiing the Edges of the Map',
     year: '2010',
@@ -109,11 +101,19 @@ const PRESS = [
     url: '#',
   },
   {
-    outlet: "Men's Journal",
-    headline: 'What It Takes to Ski Professionally for 30 Years',
-    year: '2019',
+    outlet: 'Powder Magazine',
+    headline: 'The Man Who Skied All 54 Colorado 14ers',
+    year: '2007',
     description:
-      "Longevity in action sports isn't talked about enough. This piece got at something real about how I've stayed healthy and motivated.",
+      'The story of how I decided to link every fourteener in a single season — on skis. The planning, the weather, the close calls.',
+    url: '#',
+  },
+  {
+    outlet: 'Skiing Magazine',
+    headline: 'The World Extreme Skiing Champion You Should Know',
+    year: '1997',
+    description:
+      "Profile after back-to-back world titles. It felt strange to be the subject. I was still figuring out who I was as an athlete.",
     url: '#',
   },
 ]
@@ -363,12 +363,8 @@ export default function MediaPage() {
               Press &amp; coverage
             </p>
             <h2 className="font-serif text-4xl md:text-5xl font-medium text-navy leading-tight">
-              What they wrote.
+              In print.
             </h2>
-            <p className="mt-4 text-navy/60 max-w-xl leading-relaxed">
-              Press is strange — you spend years doing something, and then other people
-              write the story of it. Here are a few pieces that got close to the truth.
-            </p>
           </AnimateIn>
 
           <div className="mt-12 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
