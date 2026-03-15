@@ -53,6 +53,7 @@ export interface SponsorData {
     | 'advocacy'
     | 'performance'
     | 'ski-care'
+    | 'partner'
   description?: string            // optional gear context for Gear page
 }
 

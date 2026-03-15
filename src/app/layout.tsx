@@ -23,7 +23,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
               alt=""
               fill
               priority
-              className="object-cover object-center opacity-[0.07]"
+              className="object-cover object-center opacity-[0.13]"
               sizes="100vw"
             />
           </div>

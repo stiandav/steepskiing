@@ -22,6 +22,7 @@ const CATEGORY_LABELS: Record<SponsorData['category'], string> = {
   advocacy: 'Advocacy',
   performance: 'Performance',
   'ski-care': 'Ski Care',
+  'partner': 'Partners',
 }
 
 const CATEGORY_ORDER: SponsorData['category'][] = [
@@ -34,6 +35,7 @@ const CATEGORY_ORDER: SponsorData['category'][] = [
   'ski-care',
   'performance',
   'resort',
+  'partner',
   'advocacy',
 ]
 
@@ -55,7 +57,7 @@ const GEAR_DESCRIPTIONS: Partial<Record<string, string>> = {
   'phantom-glide':
     "PHANTOM Glide is a permanent base treatment I use on my touring skis. One application lasts the season — and it glides as well as any kick wax without the mess.",
   revelshine:
-    "Revelshine keeps my edges tuned and my bases healthy. Proper ski care is part of the discipline — you don't show up to steep terrain on dull edges.",
+    "Revelshine is a wine worth drinking. I pour it at base camp and at home — good skiing deserves good wine.",
   outeru:
     "OuterU is the recovery and performance side of my training. Keeping the body ready for the demands of ski mountaineering is as important as the skiing itself.",
   'aspen-snowmass':

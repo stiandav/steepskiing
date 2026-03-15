@@ -7,6 +7,11 @@ const nextConfig: NextConfig = {
         protocol: "https",
         hostname: "images.unsplash.com",
       },
+      {
+        // Clearbit Logo API — used for sponsor logos in the marquee
+        protocol: "https",
+        hostname: "logo.clearbit.com",
+      },
     ],
   },
 };

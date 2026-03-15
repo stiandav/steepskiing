@@ -7,13 +7,13 @@ import { formatPrice, getStatusBadge } from '@/lib/utils'
 // Real destination photos — swap with Chris's personal shots when available
 const DESTINATION_IMAGES: Record<string, string> = {
   'switzerland-2026':
-    'https://images.unsplash.com/photo-1531366936337-7c912a4589a7?w=800&q=80',
+    '/images/switz.webp',
   'chile-2026':
-    'https://images.unsplash.com/photo-1606664515524-ed2f786a0bd6?w=800&q=80',
+    '/images/portillo.jpg',
   'japan-2027':
-    'https://images.unsplash.com/photo-1542332213-31f87348057f?w=800&q=80',
+    '/images/japow.png',
   'antarctica-2027':
-    'https://images.unsplash.com/photo-1547683905-f686c993aae5?w=800&q=80',
+    '/images/ant.jpg',
 }
 
 interface TripCardProps {

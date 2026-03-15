@@ -4,26 +4,23 @@ import { sponsors } from '@/data/sponsors'
 
 /**
  * Infinite left-to-right sponsor logo marquee.
- * CSS-only animation — duplicates the list for seamless looping.
+ * Shows real brand logos via Clearbit API with a text fallback.
  * All logos are clickable links.
  */
 export function SponsorBar() {
-  const all = [...sponsors, ...sponsors] // duplicate for seamless loop
+  const all = [...sponsors, ...sponsors, ...sponsors]
 
   return (
-    <section className="border-t border-navy/10 bg-cream/50 overflow-hidden">
-      <div className="mx-auto max-w-7xl px-6 lg:px-10 pt-8 pb-3">
-        <p className="mb-5 text-center text-xs font-medium tracking-widest text-navy/40 uppercase">
-          Partners &amp; Sponsors
-        </p>
-      </div>
+    <section className="border-t border-navy/10 bg-cream/60 overflow-hidden py-10">
+      <p className="mb-6 text-center text-xs font-medium tracking-widest text-navy/35 uppercase">
+        Partners &amp; Sponsors
+      </p>
 
-      {/* Marquee track */}
-      <div className="relative flex overflow-hidden pb-8" aria-label="Sponsors">
-        <div
-          className="flex shrink-0 items-center gap-12 animate-marquee"
-          aria-hidden="false"
-        >
+      <div className="relative flex overflow-hidden" aria-label="Sponsors">
+        <div className="pointer-events-none absolute left-0 top-0 bottom-0 w-24 z-10 bg-gradient-to-r from-cream/60 to-transparent" />
+        <div className="pointer-events-none absolute right-0 top-0 bottom-0 w-24 z-10 bg-gradient-to-l from-cream/60 to-transparent" />
+
+        <div className="flex shrink-0 items-center gap-14 animate-marquee">
           {all.map((sponsor, i) => (
             <a
               key={`${sponsor.id}-${i}`}
@@ -31,9 +28,26 @@ export function SponsorBar() {
               target="_blank"
               rel="noopener noreferrer"
               aria-label={sponsor.name}
-              className="whitespace-nowrap text-sm font-semibold tracking-widest uppercase text-navy/35 hover:text-navy/70 transition-colors duration-200 cursor-pointer flex-shrink-0"
+              className="flex-shrink-0 flex items-center justify-center group transition-opacity duration-200 opacity-50 hover:opacity-100"
+              title={sponsor.name}
             >
-              {sponsor.name}
+              <div className="relative h-8 w-24 flex items-center justify-center">
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img
+                  src={sponsor.logo}
+                  alt={sponsor.name}
+                  className="max-h-8 max-w-[96px] object-contain grayscale group-hover:grayscale-0 transition-all duration-300"
+                  onError={(e) => {
+                    const target = e.currentTarget
+                    target.style.display = 'none'
+                    const fallback = target.nextElementSibling as HTMLElement
+                    if (fallback) fallback.style.display = 'block'
+                  }}
+                />
+                <span className="hidden text-xs font-semibold tracking-widest uppercase text-navy/70 whitespace-nowrap">
+                  {sponsor.name}
+                </span>
+              </div>
             </a>
           ))}
         </div>
