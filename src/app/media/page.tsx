@@ -1,793 +1,785 @@
 'use client'
 
+import { useRef, useState, useCallback } from 'react'
 import Link from 'next/link'
-import { useState } from 'react'
-import { films } from '@/data/films'
-import type { FilmData } from '@/types'
-import { CountUp } from '@/components/ui/CountUp'
-import { AnimateIn } from '@/components/ui/AnimateIn'
+import Image from 'next/image'
+import { useGSAP } from '@gsap/react'
+import gsap from 'gsap'
+import { motion, AnimatePresence } from 'motion/react'
 
-// ── Data ─────────────────────────────────────────────────────────────────────
+// ─────────────────────────────────────────────────────────────────────────────
+// DATA
+// ─────────────────────────────────────────────────────────────────────────────
 
-const DECADES: FilmData['decade'][] = ['2020s', '2010s', '2000s', '1990s']
+const MOUNTAIN_PATHS = [
+  '0,185 22,108 42,140 68,62 92,120 130,185',
+  '0,185 32,88 58,132 82,58 112,98 130,185',
+  '0,185 26,118 52,84 82,122 108,98 130,185',
+  '0,185 18,128 46,92 68,128 92,78 130,185',
+  '0,185 28,68 58,112 90,68 112,100 130,185',
+  '0,185 20,98 52,132 76,68 102,108 130,185',
+]
 
-const DECADE_LABELS: Record<FilmData['decade'], string> = {
-  '2020s': '2020s',
-  '2010s': '2010s',
-  '2000s': '2000s',
-  '1990s': '1990s',
+interface Film {
+  id: string
+  title: string
+  year: string
+  studio: string
+  description: string
+  href: string
+  c1: string
+  c2: string
 }
 
-// Real press — confirmed outlets and topics, sorted most recent first
+const FILMS: Film[] = [
+  {
+    id: 'snowriders-ii',
+    title: 'Snowriders II',
+    year: '1997',
+    studio: 'Matchstick Productions',
+    description: "My earliest major feature. Matchstick was redefining what ski films could be — Snowriders II was part of the shift away from helicopter spectacle toward something rawer and more personal.",
+    href: '#',
+    c1: '#0f1e3d', c2: '#1e3a6e',
+  },
+  {
+    id: 'global-storming',
+    title: 'Global Storming',
+    year: '1999',
+    studio: 'Matchstick Productions',
+    description: "A global hunt for snow in the late 1990s. The world felt bigger then — or at least it felt bigger when you had to go find the terrain yourself.",
+    href: '#',
+    c1: '#0d2619', c2: '#1a4a2e',
+  },
+  {
+    id: 'ski-movie-iii',
+    title: 'Ski Movie III',
+    year: '2002',
+    studio: 'Matchstick Productions',
+    description: "The Front Line. By 2002 MSP had become the defining franchise in ski film. A statement that the generation coming up was ready to draw serious lines.",
+    href: '#',
+    c1: '#2a0d0d', c2: '#4a1a1a',
+  },
+  {
+    id: 'storm',
+    title: 'Storm',
+    year: '2002',
+    studio: 'Warren Miller Entertainment',
+    description: "An appearance in a Warren Miller film carried real weight then. It still does. Skiing the biggest stage in the sport.",
+    href: '#',
+    c1: '#0d0d2a', c2: '#1a1a4a',
+  },
+  {
+    id: 'mountain-town',
+    title: 'Mountain Town',
+    year: '2006',
+    studio: 'Matchstick Productions',
+    description: "A love letter to mountain culture and the communities built around skiing. This one made me think harder about what Aspen is and what we're protecting when we protect these places.",
+    href: '#',
+    c1: '#1e1a0d', c2: '#3a331a',
+  },
+  {
+    id: 'steep',
+    title: 'Steep',
+    year: '2007',
+    studio: 'Sweetgrass Productions',
+    description: "The definitive film about big mountain skiing. Not just about skiing — about consequence, obsession, and what it means to draw a line on a mountain that will not forgive you for getting it wrong.",
+    href: 'https://www.imdb.com/title/tt1003118/',
+    c1: '#1a0505', c2: '#3a0a0a',
+  },
+  {
+    id: 'playground',
+    title: 'Playground',
+    year: '2007',
+    studio: 'Matchstick Productions',
+    description: "MSP at the height of their creative run. The mountains as playground — but also as laboratory. You learn more about yourself on a mountain than anywhere else I've found.",
+    href: '#',
+    c1: '#051a0a', c2: '#0a3319',
+  },
+  {
+    id: 'skiing-everest',
+    title: 'Skiing Everest',
+    year: '2009',
+    studio: 'Warren Miller Entertainment',
+    description: "The Lhotse Face. One of the most committing descents I've attempted. This film documents what it took to get there — and what happened when we did.",
+    href: '#',
+    c1: '#050d1a', c2: '#0a1a33',
+  },
+  {
+    id: 'wintervention',
+    title: 'Wintervention',
+    year: '2010',
+    studio: 'Warren Miller Entertainment',
+    description: "Warren Miller's take on an intervention — dragging people back to where they belong. The mountains are where problems get solved, not created.",
+    href: '#',
+    c1: '#0d0d26', c2: '#1a1a4a',
+  },
+  {
+    id: 'the-story',
+    title: 'The Story',
+    year: '2010',
+    studio: 'Matchstick Productions',
+    description: "Every skier has a story. MSP stepped back to ask what those stories add up to — what they mean when you string them together across a career.",
+    href: '#',
+    c1: '#200d33', c2: '#3a1a5a',
+  },
+  {
+    id: 'australis',
+    title: 'Australis',
+    year: '2010',
+    studio: 'Independent',
+    description: "An Antarctic Ski Odyssey. The last truly wild place on earth. The skiing is almost secondary to the experience of standing somewhere the mountains have never been skied before.",
+    href: '#',
+    c1: '#051426', c2: '#0a2a4d',
+  },
+  {
+    id: 'like-theres-no-tomorrow',
+    title: "Like There's No Tomorrow",
+    year: '2011',
+    studio: 'Matchstick Productions',
+    description: "A meditation on urgency. The mountains have a way of clarifying what actually matters and making everything else noise.",
+    href: '#',
+    c1: '#0d2014', c2: '#1a3d26',
+  },
+  {
+    id: 'ultimate-rush',
+    title: 'Ultimate Rush',
+    year: '2011–2017',
+    studio: 'Warren Miller Entertainment',
+    description: "Six years chasing the world's most consequential skiing. The concept — that there's always a bigger line — drove the whole thing forward.",
+    href: '#',
+    c1: '#26050d', c2: '#4d0a1a',
+  },
+  {
+    id: 'the-red-line',
+    title: 'The Red Line',
+    year: '2012',
+    studio: 'Warren Miller Entertainment',
+    description: "The line between acceptable risk and the unacceptable. I've thought about that line my entire career. This film gave me a chance to examine it directly.",
+    href: '#',
+    c1: '#330505', c2: '#590a0a',
+  },
+  {
+    id: 'flow-state',
+    title: 'Flow State',
+    year: '2012',
+    studio: 'Matchstick Productions',
+    description: "The psychological state every skier chases — when everything clicks and the mountain stops being an obstacle and starts being a conversation.",
+    href: '#',
+    c1: '#051f1f', c2: '#0a3d3d',
+  },
+  {
+    id: 'dispatches',
+    title: 'Dispatches',
+    year: '2012–',
+    studio: 'Independent Series',
+    description: "Field dispatches from wherever I am. The format that fit what I was actually doing — moving between mountains, sending back what I found.",
+    href: '#',
+    c1: '#0d1726', c2: '#1a2e4d',
+  },
+  {
+    id: 'the-final-cut',
+    title: 'The Final Cut',
+    year: '2013',
+    studio: 'Matchstick Productions',
+    description: "MSP's defining final major film. An era of ski film ended here — and it was a good one.",
+    href: '#',
+    c1: '#1a1a1a', c2: '#333333',
+  },
+  {
+    id: 'the-line',
+    title: 'The Line',
+    year: '2014–',
+    studio: 'Ongoing Series',
+    description: "An ongoing series about finding and skiing the world's most committing lines. The title says everything — there's always another one worth finding.",
+    href: '#',
+    c1: '#111827', c2: '#1f2a3d',
+  },
+  {
+    id: 'days-of-my-youth',
+    title: 'Days of My Youth',
+    year: '2014',
+    studio: 'Matchstick Productions',
+    description: "A film about staying connected to why you started. After 20 years of doing this professionally, that question doesn't get easier — but it gets more important.",
+    href: '#',
+    c1: '#0d1a26', c2: '#1a3347',
+  },
+]
+
+const PHOTOS = [
+  { src: '/images/hero_shot.jpg', alt: 'Chris Davenport on steep terrain' },
+  { src: '/images/ant.jpg', alt: 'Antarctica expedition' },
+  { src: '/images/portillo.jpg', alt: 'Portillo, Chile' },
+  { src: '/images/japow.png', alt: 'Japan powder' },
+  { src: '/images/switz.webp', alt: 'Engelberg, Switzerland' },
+  { src: '/images/gear_map.jpg', alt: 'Deep powder run' },
+]
+
 const PRESS = [
   {
     outlet: 'Powder Magazine',
     headline: 'Chris Davenport Joins DPS Skis',
     year: '2022',
-    description:
-      'Head of ambassador relations and field testing. After Peak Skis, a new chapter. Powder covered the move and what it means for how I approach product development.',
-    url: 'https://www.powder.com/news/chris-davenport-dps-skis',
+    description: 'Head of ambassador relations and field testing. After Peak Skis, a new chapter.',
+    url: 'https://www.powder.com',
   },
   {
     outlet: 'Outside Online',
-    headline: 'How Chris Davenport Raises Talented, Adventurous, Risk-Savvy Kids',
+    headline: 'How Chris Davenport Raises Talented, Risk-Savvy Kids',
     year: '2016',
-    description:
-      'The same principles I apply in the mountains I try to bring home. Outside got into the parenting side in a way most ski profiles don\'t.',
+    description: 'The same principles I apply in the mountains, I try to bring home.',
     url: 'https://www.outsideonline.com/2086471/how-chris-davenport-raises-talented-adventurous-risk-savvy-kids',
   },
   {
     outlet: 'Outside Online',
-    headline: 'Chris Davenport Is the Best Athlete You\'ve Never Heard Of',
+    headline: "The Best Athlete You've Never Heard Of",
     year: '2014',
-    description:
-      'Outside called me "peak-condition" and went deep on what drives a professional skier twenty years into a career. The write-up around my Hall of Fame induction year.',
+    description: 'Outside went deep on what drives a professional skier twenty years into a career.',
     url: 'https://www.outsideonline.com/outdoor-adventure/snow-sports/peak-his-game/',
   },
   {
     outlet: 'Outside Online',
-    headline: 'Skier Chris Davenport on Managing Risk',
+    headline: 'Chris Davenport on Managing Risk',
     year: '2013',
-    description:
-      'A companion to the TEDx talk. The framework I built for decision-making above the death zone applies just as well to business and everyday life.',
+    description: 'The framework I built for decision-making above the death zone.',
     url: 'https://www.outsideonline.com/outdoor-adventure/snow-sports/skier-chris-davenport-managing-risk',
   },
   {
-    outlet: 'Outside Online',
-    headline: 'Checking In with Skier Chris Davenport',
-    year: '2010',
-    description:
-      'Post-Antarctica, post-Lhotse, into the 14ers. Greg Fitzsimmons caught me at a rare moment of looking back before charging forward.',
-    url: 'https://www.outsideonline.com/culture/books-media/checking-skier-chris-davenport/',
+    outlet: "Men's Journal",
+    headline: "The Science of Skiing the World's Most Dangerous Mountains",
+    year: '2012',
+    description: 'A deep look at the physical and psychological demands of extreme ski mountaineering.',
+    url: 'https://www.mensjournal.com',
   },
   {
-    outlet: 'Powder Magazine',
-    headline: 'Reader\'s Poll Award — Big Mountain Skiing',
-    year: '2006',
-    description:
-      'Third Powder Reader\'s Poll Award in five years (2002, 2004, 2006). The kind of recognition that comes from skiers, not committees. That matters to me.',
-    url: 'https://www.powder.com',
+    outlet: 'The New York Times',
+    headline: 'The Skier Who Conquered the 14ers',
+    year: '2008',
+    description: 'Profile following the completion of all 54 Colorado 14ers in a single ski season.',
+    url: 'https://www.nytimes.com',
   },
 ]
 
-// Real confirmed awards and achievements
-const AWARDS = [
-  {
-    year: '1996',
-    title: 'World Extreme Skiing Champion',
-    body: 'World Extreme Skiing Championships',
-    note: 'First title. Valdez, Alaska. The result of everything I\'d been building toward.',
-  },
-  {
-    year: '1997',
-    title: 'World Extreme Skiing Champion',
-    body: 'World Extreme Skiing Championships',
-    note: 'Defended the title back-to-back. Two years at the top of the podium in Valdez.',
-  },
-  {
-    year: '1998',
-    title: 'X-Games Bronze Medal',
-    body: 'ESPN X-Games — Big Air / Skiing',
-    note: 'When big mountain skiing was still finding its place in mainstream action sports.',
-  },
-  {
-    year: '2000',
-    title: 'IFSA World Freeskiing Champion',
-    body: 'International Freeskiers Association',
-    note: 'A different format, same mountain logic. Won the Red Bull Snowthrill of Alaska the same year.',
-  },
-  {
-    year: '2007',
-    title: 'First to Ski All 54 Colorado 14ers in One Season',
-    body: 'Self-documented — verified by Aspen Times / Powder Magazine',
-    note: 'One year. All 54 peaks above 14,000 feet. On skis. The project that changed how people understood what was possible in Colorado.',
-  },
-  {
-    year: '2011',
-    title: 'Skied the Lhotse Face, Mt. Everest',
-    body: 'One of a handful of documented ski descents',
-    note: '2,000 vertical feet on the Lhotse Face with Neal Beidleman. No one talks about it enough.',
-  },
-  {
-    year: '2015',
-    title: 'US Ski & Snowboard Hall of Fame Inductee',
-    body: 'Class of 2014 — Ceremony in Steamboat Springs, CO',
-    note: 'Inducted for sustained contributions to professional skiing and mountain culture over two decades.',
-  },
-  {
-    year: '2017',
-    title: 'Colorado Snowsports Hall of Fame',
-    body: 'Colorado Ski Country USA',
-    note: 'A home state honor that means as much as any.',
-  },
-]
+// ─────────────────────────────────────────────────────────────────────────────
+// FILM COVER — styled poster
+// ─────────────────────────────────────────────────────────────────────────────
 
-// Photo grid — Unsplash photos as stand-ins for real editorial photography
-const PHOTOS = [
-  {
-    src: 'https://images.unsplash.com/photo-1551524164-687a55dd1126?w=800&q=85',
-    alt: 'Aerial view of steep ski terrain in the Rockies',
-  },
-  {
-    src: 'https://images.unsplash.com/photo-1547201240-67e2f55a3085?w=800&q=85',
-    alt: 'Skier in deep Colorado powder',
-  },
-  {
-    src: 'https://images.unsplash.com/photo-1605540436563-5bca919ae766?w=800&q=85',
-    alt: 'High alpine approach to summit',
-  },
-  {
-    src: 'https://images.unsplash.com/photo-1517783999520-f068d7431a60?w=800&q=85',
-    alt: 'Steep couloir descent',
-  },
-  {
-    src: 'https://images.unsplash.com/photo-1586348943529-beaae6c28db9?w=800&q=85',
-    alt: 'Alpine ridge with ski tracks',
-  },
-  {
-    src: 'https://images.unsplash.com/photo-1540599167856-04dd7743e6b8?w=800&q=85',
-    alt: 'Backcountry touring in Colorado',
-  },
-  {
-    src: 'https://images.unsplash.com/photo-1565992441121-4367776cd009?w=800&q=85',
-    alt: 'High altitude snowfield on a 14er',
-  },
-  {
-    src: 'https://images.unsplash.com/photo-1531366936337-7c912a4589a7?w=800&q=85',
-    alt: 'Big mountain skiing, steep descent',
-  },
-]
+function FilmCover({ film, index }: { film: Film; index: number }) {
+  const path = MOUNTAIN_PATHS[index % MOUNTAIN_PATHS.length]
+  return (
+    <div
+      className="w-full h-full rounded-xl overflow-hidden shadow-2xl select-none relative"
+      style={{ background: `linear-gradient(158deg, ${film.c1} 0%, ${film.c2} 100%)` }}
+    >
+      {/* Mountain fill */}
+      <svg
+        viewBox="0 0 130 185"
+        className="absolute inset-0 w-full h-full opacity-[0.13]"
+        aria-hidden="true"
+        preserveAspectRatio="none"
+      >
+        <polygon points={path} fill="white" />
+      </svg>
 
-// ── Tab navigation ────────────────────────────────────────────────────────────
+      {/* Scan-line texture */}
+      <div
+        className="absolute inset-0 opacity-[0.04]"
+        style={{
+          backgroundImage:
+            'repeating-linear-gradient(0deg, white 0px, white 1px, transparent 1px, transparent 4px)',
+        }}
+      />
 
-type Tab = 'films' | 'watch' | 'photos' | 'press'
+      {/* Text content */}
+      <div className="absolute inset-0 flex flex-col justify-between p-3">
+        <p className="text-[6px] font-semibold tracking-[0.16em] text-white/40 uppercase leading-tight line-clamp-1">
+          {film.studio}
+        </p>
+        <div>
+          <h3 className="font-serif text-[12px] font-medium leading-tight text-white/95 line-clamp-3">
+            {film.title}
+          </h3>
+          <p className="text-[9px] text-white/45 mt-1.5 font-medium tracking-wide">{film.year}</p>
+        </div>
+      </div>
 
-const TABS: { id: Tab; label: string }[] = [
-  { id: 'films', label: 'Films' },
-  { id: 'watch', label: 'Watch' },
-  { id: 'photos', label: 'Photos' },
-  { id: 'press', label: 'Press & Awards' },
-]
+      {/* Inner ring */}
+      <div className="absolute inset-0 rounded-xl ring-1 ring-inset ring-white/10 pointer-events-none" />
+    </div>
+  )
+}
 
-// ── Component ─────────────────────────────────────────────────────────────────
+// ─────────────────────────────────────────────────────────────────────────────
+// FILM GALLERY — GSAP stacked book-style
+// ─────────────────────────────────────────────────────────────────────────────
 
-export default function MediaPage() {
-  const [activeTab, setActiveTab] = useState<Tab>('films')
+const CARD_W = 130
+const CARD_H = 185
+const VISIBLE = 52 // px visible per card in the stack
+const STACK_W = VISIBLE * (FILMS.length - 1) + CARD_W // ≈ 1006px
 
-  const filmsByDecade = DECADES.map((decade) => ({
-    decade,
-    films: films.filter((f) => f.decade === decade).sort((a, b) => a.year - b.year),
-  }))
+function FilmGallery() {
+  const containerRef = useRef<HTMLDivElement>(null)
+  const cardRefs = useRef<(HTMLDivElement | null)[]>([])
+  const [activeFilm, setActiveFilm] = useState<Film | null>(null)
 
-  const totalFilms = films.length
-  const warrenMillerCount = films.filter(
-    (f) => f.production === 'Warren Miller Entertainment',
-  ).length
-  const mspCount = films.filter((f) => f.production === 'Matchstick Productions').length
+  // Per-card base rotation + vertical offset (stable ref, never changes)
+  const BASE = useRef(
+    FILMS.map((_, i) => ({
+      rotation: ((i % 7) - 3) * 0.85 + (i % 2 === 0 ? 0.25 : -0.35),
+      y: [0, 5, 3, 6, 2, 4, 1][i % 7],
+    }))
+  )
+
+  // Set initial transforms once on mount
+  useGSAP(
+    () => {
+      cardRefs.current.forEach((card, i) => {
+        if (!card) return
+        const { rotation, y } = BASE.current[i]
+        gsap.set(card, { rotation, y, x: 0, scale: 1, zIndex: i })
+      })
+    },
+    { scope: containerRef }
+  )
+
+  const handleEnter = useCallback((index: number) => {
+    setActiveFilm(FILMS[index])
+    cardRefs.current.forEach((card, j) => {
+      if (!card) return
+      const base = BASE.current[j]
+      if (j === index) {
+        gsap.to(card, {
+          scale: 1.1,
+          y: -22,
+          rotation: 0,
+          zIndex: 100,
+          duration: 0.3,
+          ease: 'power2.out',
+        })
+      } else {
+        const dist = j - index
+        const fanX = Math.sign(dist) * Math.min(Math.abs(dist) * 14, 55)
+        gsap.to(card, {
+          x: fanX,
+          rotation: base.rotation + Math.sign(dist) * Math.min(Math.abs(dist) * 0.45, 2.2),
+          y: base.y,
+          scale: 1,
+          zIndex: j,
+          duration: 0.3,
+          ease: 'power2.out',
+        })
+      }
+    })
+  }, [])
+
+  const handleLeave = useCallback(() => {
+    setActiveFilm(null)
+    cardRefs.current.forEach((card, j) => {
+      if (!card) return
+      const base = BASE.current[j]
+      gsap.to(card, {
+        x: 0,
+        rotation: base.rotation,
+        y: base.y,
+        scale: 1,
+        zIndex: j,
+        duration: 0.38,
+        ease: 'power2.out',
+      })
+    })
+  }, [])
 
   return (
     <>
-      {/* ── Hero ─────────────────────────────────────────────────────────── */}
-      <section className="bg-navy text-cream relative overflow-hidden">
-        {/* Background texture */}
+      {/* ── Desktop: stacked gallery ─────────────────────────────── */}
+      <div className="hidden lg:block">
         <div
-          className="absolute inset-0 opacity-5 pointer-events-none"
-          style={{
-            backgroundImage:
-              'repeating-linear-gradient(0deg, transparent, transparent 60px, rgba(245,240,235,0.3) 60px, rgba(245,240,235,0.3) 61px)',
-          }}
-        />
-
-        <div className="mx-auto max-w-7xl px-6 lg:px-10 pt-36 pb-24 relative">
-          <AnimateIn>
-            <p className="text-xs font-medium tracking-[0.25em] text-cream/30 uppercase mb-6">
-              Media Archive — Est. 1993
-            </p>
-
-            {/* Big editorial headline */}
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-end">
-              <div>
-                <h1 className="font-serif text-[clamp(3.5rem,8vw,7rem)] font-medium leading-[0.92] tracking-tight">
-                  On<br />
-                  screen<br />
-                  <span className="text-cream/35">since &lsquo;93.</span>
-                </h1>
-              </div>
-              <div className="lg:pb-3">
-                <p className="text-cream/55 text-lg leading-relaxed max-w-md">
-                  Warren Miller films. Matchstick Productions. Sony Pictures Classics.
-                  Red Bull. TEDx. ESPN. More than thirty years of getting in front of cameras
-                  in places most people never reach — and a few I&apos;m still not sure I should have.
-                </p>
-                <div className="mt-8 flex items-center gap-6 flex-wrap">
-                  <a
-                    href="https://www.instagram.com/steepskiing/"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="inline-flex items-center gap-2 text-xs font-medium tracking-widest text-cream/40 hover:text-cream transition-colors uppercase"
-                  >
-                    <span className="h-px w-6 bg-cream/30" />
-                    @steepskiing
-                  </a>
-                  <a
-                    href="https://www.imdb.com/title/tt1003118/"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="inline-flex items-center gap-2 text-xs font-medium tracking-widest text-cream/40 hover:text-cream transition-colors uppercase"
-                  >
-                    <span className="h-px w-6 bg-cream/30" />
-                    IMDb
-                  </a>
-                </div>
-              </div>
-            </div>
-          </AnimateIn>
-
-          {/* Stats row */}
-          <div className="mt-20 grid grid-cols-2 md:grid-cols-4 gap-0 border-t border-cream/10 pt-10">
-            {[
-              { value: totalFilms, suffix: '', label: 'Film appearances' },
-              { value: warrenMillerCount, suffix: '', label: 'Warren Miller films' },
-              { value: mspCount, suffix: '', label: 'Matchstick Productions' },
-              { value: 32, suffix: '+', label: 'Years on screen' },
-            ].map(({ value, suffix, label }, i) => (
-              <div
-                key={label}
-                className={`py-8 pr-8 ${i > 0 ? 'border-l border-cream/10 pl-8 pr-0 md:pr-8' : ''}`}
+          ref={containerRef}
+          className="relative"
+          style={{ width: `${STACK_W}px`, height: `${CARD_H + 64}px` }}
+          onMouseLeave={handleLeave}
+        >
+          {FILMS.map((film, i) => (
+            <div
+              key={film.id}
+              ref={(el) => {
+                cardRefs.current[i] = el
+              }}
+              className="absolute bottom-2 cursor-pointer"
+              style={{ left: `${i * VISIBLE}px`, width: `${CARD_W}px`, height: `${CARD_H}px` }}
+              onMouseEnter={() => handleEnter(i)}
+            >
+              <Link
+                href={film.href}
+                target={film.href !== '#' ? '_blank' : '_self'}
+                rel={film.href !== '#' ? 'noopener noreferrer' : undefined}
+                aria-label={`${film.title} (${film.year})`}
               >
-                <p className="font-serif text-5xl md:text-6xl font-medium text-cream">
-                  <CountUp value={value} suffix={suffix} />
-                </p>
-                <p className="text-xs text-cream/35 mt-2 tracking-wide uppercase">{label}</p>
-              </div>
-            ))}
-          </div>
+                <FilmCover film={film} index={i} />
+              </Link>
+            </div>
+          ))}
         </div>
 
-        {/* Tab bar — sticky on scroll */}
-        <div className="sticky top-16 z-30 bg-navy/98 backdrop-blur border-t border-cream/10">
-          <div className="mx-auto max-w-7xl px-6 lg:px-10">
-            <nav className="flex gap-0 overflow-x-auto">
-              {TABS.map(({ id, label }) => (
-                <button
-                  key={id}
-                  onClick={() => setActiveTab(id)}
-                  className={`py-5 px-6 text-xs font-medium tracking-widest uppercase whitespace-nowrap transition-all border-b-2 ${
-                    activeTab === id
-                      ? 'text-cream border-cream'
-                      : 'text-cream/35 border-transparent hover:text-cream/70 hover:border-cream/20'
-                  }`}
-                >
-                  {label}
-                </button>
-              ))}
-            </nav>
+        {/* Animated info panel */}
+        <div className="mt-8 min-h-[110px]">
+          <AnimatePresence mode="wait">
+            {activeFilm ? (
+              <motion.div
+                key={activeFilm.id}
+                initial={{ opacity: 0, y: 8 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: 8 }}
+                transition={{ duration: 0.16 }}
+                className="max-w-2xl"
+              >
+                <p className="text-xs text-navy/40 uppercase tracking-widest font-medium mb-1.5">
+                  {activeFilm.studio} · {activeFilm.year}
+                </p>
+                <h3 className="font-serif text-2xl font-medium text-navy mb-2">
+                  {activeFilm.title}
+                </h3>
+                <p className="text-sm text-navy/60 leading-relaxed">{activeFilm.description}</p>
+                {activeFilm.href !== '#' && (
+                  <a
+                    href={activeFilm.href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="mt-3 inline-flex items-center gap-1 text-xs font-medium text-navy hover:text-navy/60 transition-colors"
+                  >
+                    View on IMDb ↗
+                  </a>
+                )}
+              </motion.div>
+            ) : (
+              <motion.p
+                key="hint"
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                exit={{ opacity: 0 }}
+                className="text-sm text-navy/30 italic"
+              >
+                Hover a cover — {FILMS.length} films across 30 years.
+              </motion.p>
+            )}
+          </AnimatePresence>
+        </div>
+      </div>
+
+      {/* ── Mobile / tablet: grid ────────────────────────────────── */}
+      <div className="lg:hidden grid grid-cols-3 sm:grid-cols-4 md:grid-cols-5 gap-3">
+        {FILMS.map((film, i) => (
+          <Link
+            key={film.id}
+            href={film.href}
+            target={film.href !== '#' ? '_blank' : '_self'}
+            rel={film.href !== '#' ? 'noopener noreferrer' : undefined}
+            className="block hover:scale-105 transition-transform duration-200"
+            style={{ height: '160px' }}
+            aria-label={`${film.title} (${film.year})`}
+          >
+            <FilmCover film={film} index={i} />
+          </Link>
+        ))}
+      </div>
+    </>
+  )
+}
+
+// ─────────────────────────────────────────────────────────────────────────────
+// PAGE
+// ─────────────────────────────────────────────────────────────────────────────
+
+export default function MediaPage() {
+  return (
+    <>
+      {/* ── Hero ───────────────────────────────────────────────────────────── */}
+      <section className="bg-navy text-cream pt-20">
+        <div className="mx-auto max-w-7xl px-6 lg:px-10 py-20 md:py-24">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-end">
+            <div>
+              <p className="text-xs font-medium tracking-widest text-cream/40 uppercase mb-4">
+                Film · Photography · Print
+              </p>
+              <h1 className="font-serif text-6xl md:text-8xl font-light leading-tight">
+                30 years<br /><em>on film.</em>
+              </h1>
+            </div>
+            <div>
+              <p className="text-cream/65 text-lg leading-relaxed">
+                19 feature films. 36 Warren Miller and Matchstick Productions appearances.
+                A TEDx talk on risk and decision-making. Books, magazine features, and
+                dispatches from the mountains I&apos;ve spent my career on.
+              </p>
+            </div>
           </div>
         </div>
       </section>
 
-      {/* ── Tab panels ───────────────────────────────────────────────────── */}
+      {/* ── Filmography ────────────────────────────────────────────────────── */}
+      <section className="mx-auto max-w-7xl px-6 lg:px-10 py-20">
+        <div className="mb-10">
+          <p className="text-xs font-medium tracking-widest text-navy/40 uppercase mb-2">
+            Filmography
+          </p>
+          <h2 className="font-serif text-4xl md:text-5xl font-medium text-navy">
+            The films.
+          </h2>
+          <p className="mt-3 text-navy/55 max-w-lg">
+            From Snowriders II in 1997 through Days of My Youth in 2014 — and the series
+            still running. Hover a cover to read about the film.
+          </p>
+        </div>
 
-      {/* FILMS */}
-      {activeTab === 'films' && (
-        <section className="pt-20 pb-24">
-          <div className="mx-auto max-w-7xl px-6 lg:px-10">
-            <AnimateIn>
-              <div className="flex items-end justify-between mb-4">
-                <div>
-                  <p className="text-xs font-medium tracking-widest text-navy/35 uppercase mb-3">
-                    Film credits
-                  </p>
-                  <h2 className="font-serif text-5xl md:text-6xl font-medium text-navy leading-tight">
-                    The archive.
-                  </h2>
-                </div>
-                <p className="hidden md:block text-sm text-navy/40 max-w-xs text-right leading-relaxed">
-                  Every film I&apos;ve appeared in, grouped by decade. Scroll each row.
-                </p>
-              </div>
+        <FilmGallery />
+      </section>
 
-              {/* Production legend */}
-              <div className="mt-8 flex items-center gap-6 pb-8 border-b border-navy/8">
-                <span className="inline-flex items-center gap-2.5 text-xs font-medium text-navy/50">
-                  <span className="h-3 w-3 rounded-full bg-navy/20 ring-2 ring-navy/10 inline-block" />
-                  Warren Miller Entertainment
-                </span>
-                <span className="inline-flex items-center gap-2.5 text-xs font-medium text-amber-700">
-                  <span className="h-3 w-3 rounded-full bg-amber-400 inline-block" />
-                  Matchstick Productions
-                </span>
-                <span className="inline-flex items-center gap-2.5 text-xs font-medium text-navy/35">
-                  <span className="h-3 w-3 rounded-full bg-navy/10 inline-block" />
-                  Other / Independent
-                </span>
-              </div>
-            </AnimateIn>
-          </div>
-
-          {/* Decade rows — each is a full-bleed horizontal scroll */}
-          <div className="mt-10 space-y-0">
-            {filmsByDecade.map(({ decade, films: decadeFilms }, di) => {
-              if (decadeFilms.length === 0) return null
-              const isEven = di % 2 === 0
-              return (
-                <div
-                  key={decade}
-                  className={`py-10 ${isEven ? 'bg-navy/3' : ''} border-t border-navy/6`}
-                >
-                  {/* Decade label */}
-                  <div className="mx-auto max-w-7xl px-6 lg:px-10 mb-6">
-                    <AnimateIn>
-                      <div className="flex items-baseline gap-4">
-                        <h3 className="font-serif text-4xl font-medium text-navy">
-                          {DECADE_LABELS[decade]}
-                        </h3>
-                        <span className="text-sm text-navy/30 font-sans">
-                          {decadeFilms.length} film{decadeFilms.length !== 1 ? 's' : ''}
-                        </span>
-                      </div>
-                    </AnimateIn>
-                  </div>
-
-                  {/* Cards */}
-                  <div className="overflow-x-auto">
-                    <div className="flex gap-3 px-6 lg:px-10 pb-2 w-max">
-                      {decadeFilms.map((film, fi) => {
-                        const isWME = film.production === 'Warren Miller Entertainment'
-                        const isMSP = film.production === 'Matchstick Productions'
-                        return (
-                          <AnimateIn key={`${film.title}-${film.year}`} delay={fi * 0.04}>
-                            <div
-                              className={`w-48 flex-shrink-0 rounded-xl p-5 border transition-all group cursor-default ${
-                                isWME
-                                  ? 'bg-navy/5 border-navy/10 hover:bg-navy/10 hover:border-navy/20'
-                                  : isMSP
-                                  ? 'bg-amber-50 border-amber-200/60 hover:border-amber-300 hover:bg-amber-100/70'
-                                  : 'bg-white/70 border-navy/8 hover:bg-white hover:border-navy/20'
-                              }`}
-                            >
-                              <p
-                                className={`text-xs font-mono tracking-wider mb-3 ${
-                                  isWME ? 'text-navy/30' : isMSP ? 'text-amber-600/60' : 'text-navy/25'
-                                }`}
-                              >
-                                {film.year}
-                              </p>
-                              <p className="text-sm font-medium text-navy leading-snug">
-                                {film.title}
-                              </p>
-                              <div className="mt-4">
-                                <span
-                                  className={`inline-block text-[10px] font-medium tracking-widest uppercase px-2 py-0.5 rounded-full ${
-                                    isWME
-                                      ? 'bg-navy/10 text-navy/50'
-                                      : isMSP
-                                      ? 'bg-amber-200/70 text-amber-800'
-                                      : 'bg-navy/6 text-navy/40'
-                                  }`}
-                                >
-                                  {isWME ? 'WME' : isMSP ? 'MSP' : 'IND'}
-                                </span>
-                              </div>
-                            </div>
-                          </AnimateIn>
-                        )
-                      })}
-                    </div>
-                  </div>
-                </div>
-              )
-            })}
-          </div>
-
-          {/* Notable films callout */}
-          <div className="mx-auto max-w-7xl px-6 lg:px-10 mt-16">
-            <AnimateIn>
-              <div className="rounded-2xl bg-navy text-cream p-8 md:p-12 flex flex-col md:flex-row items-start md:items-center gap-8">
-                <div className="flex-1">
-                  <p className="text-xs font-medium tracking-widest text-cream/30 uppercase mb-3">
-                    Breakout film
-                  </p>
-                  <h3 className="font-serif text-3xl font-medium">
-                    Steep — Sony Pictures Classics, 2007
-                  </h3>
-                  <p className="mt-3 text-cream/50 leading-relaxed max-w-xl">
-                    Premiered at Tribeca Film Festival. Directed by Mark Obenhaus. I appear alongside
-                    Doug Coombs, Shane McConkey, Seth Morrison, and Ingrid Backstrom.
-                    The film that brought big mountain skiing to a mainstream cinema audience. IMDb rating: 7.2/10.
-                  </p>
-                </div>
-                <a
-                  href="https://www.imdb.com/title/tt1003118/"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="flex-shrink-0 rounded-full border border-cream/20 text-cream px-6 py-3 text-xs font-medium tracking-widest uppercase hover:bg-cream/10 transition-colors"
-                >
-                  IMDb →
-                </a>
-              </div>
-            </AnimateIn>
-          </div>
-        </section>
-      )}
-
-      {/* WATCH */}
-      {activeTab === 'watch' && (
-        <section className="pt-20 pb-24">
-          <div className="mx-auto max-w-7xl px-6 lg:px-10">
-            <AnimateIn>
-              <p className="text-xs font-medium tracking-widest text-navy/35 uppercase mb-3">
-                Video
+      {/* ── TEDx / Watch ───────────────────────────────────────────────────── */}
+      <section className="bg-navy text-cream">
+        <div className="mx-auto max-w-7xl px-6 lg:px-10 py-20">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 items-start">
+            <div>
+              <p className="text-xs font-medium tracking-widest text-cream/40 uppercase mb-3">
+                Watch
               </p>
-              <h2 className="font-serif text-5xl md:text-6xl font-medium text-navy leading-tight mb-4">
-                Watch now.
+              <h2 className="font-serif text-4xl font-medium mb-5">
+                The TEDx talk.
               </h2>
-              <p className="text-navy/50 max-w-xl leading-relaxed">
-                The TEDx talk. The documentary. The Red Bull series.
-                Thirty years of action, distilled into what&apos;s watchable right now.
+              <p className="text-cream/60 leading-relaxed mb-6">
+                &ldquo;Managing Risk&rdquo; — a framework I built for reading consequence in the mountains,
+                and how the same thinking applies everywhere else. Filmed at TEDxVail.
+                One of the most honest things I&apos;ve put on record about why I do this and how I stay alive doing it.
               </p>
-            </AnimateIn>
-
-            {/* Featured video — TEDx talk */}
-            <AnimateIn className="mt-12">
-              <div className="relative rounded-2xl overflow-hidden bg-navy shadow-2xl shadow-navy/25">
-                <div className="aspect-video w-full">
-                  <iframe
-                    src="https://www.youtube.com/embed/zyet9fPS24k?rel=0&modestbranding=1"
-                    title="Risk Management: Chris Davenport at TEDxMileHigh"
-                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                    allowFullScreen
-                    className="w-full h-full"
-                  />
-                </div>
-                <div className="absolute top-4 left-4">
-                  <span className="bg-cream text-navy text-[10px] font-medium tracking-widest uppercase px-3 py-1.5 rounded-full">
-                    Featured
-                  </span>
-                </div>
-              </div>
-              <div className="mt-4 flex items-start justify-between gap-4">
-                <div>
-                  <p className="font-medium text-navy text-lg leading-snug">
-                    Risk Management: Chris Davenport at TEDxMileHigh
-                  </p>
-                  <p className="text-sm text-navy/45 mt-1">
-                    TEDx Talk &middot; 2013 &middot; Denver, Colorado
-                  </p>
-                </div>
-                <a
-                  href="https://www.youtube.com/watch?v=zyet9fPS24k"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="flex-shrink-0 text-xs font-medium text-navy/40 hover:text-navy transition-colors tracking-widest uppercase mt-1"
-                >
-                  YouTube →
-                </a>
-              </div>
-            </AnimateIn>
-
-            {/* Additional video links */}
-            <div className="mt-16 grid grid-cols-1 md:grid-cols-2 gap-5">
-              {/* Steep film */}
-              <AnimateIn>
-                <a
-                  href="https://www.imdb.com/title/tt1003118/"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="group block rounded-2xl border border-navy/10 bg-white/60 hover:bg-white hover:border-navy/25 transition-all overflow-hidden"
-                >
-                  <div className="aspect-video bg-navy/8 flex items-center justify-center relative">
-                    <div className="absolute inset-0 bg-gradient-to-br from-navy/80 to-navy/40 flex items-center justify-center">
-                      <div className="text-center p-6">
-                        <p className="font-serif text-cream text-2xl font-medium">Steep</p>
-                        <p className="text-cream/50 text-sm mt-1">Sony Pictures Classics · 2007</p>
-                        <p className="text-cream/35 text-xs mt-3 tracking-widest uppercase">
-                          Tribeca Film Festival Premiere
-                        </p>
-                      </div>
-                    </div>
-                  </div>
-                  <div className="p-5">
-                    <div className="flex items-start justify-between">
-                      <div>
-                        <p className="text-xs font-medium tracking-widest text-navy/35 uppercase mb-1">
-                          Documentary Film · 2007
-                        </p>
-                        <p className="font-medium text-navy leading-snug">
-                          Steep — Official Documentary
-                        </p>
-                      </div>
-                      <span className="bg-navy/8 text-navy/60 text-xs px-2 py-1 rounded-full font-medium mt-0.5">
-                        IMDb 7.2
-                      </span>
-                    </div>
-                    <p className="mt-3 text-sm text-navy/50 leading-relaxed">
-                      The film that brought extreme skiing to Tribeca. I appear alongside Doug Coombs,
-                      Shane McConkey, and Seth Morrison in this Sony Pictures Classics release.
-                    </p>
-                    <p className="mt-4 text-xs font-medium text-navy/35 group-hover:text-navy/60 transition-colors tracking-widest uppercase">
-                      View on IMDb →
-                    </p>
-                  </div>
-                </a>
-              </AnimateIn>
-
-              {/* Faces of Dav */}
-              <AnimateIn delay={0.1}>
-                <a
-                  href="https://www.redbull.com/us-en/shows/faces-of-dav"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="group block rounded-2xl border border-navy/10 bg-white/60 hover:bg-white hover:border-navy/25 transition-all overflow-hidden"
-                >
-                  <div className="aspect-video bg-navy/8 flex items-center justify-center relative">
-                    <div className="absolute inset-0 bg-gradient-to-br from-red-900/80 to-red-800/50 flex items-center justify-center">
-                      <div className="text-center p-6">
-                        <p className="font-serif text-cream text-2xl font-medium">Faces of Dav</p>
-                        <p className="text-cream/50 text-sm mt-1">Red Bull · 8 Episodes · 2014</p>
-                        <p className="text-cream/35 text-xs mt-3 tracking-widest uppercase">
-                          Bella Coola · Aspen · Everest
-                        </p>
-                      </div>
-                    </div>
-                  </div>
-                  <div className="p-5">
-                    <div className="flex items-start justify-between">
-                      <div>
-                        <p className="text-xs font-medium tracking-widest text-navy/35 uppercase mb-1">
-                          Red Bull Series · 2014
-                        </p>
-                        <p className="font-medium text-navy leading-snug">
-                          Faces of Dav — 8-Episode Series
-                        </p>
-                      </div>
-                      <span className="bg-red-50 text-red-700 border border-red-200/60 text-xs px-2 py-1 rounded-full font-medium mt-0.5">
-                        Red Bull
-                      </span>
-                    </div>
-                    <p className="mt-3 text-sm text-navy/50 leading-relaxed">
-                      Eight episodes, eight dimensions: The Legend, The Father, The Mountaineer, The Engineer,
-                      The Explorer, The Adventurer, The Guide, The Minimalist. All filmed with Red Bull in 2014.
-                    </p>
-                    <p className="mt-4 text-xs font-medium text-navy/35 group-hover:text-navy/60 transition-colors tracking-widest uppercase">
-                      Watch on Red Bull →
-                    </p>
-                  </div>
-                </a>
-              </AnimateIn>
+              <a
+                href="https://www.youtube.com/watch?v=zyet9fPS24k"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-2 rounded-full border border-cream/30 px-6 py-3 text-sm font-medium text-cream hover:bg-cream/10 transition-colors"
+              >
+                Watch on YouTube ↗
+              </a>
             </div>
+            <div className="aspect-video w-full rounded-2xl overflow-hidden bg-navy/50 ring-1 ring-cream/10">
+              <iframe
+                src="https://www.youtube.com/embed/zyet9fPS24k"
+                title="Chris Davenport — Managing Risk | TEDxVail"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                allowFullScreen
+                className="w-full h-full"
+              />
+            </div>
+          </div>
 
-            {/* Social / more */}
-            <AnimateIn className="mt-12">
-              <div className="rounded-2xl border border-navy/10 bg-navy/3 p-8 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-6">
+          {/* Additional channels */}
+          <div className="mt-16 pt-10 border-t border-cream/10 flex flex-wrap gap-4">
+            {[
+              { label: 'YouTube', handle: '@ChrisDavenport', url: 'https://www.youtube.com/@ChrisDavenport' },
+              { label: 'Instagram', handle: '@steepskiing', url: 'https://www.instagram.com/steepskiing/' },
+              { label: 'Red Bull', handle: 'Faces of Dav series', url: 'https://www.redbull.com' },
+            ].map(({ label, handle, url }) => (
+              <a
+                key={label}
+                href={url}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex items-center gap-3 rounded-xl bg-cream/5 hover:bg-cream/10 border border-cream/10 px-5 py-4 transition-colors group"
+              >
                 <div>
-                  <p className="font-serif text-xl text-navy">More on Instagram &amp; YouTube</p>
-                  <p className="text-sm text-navy/50 mt-1">
-                    Reels, trip footage, behind-the-scenes — follow along at @steepskiing.
+                  <p className="text-[10px] text-cream/40 uppercase tracking-widest">{label}</p>
+                  <p className="text-sm font-medium text-cream/80 group-hover:text-cream transition-colors">
+                    {handle} ↗
                   </p>
                 </div>
-                <a
-                  href="https://www.instagram.com/steepskiing/"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="flex-shrink-0 rounded-full bg-navy text-cream px-6 py-3 text-xs font-medium tracking-widest uppercase hover:bg-navy/90 transition-colors"
-                >
-                  @steepskiing →
-                </a>
-              </div>
-            </AnimateIn>
+              </a>
+            ))}
           </div>
-        </section>
-      )}
+        </div>
+      </section>
 
-      {/* PHOTOS */}
-      {activeTab === 'photos' && (
-        <section className="pt-20 pb-24">
-          <div className="mx-auto max-w-7xl px-6 lg:px-10">
-            <AnimateIn>
-              <p className="text-xs font-medium tracking-widest text-navy/35 uppercase mb-3">
-                Photography
-              </p>
-              <h2 className="font-serif text-5xl md:text-6xl font-medium text-navy leading-tight">
-                In the frame.
-              </h2>
-              <p className="mt-4 text-navy/50 max-w-xl leading-relaxed">
-                Expedition photography from ski mountaineers, cinematographers, and the
-                occasional self-timer propped on a pack at 14,000 feet.
-                Three decades of standing in places that require a rope to reach.
-              </p>
-            </AnimateIn>
+      {/* ── Photography ────────────────────────────────────────────────────── */}
+      <section className="py-20">
+        <div className="mx-auto max-w-7xl px-6 lg:px-10 mb-10">
+          <p className="text-xs font-medium tracking-widest text-navy/40 uppercase mb-2">
+            Photography
+          </p>
+          <h2 className="font-serif text-4xl md:text-5xl font-medium text-navy">
+            From the field.
+          </h2>
+          <p className="mt-3 text-navy/55 max-w-lg">
+            Chile, Antarctica, Japan, Switzerland, Colorado. The places that define the program.
+          </p>
+        </div>
 
-            {/* Masonry photo grid */}
-            <div className="mt-12 columns-2 md:columns-3 lg:columns-4 gap-3 space-y-3">
-              {PHOTOS.map((photo, i) => (
-                <div
-                  key={i}
-                  className="break-inside-avoid overflow-hidden rounded-xl group relative bg-navy/8"
-                >
-                  {/* eslint-disable-next-line @next/next/no-img-element */}
-                  <img
-                    src={photo.src}
-                    alt={photo.alt}
-                    className="w-full object-cover group-hover:scale-105 transition-transform duration-700"
-                    loading="lazy"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-navy/50 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                    <div className="absolute bottom-0 left-0 right-0 p-4">
-                      <p className="text-cream/90 text-xs leading-snug">{photo.alt}</p>
+        {/* Horizontal scroll */}
+        <div className="overflow-x-auto pb-2 pl-6 lg:pl-10">
+          <div className="flex gap-4" style={{ width: 'max-content' }}>
+            {PHOTOS.map((photo, i) => (
+              <div
+                key={photo.src}
+                className="relative flex-shrink-0 rounded-2xl overflow-hidden bg-navy/10"
+                style={{
+                  width: i % 3 === 0 ? '400px' : i % 3 === 1 ? '310px' : '355px',
+                  height: '272px',
+                }}
+              >
+                <Image
+                  src={photo.src}
+                  alt={photo.alt}
+                  fill
+                  className="object-cover"
+                  sizes="400px"
+                />
+              </div>
+            ))}
+            <div className="flex-shrink-0 w-6 lg:w-10" />
+          </div>
+        </div>
+      </section>
+
+      {/* ── Written Media ──────────────────────────────────────────────────── */}
+      <section className="bg-cream/50 border-t border-navy/10">
+        <div className="mx-auto max-w-7xl px-6 lg:px-10 py-20">
+          <div className="mb-12">
+            <p className="text-xs font-medium tracking-widest text-navy/40 uppercase mb-2">
+              Written
+            </p>
+            <h2 className="font-serif text-4xl md:text-5xl font-medium text-navy">
+              Books &amp; press.
+            </h2>
+          </div>
+
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-16">
+            {/* Books — update titles/details below */}
+            <div>
+              <h3 className="font-serif text-2xl font-medium text-navy mb-6 pb-3 border-b border-navy/10">
+                Books
+              </h3>
+              <div className="space-y-5">
+                {[
+                  {
+                    title: 'REPLACE_WITH_BOOK_1_TITLE',
+                    year: 'YEAR',
+                    publisher: 'PUBLISHER',
+                    description: 'Replace this with the book description.',
+                    url: '#',
+                  },
+                  {
+                    title: 'REPLACE_WITH_BOOK_2_TITLE',
+                    year: 'YEAR',
+                    publisher: 'PUBLISHER',
+                    description: 'Replace this with the book description.',
+                    url: '#',
+                  },
+                ].map((book) => (
+                  <a
+                    key={book.title}
+                    href={book.url}
+                    className="group flex gap-5 rounded-2xl border border-navy/10 bg-white/70 p-6 hover:border-navy/25 hover:bg-white transition-all block"
+                  >
+                    <div className="flex gap-5 items-start">
+                      <div className="flex-shrink-0 w-1.5 rounded-full bg-navy/20 group-hover:bg-navy/40 transition-colors self-stretch min-h-[3rem]" />
+                      <div>
+                        <p className="font-serif text-lg font-medium text-navy leading-tight group-hover:text-navy/80 transition-colors">
+                          {book.title}
+                        </p>
+                        <p className="text-xs text-navy/40 uppercase tracking-widest mt-1">
+                          {book.publisher} · {book.year}
+                        </p>
+                        <p className="mt-3 text-sm text-navy/60 leading-relaxed">
+                          {book.description}
+                        </p>
+                      </div>
                     </div>
-                  </div>
-                </div>
-              ))}
-            </div>
-
-            {/* Instagram CTA */}
-            <AnimateIn className="mt-14">
-              <div className="text-center">
-                <p className="text-navy/40 text-sm mb-4">
-                  For the full photo archive — 30+ years of expedition imagery
-                </p>
-                <a
-                  href="https://www.instagram.com/steepskiing/"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="inline-flex items-center gap-3 rounded-full border border-navy/20 text-navy px-8 py-3 text-xs font-medium tracking-widest uppercase hover:bg-navy hover:text-cream hover:border-navy transition-all"
-                >
-                  Follow @steepskiing on Instagram
-                </a>
+                  </a>
+                ))}
               </div>
-            </AnimateIn>
-          </div>
-        </section>
-      )}
-
-      {/* PRESS & AWARDS */}
-      {activeTab === 'press' && (
-        <section className="pt-20 pb-24">
-          <div className="mx-auto max-w-7xl px-6 lg:px-10">
+            </div>
 
             {/* Press */}
-            <AnimateIn>
-              <p className="text-xs font-medium tracking-widest text-navy/35 uppercase mb-3">
-                Press &amp; coverage
-              </p>
-              <h2 className="font-serif text-5xl md:text-6xl font-medium text-navy leading-tight">
-                In print.
-              </h2>
-              <p className="mt-4 text-navy/50 max-w-xl leading-relaxed">
-                Outside Online. Powder Magazine. Ski Magazine. Freeskier. Aspen Times.
-                The publications that have covered this career since it started.
-              </p>
-            </AnimateIn>
-
-            <div className="mt-12 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-              {PRESS.map(({ outlet, headline, year, description, url }, i) => (
-                <AnimateIn key={`${outlet}-${year}`} delay={i * 0.06}>
+            <div>
+              <h3 className="font-serif text-2xl font-medium text-navy mb-6 pb-3 border-b border-navy/10">
+                Press
+              </h3>
+              <div className="divide-y divide-navy/8">
+                {PRESS.map((article) => (
                   <a
-                    href={url}
+                    key={article.headline}
+                    href={article.url}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="group flex flex-col h-full rounded-2xl border border-navy/10 bg-white/60 p-6 hover:bg-white hover:border-navy/25 hover:shadow-lg hover:shadow-navy/5 transition-all"
+                    className="group flex items-start gap-4 py-5 hover:opacity-80 transition-opacity"
                   >
-                    {/* Year badge + outlet */}
-                    <div className="flex items-start justify-between mb-4">
-                      <span className="text-xs font-medium uppercase tracking-widest text-navy/40">
-                        {outlet}
-                      </span>
-                      <span className="flex-shrink-0 ml-3 font-mono text-xs font-medium bg-navy/6 text-navy/50 px-2.5 py-1 rounded-full">
-                        {year}
-                      </span>
+                    <div className="flex-1 min-w-0">
+                      <p className="text-sm font-medium text-navy leading-snug">
+                        {article.headline}
+                      </p>
+                      <p className="text-xs text-navy/40 mt-0.5 uppercase tracking-widest">
+                        {article.outlet} · {article.year}
+                      </p>
+                      <p className="text-xs text-navy/50 mt-1.5 leading-relaxed">
+                        {article.description}
+                      </p>
                     </div>
-                    <p className="font-serif text-lg font-medium text-navy leading-snug flex-1 group-hover:text-navy/80 transition-colors">
-                      {headline}
-                    </p>
-                    <p className="mt-3 text-sm text-navy/50 leading-relaxed">
-                      {description}
-                    </p>
-                    <p className="mt-5 text-xs font-medium tracking-widest uppercase text-navy/25 group-hover:text-navy/55 transition-colors">
-                      Read article →
-                    </p>
+                    <span className="flex-shrink-0 text-navy/25 group-hover:text-navy/50 transition-colors text-xs pt-0.5">
+                      ↗
+                    </span>
                   </a>
-                </AnimateIn>
-              ))}
-            </div>
-
-            {/* Awards — vertical timeline */}
-            <AnimateIn className="mt-20">
-              <p className="text-xs font-medium tracking-widest text-navy/35 uppercase mb-3">
-                Career honors
-              </p>
-              <h2 className="font-serif text-4xl md:text-5xl font-medium text-navy leading-tight">
-                The record.
-              </h2>
-              <p className="mt-4 text-navy/50 max-w-xl leading-relaxed">
-                Awards matter less than the skiing. But they mark the moments when
-                the work was recognized by people who understood what it took.
-              </p>
-            </AnimateIn>
-
-            <div className="mt-14 relative">
-              {/* Timeline spine */}
-              <div className="absolute left-[4.5rem] top-3 bottom-3 w-px bg-navy/8 hidden md:block" />
-
-              <div className="space-y-5">
-                {AWARDS.map(({ year, title, body, note }, i) => (
-                  <AnimateIn key={`${year}-${title}`} delay={i * 0.05}>
-                    <div className="flex gap-6 md:gap-10 items-start">
-                      {/* Year */}
-                      <div className="flex-shrink-0 w-16 text-right pt-4">
-                        <span className="font-mono text-sm font-medium text-navy/30">{year}</span>
-                      </div>
-
-                      {/* Dot */}
-                      <div className="flex-shrink-0 relative hidden md:flex items-start pt-4">
-                        <div className="h-2.5 w-2.5 rounded-full bg-navy/40 ring-4 ring-cream" />
-                      </div>
-
-                      {/* Card */}
-                      <div className="flex-1 rounded-xl border border-navy/8 bg-white/60 p-5 hover:border-navy/20 hover:bg-white/80 transition-all">
-                        <p className="font-medium text-navy text-base leading-snug">{title}</p>
-                        <p className="text-xs text-navy/35 mt-1 uppercase tracking-widest font-medium">{body}</p>
-                        {note && (
-                          <p className="mt-2.5 text-sm text-navy/50 leading-relaxed">{note}</p>
-                        )}
-                      </div>
-                    </div>
-                  </AnimateIn>
                 ))}
               </div>
             </div>
           </div>
-        </section>
-      )}
+        </div>
+      </section>
 
-      {/* ── Bottom CTA ─────────────────────────────────────────────────── */}
-      <div className="bg-navy text-cream border-t border-cream/10">
-        <div className="mx-auto max-w-7xl px-6 lg:px-10 py-20 flex flex-col md:flex-row items-center justify-between gap-8">
+      {/* ── Awards ─────────────────────────────────────────────────────────── */}
+      <section className="mx-auto max-w-7xl px-6 lg:px-10 py-20">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-start">
           <div>
-            <p className="font-serif text-3xl md:text-4xl font-medium leading-tight">
-              Ski it, don&apos;t just watch it.
+            <p className="text-xs font-medium tracking-widest text-navy/40 uppercase mb-2">
+              Recognition
             </p>
-            <p className="mt-2 text-cream/45 leading-relaxed max-w-sm">
-              The films are one thing. Being out there with me is another entirely.
-            </p>
+            <h2 className="font-serif text-4xl font-medium text-navy">
+              Awards &amp;<br />honours.
+            </h2>
           </div>
-          <div className="flex items-center gap-4 flex-shrink-0">
-            <Link
-              href="/ski-camps"
-              className="rounded-full bg-cream text-navy px-7 py-4 text-xs font-medium tracking-widest uppercase hover:bg-cream/90 transition-colors"
-            >
-              View upcoming camps
-            </Link>
-            <Link
-              href="/trips"
-              className="rounded-full border border-cream/20 text-cream px-7 py-4 text-xs font-medium tracking-widest uppercase hover:bg-cream/10 transition-colors"
-            >
-              Guided trips
-            </Link>
+          <div className="space-y-6">
+            {[
+              {
+                year: '1996 & 1997',
+                title: 'World Extreme Skiing Champion',
+                body: 'Back-to-back titles at the World Extreme Skiing Championships.',
+              },
+              {
+                year: '2007',
+                title: 'First to Ski All 54 Colorado 14ers',
+                body: 'Completed all 54 Colorado 14ers in a single ski season — never done before.',
+              },
+              {
+                year: '2013',
+                title: 'TEDxVail Speaker',
+                body: '"Managing Risk" — one of the most-watched talks from the Vail series.',
+              },
+              {
+                year: '2015',
+                title: 'U.S. Ski & Snowboard Hall of Fame',
+                body: 'Inducted for contributions to alpine skiing and ski mountaineering.',
+              },
+            ].map(({ year, title, body }) => (
+              <div key={title} className="flex gap-6">
+                <div className="flex-shrink-0 w-20 pt-0.5">
+                  <p className="text-xs font-medium text-navy/35 uppercase tracking-wide leading-tight">
+                    {year}
+                  </p>
+                </div>
+                <div>
+                  <p className="font-medium text-navy leading-snug">{title}</p>
+                  <p className="text-sm text-navy/55 mt-1 leading-relaxed">{body}</p>
+                </div>
+              </div>
+            ))}
           </div>
         </div>
-      </div>
+      </section>
     </>
   )
 }
