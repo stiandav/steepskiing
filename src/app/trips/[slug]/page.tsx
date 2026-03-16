@@ -243,7 +243,7 @@ export default async function TripPage({ params }: Props) {
                         <div>
                           <p className="font-medium text-navy">{guide.name}</p>
                           <p className="text-xs text-navy/50 mb-2">{guide.role}</p>
-                          <p className="text-sm text-navy/60 leading-relaxed line-clamp-3">
+                          <p className="text-sm text-navy/60 leading-relaxed">
                             {guide.bio}
                           </p>
                         </div>

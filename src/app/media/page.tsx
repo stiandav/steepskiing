@@ -11,15 +11,6 @@ import { motion, AnimatePresence } from 'motion/react'
 // DATA
 // ─────────────────────────────────────────────────────────────────────────────
 
-const MOUNTAIN_PATHS = [
-  '0,185 22,108 42,140 68,62 92,120 130,185',
-  '0,185 32,88 58,132 82,58 112,98 130,185',
-  '0,185 26,118 52,84 82,122 108,98 130,185',
-  '0,185 18,128 46,92 68,128 92,78 130,185',
-  '0,185 28,68 58,112 90,68 112,100 130,185',
-  '0,185 20,98 52,132 76,68 102,108 130,185',
-]
-
 interface Film {
   id: string
   title: string
@@ -27,8 +18,7 @@ interface Film {
   studio: string
   description: string
   href: string
-  c1: string
-  c2: string
+  poster: string   // /images/movies/...
 }
 
 const FILMS: Film[] = [
@@ -39,7 +29,7 @@ const FILMS: Film[] = [
     studio: 'Matchstick Productions',
     description: "My earliest major feature. Matchstick was redefining what ski films could be — Snowriders II was part of the shift away from helicopter spectacle toward something rawer and more personal.",
     href: '#',
-    c1: '#0f1e3d', c2: '#1e3a6e',
+    poster: '/images/movies/snowriders2.jpg',
   },
   {
     id: 'global-storming',
@@ -48,16 +38,16 @@ const FILMS: Film[] = [
     studio: 'Matchstick Productions',
     description: "A global hunt for snow in the late 1990s. The world felt bigger then — or at least it felt bigger when you had to go find the terrain yourself.",
     href: '#',
-    c1: '#0d2619', c2: '#1a4a2e',
+    poster: '/images/movies/global-storming.jpg',
   },
   {
     id: 'ski-movie-iii',
-    title: 'Ski Movie III',
+    title: 'Ski Movie III: The Front Line',
     year: '2002',
     studio: 'Matchstick Productions',
-    description: "The Front Line. By 2002 MSP had become the defining franchise in ski film. A statement that the generation coming up was ready to draw serious lines.",
+    description: "By 2002 MSP had become the defining franchise in ski film. A statement that the generation coming up was ready to draw serious lines.",
     href: '#',
-    c1: '#2a0d0d', c2: '#4a1a1a',
+    poster: '/images/movies/ski-movie-3.jpg',
   },
   {
     id: 'storm',
@@ -66,7 +56,7 @@ const FILMS: Film[] = [
     studio: 'Warren Miller Entertainment',
     description: "An appearance in a Warren Miller film carried real weight then. It still does. Skiing the biggest stage in the sport.",
     href: '#',
-    c1: '#0d0d2a', c2: '#1a1a4a',
+    poster: '/images/movies/storm.jpg',
   },
   {
     id: 'mountain-town',
@@ -75,7 +65,7 @@ const FILMS: Film[] = [
     studio: 'Matchstick Productions',
     description: "A love letter to mountain culture and the communities built around skiing. This one made me think harder about what Aspen is and what we're protecting when we protect these places.",
     href: '#',
-    c1: '#1e1a0d', c2: '#3a331a',
+    poster: '/images/movies/mountain-town.jpg',
   },
   {
     id: 'steep',
@@ -84,7 +74,7 @@ const FILMS: Film[] = [
     studio: 'Sweetgrass Productions',
     description: "The definitive film about big mountain skiing. Not just about skiing — about consequence, obsession, and what it means to draw a line on a mountain that will not forgive you for getting it wrong.",
     href: 'https://www.imdb.com/title/tt1003118/',
-    c1: '#1a0505', c2: '#3a0a0a',
+    poster: '/images/movies/steep.jpeg',
   },
   {
     id: 'playground',
@@ -93,7 +83,16 @@ const FILMS: Film[] = [
     studio: 'Matchstick Productions',
     description: "MSP at the height of their creative run. The mountains as playground — but also as laboratory. You learn more about yourself on a mountain than anywhere else I've found.",
     href: '#',
-    c1: '#051a0a', c2: '#0a3319',
+    poster: '/images/movies/playground.jpg',
+  },
+  {
+    id: 'claim',
+    title: 'Claim: The Greatest Ski Movie... Ever!',
+    year: '2008',
+    studio: 'Matchstick Productions',
+    description: "A bold title — and one MSP could back up. One of the most ambitious films the company ever made. The mountains demanded it.",
+    href: '#',
+    poster: '/images/movies/claim.jpg',
   },
   {
     id: 'skiing-everest',
@@ -102,7 +101,7 @@ const FILMS: Film[] = [
     studio: 'Warren Miller Entertainment',
     description: "The Lhotse Face. One of the most committing descents I've attempted. This film documents what it took to get there — and what happened when we did.",
     href: '#',
-    c1: '#050d1a', c2: '#0a1a33',
+    poster: '/images/movies/skiing-everest.jpg',
   },
   {
     id: 'wintervention',
@@ -111,16 +110,7 @@ const FILMS: Film[] = [
     studio: 'Warren Miller Entertainment',
     description: "Warren Miller's take on an intervention — dragging people back to where they belong. The mountains are where problems get solved, not created.",
     href: '#',
-    c1: '#0d0d26', c2: '#1a1a4a',
-  },
-  {
-    id: 'the-story',
-    title: 'The Story',
-    year: '2010',
-    studio: 'Matchstick Productions',
-    description: "Every skier has a story. MSP stepped back to ask what those stories add up to — what they mean when you string them together across a career.",
-    href: '#',
-    c1: '#200d33', c2: '#3a1a5a',
+    poster: '/images/movies/wintervention.jpg',
   },
   {
     id: 'australis',
@@ -129,7 +119,7 @@ const FILMS: Film[] = [
     studio: 'Independent',
     description: "An Antarctic Ski Odyssey. The last truly wild place on earth. The skiing is almost secondary to the experience of standing somewhere the mountains have never been skied before.",
     href: '#',
-    c1: '#051426', c2: '#0a2a4d',
+    poster: '/images/movies/australis.jpg',
   },
   {
     id: 'like-theres-no-tomorrow',
@@ -138,25 +128,16 @@ const FILMS: Film[] = [
     studio: 'Matchstick Productions',
     description: "A meditation on urgency. The mountains have a way of clarifying what actually matters and making everything else noise.",
     href: '#',
-    c1: '#0d2014', c2: '#1a3d26',
+    poster: '/images/movies/like-theres-no-tomorrow.png',
   },
   {
     id: 'ultimate-rush',
-    title: 'Ultimate Rush',
-    year: '2011–2017',
+    title: 'Ultimate Rush — Season 1, Episode 5: The Red Line',
+    year: '2011',
     studio: 'Warren Miller Entertainment',
-    description: "Six years chasing the world's most consequential skiing. The concept — that there's always a bigger line — drove the whole thing forward.",
+    description: "The only episode of the Ultimate Rush series I appear in — and it's the one that defined the season. Season 1, Episode 5: The Red Line. Every frame was earned.",
     href: '#',
-    c1: '#26050d', c2: '#4d0a1a',
-  },
-  {
-    id: 'the-red-line',
-    title: 'The Red Line',
-    year: '2012',
-    studio: 'Warren Miller Entertainment',
-    description: "The line between acceptable risk and the unacceptable. I've thought about that line my entire career. This film gave me a chance to examine it directly.",
-    href: '#',
-    c1: '#330505', c2: '#590a0a',
+    poster: '/images/movies/ultimate-rush.jpg',
   },
   {
     id: 'flow-state',
@@ -165,7 +146,7 @@ const FILMS: Film[] = [
     studio: 'Matchstick Productions',
     description: "The psychological state every skier chases — when everything clicks and the mountain stops being an obstacle and starts being a conversation.",
     href: '#',
-    c1: '#051f1f', c2: '#0a3d3d',
+    poster: '/images/movies/flow-state.jpg',
   },
   {
     id: 'dispatches',
@@ -174,25 +155,7 @@ const FILMS: Film[] = [
     studio: 'Independent Series',
     description: "Field dispatches from wherever I am. The format that fit what I was actually doing — moving between mountains, sending back what I found.",
     href: '#',
-    c1: '#0d1726', c2: '#1a2e4d',
-  },
-  {
-    id: 'the-final-cut',
-    title: 'The Final Cut',
-    year: '2013',
-    studio: 'Matchstick Productions',
-    description: "MSP's defining final major film. An era of ski film ended here — and it was a good one.",
-    href: '#',
-    c1: '#1a1a1a', c2: '#333333',
-  },
-  {
-    id: 'the-line',
-    title: 'The Line',
-    year: '2014–',
-    studio: 'Ongoing Series',
-    description: "An ongoing series about finding and skiing the world's most committing lines. The title says everything — there's always another one worth finding.",
-    href: '#',
-    c1: '#111827', c2: '#1f2a3d',
+    poster: '/images/movies/dispatches.jpg',
   },
   {
     id: 'days-of-my-youth',
@@ -201,7 +164,7 @@ const FILMS: Film[] = [
     studio: 'Matchstick Productions',
     description: "A film about staying connected to why you started. After 20 years of doing this professionally, that question doesn't get easier — but it gets more important.",
     href: '#',
-    c1: '#0d1a26', c2: '#1a3347',
+    poster: '/images/movies/days-of-my-youth.jpg',
   },
 ]
 
@@ -214,40 +177,58 @@ interface Photo {
 
 const PHOTOS: Photo[] = [
   {
-    src: '/images/hero_shot.jpg',
-    alt: 'Chris Davenport on steep terrain',
-    location: 'Colorado',
-    caption: 'Open faces above 13,000 feet. Colorado is where the season starts and ends every year.',
-  },
-  {
-    src: '/images/ant.jpg',
-    alt: 'Antarctica expedition',
+    src: '/images/photos/antarctica-aerial.jpg',
+    alt: 'Aerial view of skiers descending an Antarctic ice island',
     location: 'Antarctica',
-    caption: "The last continent. Mountains that have never been skied. The most committing terrain I've ever stood on.",
+    caption: "Aerial of our crew descending one of the most remote formations on the planet. Antarctica is in a category of its own — terrain that has never been skied, in a place that barely lets you exist.",
   },
   {
-    src: '/images/portillo.jpg',
-    alt: 'Portillo, Chile',
+    src: '/images/photos/colorado-ridge.jpg',
+    alt: 'Chris Davenport on a stormy Colorado ridge with skis',
+    location: 'Colorado Rockies',
+    caption: "On the ridge above 13,000 feet in the middle of a storm. This is where the 14er project was born — and where it nearly ended a dozen times. That season changed everything.",
+  },
+  {
+    src: '/images/photos/portillo-couloir.jpg',
+    alt: 'Skiing a steep couloir above the Portillo lake',
     location: 'Portillo, Chile',
-    caption: "Portillo in July. The Andes are wild and cold and perfect. I've been coming here since 2004 and it still stops me.",
+    caption: "Skiing a couloir above the lake at Portillo. The commitment to stand at the top of that line — with the water below — is exactly what I train for every season.",
   },
   {
-    src: '/images/japow.png',
-    alt: 'Japan powder',
-    location: 'Hokkaido, Japan',
-    caption: "Hokkaido powder is in a category of its own. Light, deep, relentless. There's nowhere like it in the world.",
-  },
-  {
-    src: '/images/switz.webp',
-    alt: 'Engelberg, Switzerland',
-    location: 'Engelberg, Switzerland',
-    caption: "The north-facing shots above the Titlis hold cold snow all the way to the valley. Classic Swiss alpinism.",
-  },
-  {
-    src: '/images/gear_map.jpg',
-    alt: 'Deep powder run',
+    src: '/images/photos/deep-pow.jpg',
+    alt: 'Chris Davenport buried in deep powder',
     location: 'Aspen, Colorado',
-    caption: "Home terrain. Aspen Snowmass is where I train every season and where my kids learned to ski.",
+    caption: "This is what a big Aspen powder day looks like from the inside. Blue jacket, yellow gloves, and nothing but white. One of the best days of that season.",
+  },
+  {
+    src: '/images/photos/dps-portillo.jpg',
+    alt: 'Chris Davenport holding DPS skis at Portillo',
+    location: 'Portillo, Chile',
+    caption: "New season, new skis. At Portillo with DPS — these are the skis I helped develop and the ones I trust on the biggest terrain I ski. The lake and the Andes behind.",
+  },
+  {
+    src: '/images/photos/powder-turn.jpg',
+    alt: 'Chris Davenport carving a powder turn in orange jacket',
+    location: 'Aspen, Colorado',
+    caption: "Orange jacket, black DPS skis, pure spring snow. Aspen Snowmass on a morning when everything is exactly right.",
+  },
+  {
+    src: '/images/photos/antarctica-glacier.jpg',
+    alt: 'Chris Davenport on a glacier with a peak behind',
+    location: 'Antarctica',
+    caption: "Standing on a glacier the size of a county, pointing at the line we're about to ski. That scale — the silence and the scale — stays with you.",
+  },
+  {
+    src: '/images/photos/glacier-three.jpg',
+    alt: 'Three skiers posing on a glacier with a mountain peak behind',
+    location: 'North Cascades',
+    caption: "Three skiers, one mountain, infinite terrain above. The Cascades have some of the best ski mountaineering in the country — and almost nobody knows about it.",
+  },
+  {
+    src: '/images/photos/portillo-team.jpg',
+    alt: 'The Portillo camp crew at the hotel balcony',
+    location: 'Portillo, Chile',
+    caption: "The crew at Portillo. The hotel, the lake, the Andes — this is the backdrop every camp season. You can't stand here and not want to ski.",
   },
 ]
 
@@ -258,7 +239,8 @@ const BOOKS = [
     year: '2008',
     publisher: 'Fulcrum Publishing',
     description: 'Documenting the first-ever completion of all 54 Colorado 14ers in a single ski season — a feat never accomplished before or since. Part photographic tribute, part field journal from one of the most ambitious ski mountaineering projects ever attempted in North America.',
-    url: 'https://www.amazon.com/Ski-14ers-Colorado-14000-Foot-Mountaineer/dp/1555916597',
+    url: 'https://www.amazon.com/Ski-14ers-2nd-Chris-Davenport-dp-0979264456/dp/0979264456/ref=dp_ob_title_bk',
+    cover: '/images/books/ski the 14ers.jpg',
   },
   {
     title: '50 Classic Ski Descents of North America',
@@ -266,7 +248,8 @@ const BOOKS = [
     year: '2011',
     publisher: 'The Mountaineers Books',
     description: 'The definitive guide to the continent\'s most compelling ski mountaineering objectives — from Alaskan faces to the Rockies to the Pacific Northwest volcanoes. A field guide and bucket list in one, built from decades of first-hand exploration across the range.',
-    url: 'https://www.amazon.com/Classic-Ski-Descents-North-America/dp/159485368X',
+    url: 'https://www.50classicskidescents.com/',
+    cover: '/images/books/NorthAmericanClassicsPublishing_50ClassicSkiDescents_FrontCover.jpg',
   },
 ]
 
@@ -275,103 +258,54 @@ const PRESS = [
     outlet: 'Powder Magazine',
     headline: 'Chris Davenport Joins DPS Skis',
     year: '2022',
-    description: 'Head of ambassador relations and field testing. After Peak Skis, a new chapter.',
-    url: 'https://www.powder.com',
+    description: 'Head of ambassador relations and field testing. After Peak Skis, a new chapter with the brand he\'s trusted for years.',
+    url: 'https://www.powder.com/news/chris-davenport-dps-skis',
   },
   {
     outlet: 'Outside Online',
     headline: 'How Chris Davenport Raises Talented, Risk-Savvy Kids',
     year: '2016',
     description: 'The same principles I apply in the mountains, I try to bring home.',
-    url: 'https://www.outsideonline.com/2086471/how-chris-davenport-raises-talented-adventurous-risk-savvy-kids',
+    url: 'https://www.outsideonline.com/culture/active-families/how-chris-davenport-raises-talented-adventurous-risk-savvy-kids/',
   },
   {
     outlet: 'Outside Online',
     headline: "The Best Athlete You've Never Heard Of",
     year: '2014',
     description: 'Outside went deep on what drives a professional skier twenty years into a career.',
-    url: 'https://www.outsideonline.com/outdoor-adventure/snow-sports/peak-his-game/',
+    url: 'https://www.outsideonline.com/1974671/peak-his-game',
   },
   {
     outlet: 'Outside Online',
     headline: 'Chris Davenport on Managing Risk',
     year: '2013',
     description: 'The framework I built for decision-making above the death zone.',
-    url: 'https://www.outsideonline.com/outdoor-adventure/snow-sports/skier-chris-davenport-managing-risk',
+    url: 'https://www.outsideonline.com/1907176/skier-chris-davenport-managing-risk',
   },
   {
     outlet: "Men's Journal",
     headline: "The Science of Skiing the World's Most Dangerous Mountains",
     year: '2012',
     description: 'A deep look at the physical and psychological demands of extreme ski mountaineering.',
-    url: 'https://www.mensjournal.com',
+    url: 'https://www.mensjournal.com/adventure/skiing-deadliest-mountains/',
   },
   {
     outlet: 'The New York Times',
     headline: 'The Skier Who Conquered the 14ers',
     year: '2008',
     description: 'Profile following the completion of all 54 Colorado 14ers in a single ski season.',
-    url: 'https://www.nytimes.com',
+    url: 'https://www.nytimes.com/2008/03/09/sports/09ski.html',
   },
 ]
 
 // ─────────────────────────────────────────────────────────────────────────────
-// FILM COVER — styled poster
-// ─────────────────────────────────────────────────────────────────────────────
-
-function FilmCover({ film, index }: { film: Film; index: number }) {
-  const path = MOUNTAIN_PATHS[index % MOUNTAIN_PATHS.length]
-  return (
-    <div
-      className="w-full h-full rounded-xl overflow-hidden shadow-2xl select-none relative"
-      style={{ background: `linear-gradient(158deg, ${film.c1} 0%, ${film.c2} 100%)` }}
-    >
-      {/* Mountain fill */}
-      <svg
-        viewBox="0 0 130 185"
-        className="absolute inset-0 w-full h-full opacity-[0.13]"
-        aria-hidden="true"
-        preserveAspectRatio="none"
-      >
-        <polygon points={path} fill="white" />
-      </svg>
-
-      {/* Scan-line texture */}
-      <div
-        className="absolute inset-0 opacity-[0.04]"
-        style={{
-          backgroundImage:
-            'repeating-linear-gradient(0deg, white 0px, white 1px, transparent 1px, transparent 4px)',
-        }}
-      />
-
-      {/* Text content */}
-      <div className="absolute inset-0 flex flex-col justify-between p-3">
-        <p className="text-[6px] font-semibold tracking-[0.16em] text-white/40 uppercase leading-tight line-clamp-1">
-          {film.studio}
-        </p>
-        <div>
-          <h3 className="font-serif text-[12px] font-medium leading-tight text-white/95 line-clamp-3">
-            {film.title}
-          </h3>
-          <p className="text-[9px] text-white/45 mt-1.5 font-medium tracking-wide">{film.year}</p>
-        </div>
-      </div>
-
-      {/* Inner ring */}
-      <div className="absolute inset-0 rounded-xl ring-1 ring-inset ring-white/10 pointer-events-none" />
-    </div>
-  )
-}
-
-// ─────────────────────────────────────────────────────────────────────────────
-// FILM GALLERY — GSAP stacked book-style
+// FILM GALLERY — GSAP stacked book-style with real posters
 // ─────────────────────────────────────────────────────────────────────────────
 
 const CARD_W = 130
 const CARD_H = 185
-const VISIBLE = 52 // px visible per card in the stack
-const STACK_W = VISIBLE * (FILMS.length - 1) + CARD_W // ≈ 1006px
+const VISIBLE = 52
+const STACK_W = VISIBLE * (FILMS.length - 1) + CARD_W
 
 function FilmGallery() {
   const containerRef = useRef<HTMLDivElement>(null)
@@ -409,11 +343,8 @@ function FilmGallery() {
         gsap.to(card, {
           x: fanX,
           rotation: base.rotation + Math.sign(dist) * Math.min(Math.abs(dist) * 0.45, 2.2),
-          y: base.y,
-          scale: 1,
-          zIndex: j,
-          duration: 0.3,
-          ease: 'power2.out',
+          y: base.y, scale: 1, zIndex: j,
+          duration: 0.3, ease: 'power2.out',
         })
       }
     })
@@ -446,14 +377,22 @@ function FilmGallery() {
               style={{ left: `${i * VISIBLE}px`, width: `${CARD_W}px`, height: `${CARD_H}px` }}
               onMouseEnter={() => handleEnter(i)}
             >
-              <Link
-                href={film.href}
-                target={film.href !== '#' ? '_blank' : '_self'}
-                rel={film.href !== '#' ? 'noopener noreferrer' : undefined}
-                aria-label={`${film.title} (${film.year})`}
-              >
-                <FilmCover film={film} index={i} />
-              </Link>
+              <div className="w-full h-full rounded-xl overflow-hidden shadow-2xl relative ring-1 ring-black/20">
+                <Image
+                  src={film.poster}
+                  alt={film.title}
+                  fill
+                  className="object-cover select-none"
+                  sizes="130px"
+                  draggable={false}
+                />
+                {/* Bottom gradient for title legibility */}
+                <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent pointer-events-none" />
+                <div className="absolute bottom-0 left-0 right-0 p-2">
+                  <p className="text-white/90 text-[9px] font-medium leading-tight line-clamp-2">{film.title}</p>
+                  <p className="text-white/50 text-[8px] mt-0.5">{film.year}</p>
+                </div>
+              </div>
             </div>
           ))}
         </div>
@@ -502,18 +441,25 @@ function FilmGallery() {
 
       {/* Mobile / tablet: grid */}
       <div className="lg:hidden grid grid-cols-3 sm:grid-cols-4 md:grid-cols-5 gap-3">
-        {FILMS.map((film, i) => (
-          <Link
+        {FILMS.map((film) => (
+          <div
             key={film.id}
-            href={film.href}
-            target={film.href !== '#' ? '_blank' : '_self'}
-            rel={film.href !== '#' ? 'noopener noreferrer' : undefined}
-            className="block hover:scale-105 transition-transform duration-200"
+            className="relative rounded-xl overflow-hidden shadow-lg"
             style={{ height: '160px' }}
-            aria-label={`${film.title} (${film.year})`}
           >
-            <FilmCover film={film} index={i} />
-          </Link>
+            <Image
+              src={film.poster}
+              alt={film.title}
+              fill
+              className="object-cover"
+              sizes="(max-width: 640px) 33vw, 25vw"
+            />
+            <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent" />
+            <div className="absolute bottom-0 left-0 right-0 p-2">
+              <p className="text-white/90 text-[9px] font-medium leading-tight line-clamp-2">{film.title}</p>
+              <p className="text-white/50 text-[8px] mt-0.5">{film.year}</p>
+            </div>
+          </div>
         ))}
       </div>
     </>
@@ -527,7 +473,7 @@ function FilmGallery() {
 const PHOTO_W = 260
 const PHOTO_H = 174
 const PHOTO_VISIBLE = 80
-const PHOTO_STACK_W = PHOTO_VISIBLE * (PHOTOS.length - 1) + PHOTO_W // 680px
+const PHOTO_STACK_W = PHOTO_VISIBLE * (PHOTOS.length - 1) + PHOTO_W
 
 function PhotoGallery() {
   const containerRef = useRef<HTMLDivElement>(null)
@@ -537,7 +483,7 @@ function PhotoGallery() {
   const BASE = useRef(
     PHOTOS.map((_, i) => ({
       rotation: ((i % 5) - 2) * 1.2 + (i % 2 === 0 ? 0.3 : -0.4),
-      y: [0, 4, 2, 5, 1, 3][i % 6],
+      y: [0, 4, 2, 5, 1, 3, 6, 2, 4][i % 9],
     }))
   )
 
@@ -565,11 +511,8 @@ function PhotoGallery() {
         gsap.to(card, {
           x: fanX,
           rotation: base.rotation + Math.sign(dist) * Math.min(Math.abs(dist) * 0.5, 2.5),
-          y: base.y,
-          scale: 1,
-          zIndex: j,
-          duration: 0.3,
-          ease: 'power2.out',
+          y: base.y, scale: 1, zIndex: j,
+          duration: 0.3, ease: 'power2.out',
         })
       }
     })
@@ -602,7 +545,7 @@ function PhotoGallery() {
               style={{ left: `${i * PHOTO_VISIBLE}px`, width: `${PHOTO_W}px`, height: `${PHOTO_H}px` }}
               onMouseEnter={() => handleEnter(i)}
             >
-              <div className="w-full h-full rounded-xl overflow-hidden shadow-2xl relative ring-1 ring-white/20">
+              <div className="w-full h-full rounded-xl overflow-hidden shadow-2xl relative ring-1 ring-white/10">
                 <Image
                   src={photo.src}
                   alt={photo.alt}
@@ -611,8 +554,7 @@ function PhotoGallery() {
                   sizes="260px"
                   draggable={false}
                 />
-                {/* Subtle vignette so the stack reads as depth */}
-                <div className="absolute inset-0 bg-gradient-to-t from-black/30 to-transparent pointer-events-none rounded-xl" />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent pointer-events-none rounded-xl" />
               </div>
             </div>
           ))}
@@ -664,8 +606,8 @@ function PhotoGallery() {
               className="object-cover"
               sizes="(max-width: 640px) 50vw, 33vw"
             />
-            <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent" />
-            <p className="absolute bottom-2 left-3 text-[10px] text-white/70 font-medium uppercase tracking-widest">
+            <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent" />
+            <p className="absolute bottom-2 left-3 text-[10px] text-white/80 font-medium uppercase tracking-widest">
               {photo.location}
             </p>
           </div>
@@ -696,8 +638,8 @@ export default function MediaPage() {
             </div>
             <div>
               <p className="text-cream/65 text-lg leading-relaxed">
-                19 feature films. 36 Warren Miller and Matchstick Productions appearances.
-                A TEDx talk on risk and decision-making. Books, magazine features, and
+                16 feature films. Appearances in Warren Miller and Matchstick Productions classics.
+                A TEDx talk on risk and decision-making. Two books, magazine features, and
                 dispatches from the mountains I&apos;ve spent my career on.
               </p>
             </div>
@@ -708,12 +650,8 @@ export default function MediaPage() {
       {/* ── Books ──────────────────────────────────────────────────────────── */}
       <section className="mx-auto max-w-7xl px-6 lg:px-10 py-20 border-b border-navy/10">
         <div className="mb-10">
-          <p className="text-xs font-medium tracking-widest text-navy/40 uppercase mb-2">
-            Written
-          </p>
-          <h2 className="font-serif text-4xl md:text-5xl font-medium text-navy">
-            The books.
-          </h2>
+          <p className="text-xs font-medium tracking-widest text-navy/40 uppercase mb-2">Written</p>
+          <h2 className="font-serif text-4xl md:text-5xl font-medium text-navy">The books.</h2>
         </div>
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
@@ -723,21 +661,30 @@ export default function MediaPage() {
               href={book.url}
               target="_blank"
               rel="noopener noreferrer"
-              className="group flex gap-5 rounded-2xl border border-navy/10 bg-white/70 p-7 hover:border-navy/25 hover:bg-white transition-all"
+              className="group flex gap-5 rounded-2xl border border-navy/10 bg-white/70 p-6 hover:border-navy/25 hover:bg-white transition-all"
             >
-              <div className="flex-shrink-0 w-1.5 rounded-full bg-navy/20 group-hover:bg-navy/40 transition-colors self-stretch min-h-[3rem]" />
-              <div>
-                <p className="font-serif text-xl font-medium text-navy leading-snug group-hover:text-navy/80 transition-colors">
+              {/* Book cover thumbnail */}
+              <div className="flex-shrink-0 relative w-20 rounded-lg overflow-hidden shadow-md ring-1 ring-navy/10" style={{ height: '112px' }}>
+                <Image
+                  src={book.cover}
+                  alt={book.title}
+                  fill
+                  className="object-cover"
+                  sizes="80px"
+                />
+              </div>
+              <div className="flex-1 min-w-0">
+                <p className="font-serif text-lg font-medium text-navy leading-snug group-hover:text-navy/80 transition-colors">
                   {book.title}
                 </p>
                 <p className="text-xs text-navy/40 uppercase tracking-widest mt-1.5">
                   {book.author} · {book.publisher} · {book.year}
                 </p>
-                <p className="mt-4 text-sm text-navy/60 leading-relaxed">
+                <p className="mt-3 text-sm text-navy/60 leading-relaxed line-clamp-3">
                   {book.description}
                 </p>
-                <span className="mt-4 inline-flex items-center gap-1 text-xs font-medium text-navy/40 group-hover:text-navy/70 transition-colors">
-                  View on Amazon ↗
+                <span className="mt-3 inline-flex items-center gap-1 text-xs font-medium text-navy/40 group-hover:text-navy/70 transition-colors">
+                  Buy the book ↗
                 </span>
               </div>
             </a>
@@ -748,14 +695,10 @@ export default function MediaPage() {
       {/* ── Photography ────────────────────────────────────────────────────── */}
       <section className="mx-auto max-w-7xl px-6 lg:px-10 py-20 border-b border-navy/10">
         <div className="mb-10">
-          <p className="text-xs font-medium tracking-widest text-navy/40 uppercase mb-2">
-            Photography
-          </p>
-          <h2 className="font-serif text-4xl md:text-5xl font-medium text-navy">
-            From the field.
-          </h2>
+          <p className="text-xs font-medium tracking-widest text-navy/40 uppercase mb-2">Photography</p>
+          <h2 className="font-serif text-4xl md:text-5xl font-medium text-navy">From the field.</h2>
           <p className="mt-3 text-navy/55 max-w-lg">
-            Chile, Antarctica, Japan, Switzerland, Colorado. The places that define the program.
+            Antarctica, Chile, the Rockies, the Cascades. Hover a photo to see where it was taken.
           </p>
         </div>
         <PhotoGallery />
@@ -764,15 +707,11 @@ export default function MediaPage() {
       {/* ── Filmography ────────────────────────────────────────────────────── */}
       <section className="mx-auto max-w-7xl px-6 lg:px-10 py-20 border-b border-navy/10">
         <div className="mb-10">
-          <p className="text-xs font-medium tracking-widest text-navy/40 uppercase mb-2">
-            Filmography
-          </p>
-          <h2 className="font-serif text-4xl md:text-5xl font-medium text-navy">
-            The films.
-          </h2>
+          <p className="text-xs font-medium tracking-widest text-navy/40 uppercase mb-2">Filmography</p>
+          <h2 className="font-serif text-4xl md:text-5xl font-medium text-navy">The films.</h2>
           <p className="mt-3 text-navy/55 max-w-lg">
-            From Snowriders II in 1997 through Days of My Youth in 2014 — and the series
-            still running. Hover a cover to read about the film.
+            From Snowriders II in 1997 through Days of My Youth in 2014 — and the series still running.
+            Hover a poster to read about the film.
           </p>
         </div>
         <FilmGallery />
@@ -782,12 +721,8 @@ export default function MediaPage() {
       <section className="bg-cream/50 border-b border-navy/10">
         <div className="mx-auto max-w-7xl px-6 lg:px-10 py-20">
           <div className="mb-10">
-            <p className="text-xs font-medium tracking-widest text-navy/40 uppercase mb-2">
-              Press
-            </p>
-            <h2 className="font-serif text-4xl md:text-5xl font-medium text-navy">
-              In print.
-            </h2>
+            <p className="text-xs font-medium tracking-widest text-navy/40 uppercase mb-2">Press</p>
+            <h2 className="font-serif text-4xl md:text-5xl font-medium text-navy">In print.</h2>
           </div>
           <div className="max-w-2xl divide-y divide-navy/8">
             {PRESS.map((article) => (
@@ -817,12 +752,8 @@ export default function MediaPage() {
         <div className="mx-auto max-w-7xl px-6 lg:px-10 py-20">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 items-start">
             <div>
-              <p className="text-xs font-medium tracking-widest text-cream/40 uppercase mb-3">
-                Watch
-              </p>
-              <h2 className="font-serif text-4xl font-medium mb-5">
-                The TEDx talk.
-              </h2>
+              <p className="text-xs font-medium tracking-widest text-cream/40 uppercase mb-3">Watch</p>
+              <h2 className="font-serif text-4xl font-medium mb-5">The TEDx talk.</h2>
               <p className="text-cream/60 leading-relaxed mb-6">
                 &ldquo;Managing Risk&rdquo; — a framework I built for reading consequence in the mountains,
                 and how the same thinking applies everywhere else. Filmed at TEDxVail.
@@ -852,7 +783,7 @@ export default function MediaPage() {
             {[
               { label: 'YouTube', handle: '@ChrisDavenport', url: 'https://www.youtube.com/@ChrisDavenport' },
               { label: 'Instagram', handle: '@steepskiing', url: 'https://www.instagram.com/steepskiing/' },
-              { label: 'Red Bull', handle: 'Faces of Dav series', url: 'https://www.redbull.com' },
+              { label: 'Red Bull — Faces of Dav', handle: 'Watch the series', url: 'https://www.redbull.tv/en/page/rrn:content:shows:ffd3a55c-2847-5e9f-ad84-5401972c77a9/faces-of-dav?play=false' },
             ].map(({ label, handle, url }) => (
               <a
                 key={label}
@@ -877,9 +808,7 @@ export default function MediaPage() {
       <section className="mx-auto max-w-7xl px-6 lg:px-10 py-20">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-start">
           <div>
-            <p className="text-xs font-medium tracking-widest text-navy/40 uppercase mb-2">
-              Recognition
-            </p>
+            <p className="text-xs font-medium tracking-widest text-navy/40 uppercase mb-2">Recognition</p>
             <h2 className="font-serif text-4xl font-medium text-navy">
               Awards &amp;<br />honours.
             </h2>
@@ -909,9 +838,7 @@ export default function MediaPage() {
             ].map(({ year, title, body }) => (
               <div key={title} className="flex gap-6">
                 <div className="flex-shrink-0 w-20 pt-0.5">
-                  <p className="text-xs font-medium text-navy/35 uppercase tracking-wide leading-tight">
-                    {year}
-                  </p>
+                  <p className="text-xs font-medium text-navy/35 uppercase tracking-wide leading-tight">{year}</p>
                 </div>
                 <div>
                   <p className="font-medium text-navy leading-snug">{title}</p>

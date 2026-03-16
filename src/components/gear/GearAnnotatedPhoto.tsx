@@ -180,8 +180,8 @@ export function GearAnnotatedPhoto() {
           </p>
         </div>
 
-        {/* Active gear detail panel — fixed height to prevent layout shift */}
-        <div className="px-6 py-5 border-b border-navy/10 bg-navy/[0.03] flex-shrink-0" style={{ minHeight: '140px' }}>
+        {/* Active gear detail panel — fixed height so layout never shifts */}
+        <div className="px-6 py-5 border-b border-navy/10 bg-navy/[0.03] flex-shrink-0 overflow-hidden" style={{ height: '160px' }}>
           {activeGear ? (
             <div className="flex items-start gap-3">
               {/* Brand logo */}
