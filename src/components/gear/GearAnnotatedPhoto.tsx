@@ -11,111 +11,111 @@ interface GearPin {
   brand: string
   description: string
   url: string
-  logo: string  // clearbit or local
+  logo: string
 }
 
 /**
- * Pins are mapped to the real gear_map.jpg photo.
- * Chris is mid-turn in deep powder wearing:
- *   - Norrøna jacket (orange, fills upper body)
- *   - Norrøna pants (dark blue/black, lower body)
- *   - Aniiu gloves (leather, both hands visible)
- *   - Ortovox backpack (strap visible over right shoulder)
- *   - DPS skis (black tips at bottom left)
- *   - ATK bindings (at boot/ski junction)
- *   - Scarpa boots (feet area)
- *   - Ski bases treated with Mountain Flow + Phantom Glide
+ * Pin positions mapped to gear_map.jpg.
+ * Chris mid-turn, orange Norrøna jacket, black pants, brown Aniiu gloves,
+ * Ortovox backpack strap across chest, DPS skis + ATK + SCARPA + wax products
+ * visible along the ski tips at bottom-left.
+ *
+ * 1 = orange jacket (chest)
+ * 2 = black pants (lower body)
+ * 3 = brown leather glove (left hand, holding pole)
+ * 4 = backpack strap crossing front chest
+ * 5–9 = along the black ski tips at bottom-left (spread diagonally, no overlap)
  */
 const PINS: GearPin[] = [
   {
     id: 'jacket',
-    x: 58,
-    y: 30,
+    x: 60,
+    y: 28,
     label: 'Shell Jacket',
     brand: 'Norrøna',
     description: "Norrøna Lofoten GTX Pro. The jacket I've trusted in every storm from Chamonix to Antarctica. Fully waterproof, engineered for skiing, and it moves the way a ski jacket should.",
     url: 'https://norrona.com',
-    logo: 'https://logo.clearbit.com/norrona.com',
+    logo: '/images/sponsors/norrona.png',
   },
   {
     id: 'pants',
-    x: 50,
-    y: 58,
+    x: 47,
+    y: 65,
     label: 'Shell Pants',
     brand: 'Norrøna',
     description: "Norrøna Lofoten GTX Pro pants. Same family as the jacket. Articulated for skinning, tough enough for the descent.",
     url: 'https://norrona.com',
-    logo: 'https://logo.clearbit.com/norrona.com',
+    logo: '/images/sponsors/norrona.png',
   },
   {
-    id: 'gloves-left',
-    x: 28,
-    y: 44,
+    id: 'gloves',
+    x: 29,
+    y: 38,
     label: 'Gloves',
     brand: 'Aniiu',
     description: "Aniiu performance gloves. Warm, dexterous, durable. The kind of glove you forget you're wearing — which is exactly what you want on a long descent.",
     url: 'https://aniiu.com',
-    logo: 'https://logo.clearbit.com/aniiu.com',
+    logo: '/images/sponsors/aniiu.png',
   },
   {
     id: 'backpack',
-    x: 69,
-    y: 22,
+    x: 67,
+    y: 26,
     label: 'Backpack',
     brand: 'Ortovox',
     description: "Ortovox backpack with integrated avalanche safety system. Beacon, probe, shovel — every backcountry day, no exceptions. The pack organizes it so there's no digging around when time matters.",
     url: 'https://www.ortovox.com/se-en/',
-    logo: 'https://logo.clearbit.com/ortovox.com',
+    logo: '/images/sponsors/ortovox.png',
   },
   {
     id: 'skis',
-    x: 22,
-    y: 82,
+    x: 9,
+    y: 91,
     label: 'Skis',
     brand: 'DPS Skis',
     description: "DPS Pagoda Tour 112 RP. My go-to for ski mountaineering days — fast and confident on the descent, light enough to carry when the terrain gets vertical.",
     url: 'https://dpsskis.com',
-    logo: 'https://logo.clearbit.com/dpsskis.com',
+    logo: '/images/sponsors/dps.png',
   },
   {
     id: 'bindings',
-    x: 31,
-    y: 72,
+    x: 20,
+    y: 84,
     label: 'Bindings',
     brand: 'ATK',
     description: "ATK tech bindings. Every gram matters when you're carrying your skis up a technical ridge. ATK gives me the weight savings without compromising the hold I need on the way down.",
     url: 'https://atkbindings.com',
-    logo: 'https://logo.clearbit.com/atkbindings.com',
+    logo: '/images/sponsors/atk.png',
   },
   {
     id: 'boots',
-    x: 38,
-    y: 74,
+    x: 30,
+    y: 78,
     label: 'Boots',
     brand: 'SCARPA',
     description: "SCARPA Maestrale RS. My boot for alpine touring. The power transfer on steep terrain is precise, and the walk mode actually works. I've skied tens of thousands of vert in these.",
     url: 'https://scarpa.net',
-    logo: 'https://logo.clearbit.com/scarpa.net',
+    logo: '/images/sponsors/scarpa.png',
   },
   {
     id: 'mountainflow',
-    x: 17,
-    y: 88,
+    x: 39,
+    y: 73,
     label: 'Ski Wax',
     brand: 'mountainflow',
     description: "mountainflow eco-wax. Plant-based, non-toxic, and as fast as anything I've used. Why would you wax your skis with something you wouldn't want in the snowpack?",
     url: 'https://mountainflow.com/',
-    logo: 'https://logo.clearbit.com/mountainflow.com',
+    logo: '/images/sponsors/mountainflow.png',
   },
   {
     id: 'phantom',
-    x: 26,
-    y: 86,
+    x: 49,
+    y: 68,
     label: 'Base Treatment',
     brand: 'PHANTOM Glide',
     description: "PHANTOM Glide permanent base treatment. One application, all season. My touring skis glide better and the bases stay protected without having to wax every other day.",
     url: 'https://phantomglide.com',
-    logo: 'https://logo.clearbit.com/phantomglide.com',
+    logo: '/images/sponsors/phantom.png',
   },
 ]
 
@@ -126,7 +126,7 @@ export function GearAnnotatedPhoto() {
   return (
     <div className="grid grid-cols-1 lg:grid-cols-[1fr_380px] min-h-[600px]">
       {/* Photo with pins */}
-      <div className="relative overflow-hidden bg-navy min-h-[420px] lg:min-h-[680px]">
+      <div className="relative bg-navy min-h-[420px] lg:min-h-[680px] overflow-hidden">
         <Image
           src="/images/gear_map.jpg"
           alt="Chris Davenport skiing powder — gear annotated"
@@ -135,22 +135,21 @@ export function GearAnnotatedPhoto() {
           sizes="(min-width: 1024px) 67vw, 100vw"
         />
         {/* Subtle darkening so pins read clearly over the bright snow */}
-        <div className="absolute inset-0 bg-navy/10" />
+        <div className="absolute inset-0 bg-navy/10 pointer-events-none" />
 
         {PINS.map((pin, i) => (
           <button
             key={pin.id}
             style={{ left: `${pin.x}%`, top: `${pin.y}%` }}
-            className="absolute -translate-x-1/2 -translate-y-1/2 z-10 group"
+            className="absolute -translate-x-1/2 -translate-y-1/2 z-10"
             onClick={() => setActivePin(activePin === pin.id ? null : pin.id)}
             onMouseEnter={() => setActivePin(pin.id)}
             onMouseLeave={() => setActivePin(null)}
             aria-label={`${pin.label} — ${pin.brand}`}
           >
-
             {/* Numbered dot */}
             <span
-              className={`relative flex h-7 w-7 items-center justify-center rounded-full text-xs font-bold border-2 shadow-lg transition-all ${
+              className={`relative flex h-7 w-7 items-center justify-center rounded-full text-xs font-bold border-2 shadow-lg transition-colors duration-150 ${
                 activePin === pin.id
                   ? 'bg-cream text-navy border-cream'
                   : 'bg-navy/70 text-cream border-cream/60 backdrop-blur-sm'
@@ -159,10 +158,10 @@ export function GearAnnotatedPhoto() {
               {i + 1}
             </span>
 
-            {/* Floating label (shows on hover, desktop only) */}
+            {/* Floating label (desktop, right-side of pin) */}
             <span
-              className={`absolute left-9 top-1/2 -translate-y-1/2 hidden lg:block whitespace-nowrap rounded-lg bg-navy/90 backdrop-blur-sm px-3 py-1.5 text-xs font-medium text-cream shadow-xl pointer-events-none transition-all duration-200 ${
-                activePin === pin.id ? 'opacity-100 translate-x-0' : 'opacity-0 -translate-x-2'
+              className={`absolute left-9 top-1/2 -translate-y-1/2 hidden lg:block whitespace-nowrap rounded-lg bg-navy/90 backdrop-blur-sm px-3 py-1.5 text-xs font-medium text-cream shadow-xl pointer-events-none transition-opacity duration-150 ${
+                activePin === pin.id ? 'opacity-100' : 'opacity-0'
               }`}
             >
               {pin.brand} — {pin.label}
@@ -186,21 +185,12 @@ export function GearAnnotatedPhoto() {
           <div className="px-6 py-5 border-b border-navy/10 bg-navy/[0.03] flex-shrink-0">
             <div className="flex items-start gap-3">
               {/* Brand logo */}
-              <div className="flex-shrink-0 h-10 w-10 rounded-lg bg-white border border-navy/10 flex items-center justify-center overflow-hidden p-1">
+              <div className="flex-shrink-0 h-10 w-16 rounded-lg bg-white border border-navy/10 flex items-center justify-center overflow-hidden p-1.5">
                 {/* eslint-disable-next-line @next/next/no-img-element */}
                 <img
                   src={activeGear.logo}
                   alt={activeGear.brand}
                   className="max-h-full max-w-full object-contain"
-                  onError={(e) => {
-                    // Fallback to brand initials if logo fails to load
-                    const target = e.currentTarget
-                    target.style.display = 'none'
-                    const parent = target.parentElement
-                    if (parent) {
-                      parent.innerHTML = `<span class="text-xs font-bold text-navy/50">${activeGear.brand.slice(0, 2).toUpperCase()}</span>`
-                    }
-                  }}
                 />
               </div>
               <div className="flex-1 min-w-0">
@@ -237,7 +227,7 @@ export function GearAnnotatedPhoto() {
               >
                 {/* Number */}
                 <span
-                  className={`flex-shrink-0 h-6 w-6 rounded-full flex items-center justify-center text-xs font-bold border transition-all ${
+                  className={`flex-shrink-0 h-6 w-6 rounded-full flex items-center justify-center text-xs font-bold border transition-colors duration-150 ${
                     activePin === pin.id
                       ? 'bg-navy text-cream border-navy'
                       : 'border-navy/25 text-navy/45'
@@ -247,15 +237,12 @@ export function GearAnnotatedPhoto() {
                 </span>
 
                 {/* Brand logo */}
-                <div className="flex-shrink-0 h-7 w-7 rounded bg-white border border-navy/10 flex items-center justify-center overflow-hidden p-0.5">
+                <div className="flex-shrink-0 h-7 w-10 rounded bg-white border border-navy/10 flex items-center justify-center overflow-hidden p-0.5">
                   {/* eslint-disable-next-line @next/next/no-img-element */}
                   <img
                     src={pin.logo}
                     alt={pin.brand}
                     className="max-h-full max-w-full object-contain"
-                    onError={(e) => {
-                      e.currentTarget.style.display = 'none'
-                    }}
                   />
                 </div>
 

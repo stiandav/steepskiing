@@ -24,18 +24,25 @@ const CATEGORY_LABELS: Record<SponsorData['category'], string> = {
   'partner': 'Partners',
 }
 
-const CATEGORY_ORDER: SponsorData['category'][] = [
+// Two visual columns: left gets the core kit, right gets care/partners/advocacy.
+// Defined as separate ordered lists so we can render them side-by-side.
+const LEFT_CATEGORIES: SponsorData['category'][] = [
   'skis',
   'boots',
   'bindings',
   'apparel',
   'safety',
+]
+
+const RIGHT_CATEGORIES: SponsorData['category'][] = [
   'ski-care',
   'performance',
   'resort',
   'partner',
   'advocacy',
 ]
+
+const CATEGORY_ORDER: SponsorData['category'][] = [...LEFT_CATEGORIES, ...RIGHT_CATEGORIES]
 
 const GEAR_DESCRIPTIONS: Partial<Record<string, string>> = {
   'dps-skis':
@@ -64,12 +71,67 @@ const GEAR_DESCRIPTIONS: Partial<Record<string, string>> = {
     "Protect Our Winters is the most important organization in skiing. The mountains I've built my career on are changing. POW does something real about it — they move policy, they move votes, they move the needle. Get involved.",
 }
 
+function CategoryGroup({
+  category,
+  label,
+  items,
+  groupIndex,
+}: {
+  category: SponsorData['category']
+  label: string
+  items: SponsorData[]
+  groupIndex: number
+}) {
+  return (
+    <div key={category}>
+      <AnimateIn delay={groupIndex * 0.05}>
+        <h3 className="font-serif text-xl font-medium text-navy mb-5 pb-3 border-b border-navy/10">
+          {label}
+        </h3>
+      </AnimateIn>
+      {/* Single-item categories: full-width card. Multi-item: 2-col grid */}
+      <div className={`grid gap-4 ${items.length > 1 ? 'grid-cols-1 sm:grid-cols-2' : 'grid-cols-1'}`}>
+        {items.map((sponsor, itemIndex) => {
+          const description = GEAR_DESCRIPTIONS[sponsor.id] ?? sponsor.description ?? null
+          return (
+            <AnimateIn key={sponsor.id} delay={groupIndex * 0.05 + itemIndex * 0.07}>
+              <a
+                href={sponsor.url}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="group flex gap-5 rounded-2xl border border-navy/10 p-5 hover:border-navy/25 hover:shadow-sm transition-all h-full"
+              >
+                <div className="flex-shrink-0 h-11 w-11 rounded-xl bg-white border border-navy/10 flex items-center justify-center overflow-hidden p-1.5">
+                  {/* eslint-disable-next-line @next/next/no-img-element */}
+                  <img src={sponsor.logo} alt={sponsor.name} className="max-h-full max-w-full object-contain" />
+                </div>
+                <div className="flex-1">
+                  <div className="flex items-center gap-2">
+                    <h4 className="font-medium text-navy text-sm">{sponsor.name}</h4>
+                    <span className="text-xs text-navy/30 group-hover:text-navy/50 transition-colors">↗</span>
+                  </div>
+                  {description && (
+                    <p className="mt-1.5 text-sm text-navy/60 leading-relaxed">{description}</p>
+                  )}
+                </div>
+              </a>
+            </AnimateIn>
+          )
+        })}
+      </div>
+    </div>
+  )
+}
+
 export default function GearPage() {
-  const sponsorsByCategory = CATEGORY_ORDER.map((category) => ({
+  const allByCategory = CATEGORY_ORDER.map((category) => ({
     category,
     label: CATEGORY_LABELS[category],
     items: sponsors.filter((s) => s.category === category),
   })).filter(({ items }) => items.length > 0)
+
+  const leftGroups = allByCategory.filter((g) => LEFT_CATEGORIES.includes(g.category))
+  const rightGroups = allByCategory.filter((g) => RIGHT_CATEGORIES.includes(g.category))
 
   return (
     <>
@@ -121,56 +183,19 @@ export default function GearPage() {
             </div>
           </AnimateIn>
 
-          {sponsorsByCategory.map(({ category, label, items }, groupIndex) => (
-            <div key={category}>
-              <AnimateIn delay={groupIndex * 0.05}>
-                <h3 className="font-serif text-xl font-medium text-navy mb-6 pb-3 border-b border-navy/10">
-                  {label}
-                </h3>
-              </AnimateIn>
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
-                {items.map((sponsor, itemIndex) => {
-                  const description =
-                    GEAR_DESCRIPTIONS[sponsor.id] ?? sponsor.description ?? null
-
-                  return (
-                    <AnimateIn key={sponsor.id} delay={groupIndex * 0.05 + itemIndex * 0.07}>
-                      <a
-                        href={sponsor.url}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="group flex gap-6 rounded-2xl border border-navy/10 p-6 hover:border-navy/25 hover:shadow-sm transition-all h-full"
-                      >
-                        {/* Logo placeholder */}
-                        <div className="flex-shrink-0 h-12 w-12 rounded-xl bg-white border border-navy/10 flex items-center justify-center overflow-hidden p-1.5">
-                          {/* eslint-disable-next-line @next/next/no-img-element */}
-                          <img
-                            src={sponsor.logo}
-                            alt={sponsor.name}
-                            className="max-h-full max-w-full object-contain"
-                          />
-                        </div>
-
-                        <div className="flex-1">
-                          <div className="flex items-center gap-2">
-                            <h4 className="font-medium text-navy text-sm">{sponsor.name}</h4>
-                            <span className="text-xs text-navy/30 group-hover:text-navy/50 transition-colors">
-                              ↗
-                            </span>
-                          </div>
-                          {description && (
-                            <p className="mt-2 text-sm text-navy/60 leading-relaxed">
-                              {description}
-                            </p>
-                          )}
-                        </div>
-                      </a>
-                    </AnimateIn>
-                  )
-                })}
-              </div>
+          {/* Two-column layout: core kit left, care/partners/advocacy right */}
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-x-14 gap-y-12">
+            <div className="space-y-12">
+              {leftGroups.map(({ category, label, items }, i) => (
+                <CategoryGroup key={category} category={category} label={label} items={items} groupIndex={i} />
+              ))}
             </div>
-          ))}
+            <div className="space-y-12">
+              {rightGroups.map(({ category, label, items }, i) => (
+                <CategoryGroup key={category} category={category} label={label} items={items} groupIndex={leftGroups.length + i} />
+              ))}
+            </div>
+          </div>
         </div>
       </section>
 

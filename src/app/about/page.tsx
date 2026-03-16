@@ -30,13 +30,22 @@ const timeline = [
   { year: '2024', event: '31st consecutive Warren Miller film appearance. Running guided ski camps across four continents with the best co-guides in the business.' },
 ]
 
-// Unique photos per guide — swap with real headshots
 const GUIDE_PHOTOS: Record<string, string> = {
   'mike-douglas':     '/images/guides/mike.jpg',
   'ingrid-backstrom': '/images/guides/ingrid.jpg',
   'cody-townsend':    '/images/guides/cody.jpg',
   'elyse-saugstad':   '/images/guides/elyse.jpg',
   'tatsuya-tayagaki': '/images/guides/tatsuya.jpg',
+}
+
+// Per-guide object-position to keep faces centred in the crop window.
+// Values are CSS object-position strings (x% y%).
+const GUIDE_PHOTO_POSITION: Record<string, string> = {
+  'mike-douglas':     '50% 15%',  // close headshot, face upper-centre
+  'ingrid-backstrom': '50% 20%',  // face at top of frame
+  'cody-townsend':    '50% 20%',  // face upper-centre
+  'elyse-saugstad':   '50% 25%',  // face fills upper portion
+  'tatsuya-tayagaki': '45% 20%',  // wide shot, face upper-left-centre
 }
 
 export default function AboutPage() {
@@ -132,12 +141,13 @@ export default function AboutPage() {
           {coGuides.map((guide, i) => (
             <AnimateIn key={guide.id} delay={i * 0.08}>
               <div className="rounded-2xl border border-navy/10 overflow-hidden h-full">
-                <div className="relative h-52 bg-navy/10">
+                <div className="relative h-64 bg-navy/10">
                   <Image
                     src={GUIDE_PHOTOS[guide.id] ?? 'https://images.unsplash.com/photo-1551524164-687a55dd1126?w=600&q=80'}
                     alt={guide.name}
                     fill
                     className="object-cover"
+                    style={{ objectPosition: GUIDE_PHOTO_POSITION[guide.id] ?? '50% 20%' }}
                     sizes="(min-width: 1024px) 33vw, (min-width: 768px) 50vw, 100vw"
                   />
                 </div>

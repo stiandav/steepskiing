@@ -99,18 +99,18 @@ const FIELD_NOTES = [
 export default function JournalPage() {
   return (
     <>
-      {/* ── Hero — two-column so posts visible on load ─────────── */}
-      <section className="mx-auto max-w-7xl px-6 lg:px-10 pt-36 pb-20">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-end">
+      {/* ── Hero ─────────────────────────────────────────────────── */}
+      <section className="mx-auto max-w-7xl px-6 lg:px-10 pt-28 pb-10">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 items-start">
           <AnimateIn>
-            <p className="text-xs font-medium tracking-widest text-navy/40 uppercase mb-5">
+            <p className="text-xs font-medium tracking-widest text-navy/40 uppercase mb-2">
               Field notes
             </p>
             <h1 className="font-serif text-6xl md:text-7xl font-medium text-navy leading-none tracking-tight">
               The Journal.
             </h1>
           </AnimateIn>
-          <AnimateIn delay={0.1}>
+          <AnimateIn delay={0.1} className="lg:pt-8">
             <p className="text-navy/60 text-lg leading-relaxed">
               I write when I have something worth saying — field notes from expeditions,
               gear decisions, things I&apos;m seeing out there. No schedule, just when
@@ -121,12 +121,12 @@ export default function JournalPage() {
       </section>
 
       {/* ── Recent posts ─────────────────────────────────────────── */}
-      <section className="mx-auto max-w-7xl px-6 lg:px-10 pt-20 pb-20 border-b border-navy/8">
+      <section className="mx-auto max-w-7xl px-6 lg:px-10 pt-10 pb-20 border-b border-navy/8">
         <AnimateIn>
           <p className="text-xs font-medium tracking-widest text-navy/40 uppercase mb-2">
             Recent
           </p>
-          <h2 className="font-serif text-4xl md:text-5xl font-medium text-navy leading-tight mb-12">
+          <h2 className="font-serif text-4xl md:text-5xl font-medium text-navy leading-tight mb-8">
             Latest writing.
           </h2>
         </AnimateIn>

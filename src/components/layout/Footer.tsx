@@ -49,7 +49,7 @@ export function Footer() {
               <a href="https://www.linkedin.com/in/chris-davenport-182a233/" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn" className="text-cream/50 hover:text-cream transition-colors">
                 <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6zM2 9h4v12H2z"/><circle cx="4" cy="4" r="2"/></svg>
               </a>
-              <a href="https://www.youtube.com/@steepskiing" target="_blank" rel="noopener noreferrer" aria-label="YouTube" className="text-cream/50 hover:text-cream transition-colors">
+              <a href="https://www.youtube.com/@ChrisDavenport" target="_blank" rel="noopener noreferrer" aria-label="YouTube" className="text-cream/50 hover:text-cream transition-colors">
                 <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M21.8 8.001a2.75 2.75 0 0 0-1.935-1.946C18.2 5.6 12 5.6 12 5.6s-6.2 0-7.865.455A2.75 2.75 0 0 0 2.2 8.001 28.75 28.75 0 0 0 1.75 12a28.75 28.75 0 0 0 .45 3.999 2.75 2.75 0 0 0 1.935 1.946C5.8 18.4 12 18.4 12 18.4s6.2 0 7.865-.455a2.75 2.75 0 0 0 1.935-1.946A28.75 28.75 0 0 0 22.25 12a28.75 28.75 0 0 0-.45-3.999ZM9.75 15.02V8.98L15.5 12l-5.75 3.02Z"/></svg>
               </a>
             </div>
@@ -62,9 +62,9 @@ export function Footer() {
               <li className="pl-3"><Link href="/trips/antarctica-2027" className="text-sm text-cream/40 hover:text-cream/80 transition-colors">↳ Antarctica</Link></li>
               <li className="pl-3"><Link href="/trips/japan-2027" className="text-sm text-cream/40 hover:text-cream/80 transition-colors">↳ Japan</Link></li>
               <li className="pl-3"><Link href="/trips/switzerland-2026" className="text-sm text-cream/40 hover:text-cream/80 transition-colors">↳ Switzerland</Link></li>
-              <li className="pt-1"><Link href="/media" className="text-sm text-cream/60 hover:text-cream transition-colors">Media</Link></li>
             </ul>
             <ul className="space-y-3">
+              <li><Link href="/media" className="text-sm text-cream/60 hover:text-cream transition-colors">Media</Link></li>
               <li><Link href="/gear" className="text-sm text-cream/60 hover:text-cream transition-colors">Gear</Link></li>
               <li><Link href="/journal" className="text-sm text-cream/60 hover:text-cream transition-colors">Journal</Link></li>
               <li><Link href="/about" className="text-sm text-cream/60 hover:text-cream transition-colors">About</Link></li>
@@ -73,12 +73,8 @@ export function Footer() {
           </div>
         </div>
 
-        <div className="mt-14 pt-8 border-t border-cream/10 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 text-xs text-cream/30">
+        <div className="mt-14 pt-8 border-t border-cream/10 text-xs text-cream/30">
           <p>© {currentYear} Chris Davenport. All rights reserved.</p>
-          <div className="flex gap-6">
-            <Link href="/privacy" className="hover:text-cream/60 transition-colors">Privacy</Link>
-            <Link href="/terms" className="hover:text-cream/60 transition-colors">Terms</Link>
-          </div>
         </div>
       </div>
     </footer>
