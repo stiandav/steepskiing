@@ -77,7 +77,7 @@ export function HeroSection() {
           alt="Chris Davenport skiing steep open terrain from above"
           fill
           priority
-          className="object-cover object-center"
+          className="object-cover object-right md:object-center"
           sizes="100vw"
         />
       </div>

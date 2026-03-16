@@ -8,6 +8,26 @@ import { Badge } from '@/components/ui/Badge'
 import { InquiryForm } from '@/components/contact/InquiryForm'
 import { formatPrice, getStatusBadge } from '@/lib/utils'
 
+// Guide portrait photos (local)
+const GUIDE_PHOTOS: Record<string, string> = {
+  'chris-davenport':  '/images/guides/chris_portrait.avif',
+  'mike-douglas':     '/images/guides/mike.jpg',
+  'ingrid-backstrom': '/images/guides/ingrid.jpg',
+  'cody-townsend':    '/images/guides/cody.jpg',
+  'elyse-saugstad':   '/images/guides/elyse.jpg',
+  'tatsuya-tayagaki': '/images/guides/tatsuya.jpg',
+}
+
+// Per-guide object-position so faces are centred in the circular crop
+const GUIDE_PHOTO_POSITION: Record<string, string> = {
+  'chris-davenport':  '50% 15%',
+  'mike-douglas':     '50% 15%',
+  'ingrid-backstrom': '50% 20%',
+  'cody-townsend':    '50% 20%',
+  'elyse-saugstad':   '50% 25%',
+  'tatsuya-tayagaki': '45% 20%',
+}
+
 // Destination hero images — replace with Chris's real photography when available
 const DESTINATION_IMAGES: Record<string, string> = {
   'switzerland-2026':
@@ -208,14 +228,15 @@ export default async function TripPage({ params }: Props) {
                     if (!guide) return null
                     return (
                       <div key={guide.id} className="flex gap-4 rounded-xl border border-navy/10 p-5">
-                        <div className="relative h-16 w-16 flex-shrink-0 rounded-full overflow-hidden bg-navy/10">
-                          {guide.image && (
+                        <div className="relative h-20 w-20 flex-shrink-0 rounded-full overflow-hidden bg-navy/10">
+                          {GUIDE_PHOTOS[guide.id] && (
                             <Image
-                              src={guide.image}
+                              src={GUIDE_PHOTOS[guide.id]}
                               alt={guide.name}
                               fill
                               className="object-cover"
-                              sizes="64px"
+                              style={{ objectPosition: GUIDE_PHOTO_POSITION[guide.id] ?? '50% 20%' }}
+                              sizes="80px"
                             />
                           )}
                         </div>

@@ -180,9 +180,9 @@ export function GearAnnotatedPhoto() {
           </p>
         </div>
 
-        {/* Active gear detail panel */}
-        {activeGear && (
-          <div className="px-6 py-5 border-b border-navy/10 bg-navy/[0.03] flex-shrink-0">
+        {/* Active gear detail panel — fixed height to prevent layout shift */}
+        <div className="px-6 py-5 border-b border-navy/10 bg-navy/[0.03] flex-shrink-0" style={{ minHeight: '140px' }}>
+          {activeGear ? (
             <div className="flex items-start gap-3">
               {/* Brand logo */}
               <div className="flex-shrink-0 h-10 w-16 rounded-lg bg-white border border-navy/10 flex items-center justify-center overflow-hidden p-1.5">
@@ -210,8 +210,10 @@ export function GearAnnotatedPhoto() {
                 </a>
               </div>
             </div>
-          </div>
-        )}
+          ) : (
+            <p className="text-xs text-navy/30 italic pt-1">Hover or tap a pin to see gear details.</p>
+          )}
+        </div>
 
         {/* Pin list */}
         <ul className="overflow-y-auto flex-1">

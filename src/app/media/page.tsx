@@ -205,13 +205,69 @@ const FILMS: Film[] = [
   },
 ]
 
-const PHOTOS = [
-  { src: '/images/hero_shot.jpg', alt: 'Chris Davenport on steep terrain' },
-  { src: '/images/ant.jpg', alt: 'Antarctica expedition' },
-  { src: '/images/portillo.jpg', alt: 'Portillo, Chile' },
-  { src: '/images/japow.png', alt: 'Japan powder' },
-  { src: '/images/switz.webp', alt: 'Engelberg, Switzerland' },
-  { src: '/images/gear_map.jpg', alt: 'Deep powder run' },
+interface Photo {
+  src: string
+  alt: string
+  location: string
+  caption: string
+}
+
+const PHOTOS: Photo[] = [
+  {
+    src: '/images/hero_shot.jpg',
+    alt: 'Chris Davenport on steep terrain',
+    location: 'Colorado',
+    caption: 'Open faces above 13,000 feet. Colorado is where the season starts and ends every year.',
+  },
+  {
+    src: '/images/ant.jpg',
+    alt: 'Antarctica expedition',
+    location: 'Antarctica',
+    caption: "The last continent. Mountains that have never been skied. The most committing terrain I've ever stood on.",
+  },
+  {
+    src: '/images/portillo.jpg',
+    alt: 'Portillo, Chile',
+    location: 'Portillo, Chile',
+    caption: "Portillo in July. The Andes are wild and cold and perfect. I've been coming here since 2004 and it still stops me.",
+  },
+  {
+    src: '/images/japow.png',
+    alt: 'Japan powder',
+    location: 'Hokkaido, Japan',
+    caption: "Hokkaido powder is in a category of its own. Light, deep, relentless. There's nowhere like it in the world.",
+  },
+  {
+    src: '/images/switz.webp',
+    alt: 'Engelberg, Switzerland',
+    location: 'Engelberg, Switzerland',
+    caption: "The north-facing shots above the Titlis hold cold snow all the way to the valley. Classic Swiss alpinism.",
+  },
+  {
+    src: '/images/gear_map.jpg',
+    alt: 'Deep powder run',
+    location: 'Aspen, Colorado',
+    caption: "Home terrain. Aspen Snowmass is where I train every season and where my kids learned to ski.",
+  },
+]
+
+const BOOKS = [
+  {
+    title: 'Ski the 14ers: A Visual Tribute to Colorado\'s 14,000-Foot Peaks from the Eyes of a Ski Mountaineer',
+    author: 'Chris Davenport',
+    year: '2008',
+    publisher: 'Fulcrum Publishing',
+    description: 'Documenting the first-ever completion of all 54 Colorado 14ers in a single ski season — a feat never accomplished before or since. Part photographic tribute, part field journal from one of the most ambitious ski mountaineering projects ever attempted in North America.',
+    url: 'https://www.amazon.com/Ski-14ers-Colorado-14000-Foot-Mountaineer/dp/1555916597',
+  },
+  {
+    title: '50 Classic Ski Descents of North America',
+    author: 'Chris Davenport, Art Burrows, and Penn Newhard',
+    year: '2011',
+    publisher: 'The Mountaineers Books',
+    description: 'The definitive guide to the continent\'s most compelling ski mountaineering objectives — from Alaskan faces to the Rockies to the Pacific Northwest volcanoes. A field guide and bucket list in one, built from decades of first-hand exploration across the range.',
+    url: 'https://www.amazon.com/Classic-Ski-Descents-North-America/dp/159485368X',
+  },
 ]
 
 const PRESS = [
@@ -322,7 +378,6 @@ function FilmGallery() {
   const cardRefs = useRef<(HTMLDivElement | null)[]>([])
   const [activeFilm, setActiveFilm] = useState<Film | null>(null)
 
-  // Per-card base rotation + vertical offset (stable ref, never changes)
   const BASE = useRef(
     FILMS.map((_, i) => ({
       rotation: ((i % 7) - 3) * 0.85 + (i % 2 === 0 ? 0.25 : -0.35),
@@ -330,7 +385,6 @@ function FilmGallery() {
     }))
   )
 
-  // Set initial transforms once on mount
   useGSAP(
     () => {
       cardRefs.current.forEach((card, i) => {
@@ -348,14 +402,7 @@ function FilmGallery() {
       if (!card) return
       const base = BASE.current[j]
       if (j === index) {
-        gsap.to(card, {
-          scale: 1.1,
-          y: -22,
-          rotation: 0,
-          zIndex: 100,
-          duration: 0.3,
-          ease: 'power2.out',
-        })
+        gsap.to(card, { scale: 1.1, y: -22, rotation: 0, zIndex: 100, duration: 0.3, ease: 'power2.out' })
       } else {
         const dist = j - index
         const fanX = Math.sign(dist) * Math.min(Math.abs(dist) * 14, 55)
@@ -377,21 +424,13 @@ function FilmGallery() {
     cardRefs.current.forEach((card, j) => {
       if (!card) return
       const base = BASE.current[j]
-      gsap.to(card, {
-        x: 0,
-        rotation: base.rotation,
-        y: base.y,
-        scale: 1,
-        zIndex: j,
-        duration: 0.38,
-        ease: 'power2.out',
-      })
+      gsap.to(card, { x: 0, rotation: base.rotation, y: base.y, scale: 1, zIndex: j, duration: 0.38, ease: 'power2.out' })
     })
   }, [])
 
   return (
     <>
-      {/* ── Desktop: stacked gallery ─────────────────────────────── */}
+      {/* Desktop: stacked gallery */}
       <div className="hidden lg:block">
         <div
           ref={containerRef}
@@ -402,9 +441,7 @@ function FilmGallery() {
           {FILMS.map((film, i) => (
             <div
               key={film.id}
-              ref={(el) => {
-                cardRefs.current[i] = el
-              }}
+              ref={(el) => { cardRefs.current[i] = el }}
               className="absolute bottom-2 cursor-pointer"
               style={{ left: `${i * VISIBLE}px`, width: `${CARD_W}px`, height: `${CARD_H}px` }}
               onMouseEnter={() => handleEnter(i)}
@@ -421,7 +458,6 @@ function FilmGallery() {
           ))}
         </div>
 
-        {/* Animated info panel */}
         <div className="mt-8 min-h-[110px]">
           <AnimatePresence mode="wait">
             {activeFilm ? (
@@ -436,9 +472,7 @@ function FilmGallery() {
                 <p className="text-xs text-navy/40 uppercase tracking-widest font-medium mb-1.5">
                   {activeFilm.studio} · {activeFilm.year}
                 </p>
-                <h3 className="font-serif text-2xl font-medium text-navy mb-2">
-                  {activeFilm.title}
-                </h3>
+                <h3 className="font-serif text-2xl font-medium text-navy mb-2">{activeFilm.title}</h3>
                 <p className="text-sm text-navy/60 leading-relaxed">{activeFilm.description}</p>
                 {activeFilm.href !== '#' && (
                   <a
@@ -466,7 +500,7 @@ function FilmGallery() {
         </div>
       </div>
 
-      {/* ── Mobile / tablet: grid ────────────────────────────────── */}
+      {/* Mobile / tablet: grid */}
       <div className="lg:hidden grid grid-cols-3 sm:grid-cols-4 md:grid-cols-5 gap-3">
         {FILMS.map((film, i) => (
           <Link
@@ -480,6 +514,161 @@ function FilmGallery() {
           >
             <FilmCover film={film} index={i} />
           </Link>
+        ))}
+      </div>
+    </>
+  )
+}
+
+// ─────────────────────────────────────────────────────────────────────────────
+// PHOTO GALLERY — GSAP stacked book-style (real photos)
+// ─────────────────────────────────────────────────────────────────────────────
+
+const PHOTO_W = 260
+const PHOTO_H = 174
+const PHOTO_VISIBLE = 80
+const PHOTO_STACK_W = PHOTO_VISIBLE * (PHOTOS.length - 1) + PHOTO_W // 680px
+
+function PhotoGallery() {
+  const containerRef = useRef<HTMLDivElement>(null)
+  const cardRefs = useRef<(HTMLDivElement | null)[]>([])
+  const [activePhoto, setActivePhoto] = useState<Photo | null>(null)
+
+  const BASE = useRef(
+    PHOTOS.map((_, i) => ({
+      rotation: ((i % 5) - 2) * 1.2 + (i % 2 === 0 ? 0.3 : -0.4),
+      y: [0, 4, 2, 5, 1, 3][i % 6],
+    }))
+  )
+
+  useGSAP(
+    () => {
+      cardRefs.current.forEach((card, i) => {
+        if (!card) return
+        const { rotation, y } = BASE.current[i]
+        gsap.set(card, { rotation, y, x: 0, scale: 1, zIndex: i })
+      })
+    },
+    { scope: containerRef }
+  )
+
+  const handleEnter = useCallback((index: number) => {
+    setActivePhoto(PHOTOS[index])
+    cardRefs.current.forEach((card, j) => {
+      if (!card) return
+      const base = BASE.current[j]
+      if (j === index) {
+        gsap.to(card, { scale: 1.07, y: -18, rotation: 0, zIndex: 100, duration: 0.3, ease: 'power2.out' })
+      } else {
+        const dist = j - index
+        const fanX = Math.sign(dist) * Math.min(Math.abs(dist) * 18, 60)
+        gsap.to(card, {
+          x: fanX,
+          rotation: base.rotation + Math.sign(dist) * Math.min(Math.abs(dist) * 0.5, 2.5),
+          y: base.y,
+          scale: 1,
+          zIndex: j,
+          duration: 0.3,
+          ease: 'power2.out',
+        })
+      }
+    })
+  }, [])
+
+  const handleLeave = useCallback(() => {
+    setActivePhoto(null)
+    cardRefs.current.forEach((card, j) => {
+      if (!card) return
+      const base = BASE.current[j]
+      gsap.to(card, { x: 0, rotation: base.rotation, y: base.y, scale: 1, zIndex: j, duration: 0.38, ease: 'power2.out' })
+    })
+  }, [])
+
+  return (
+    <>
+      {/* Desktop: stacked gallery */}
+      <div className="hidden lg:block">
+        <div
+          ref={containerRef}
+          className="relative"
+          style={{ width: `${PHOTO_STACK_W}px`, height: `${PHOTO_H + 64}px` }}
+          onMouseLeave={handleLeave}
+        >
+          {PHOTOS.map((photo, i) => (
+            <div
+              key={photo.src}
+              ref={(el) => { cardRefs.current[i] = el }}
+              className="absolute bottom-2 cursor-pointer"
+              style={{ left: `${i * PHOTO_VISIBLE}px`, width: `${PHOTO_W}px`, height: `${PHOTO_H}px` }}
+              onMouseEnter={() => handleEnter(i)}
+            >
+              <div className="w-full h-full rounded-xl overflow-hidden shadow-2xl relative ring-1 ring-white/20">
+                <Image
+                  src={photo.src}
+                  alt={photo.alt}
+                  fill
+                  className="object-cover select-none"
+                  sizes="260px"
+                  draggable={false}
+                />
+                {/* Subtle vignette so the stack reads as depth */}
+                <div className="absolute inset-0 bg-gradient-to-t from-black/30 to-transparent pointer-events-none rounded-xl" />
+              </div>
+            </div>
+          ))}
+        </div>
+
+        <div className="mt-8 min-h-[80px]">
+          <AnimatePresence mode="wait">
+            {activePhoto ? (
+              <motion.div
+                key={activePhoto.src}
+                initial={{ opacity: 0, y: 8 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: 8 }}
+                transition={{ duration: 0.16 }}
+                className="max-w-2xl"
+              >
+                <p className="text-xs text-navy/40 uppercase tracking-widest font-medium mb-1.5">
+                  {activePhoto.location}
+                </p>
+                <p className="text-sm text-navy/60 leading-relaxed">{activePhoto.caption}</p>
+              </motion.div>
+            ) : (
+              <motion.p
+                key="hint"
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                exit={{ opacity: 0 }}
+                className="text-sm text-navy/30 italic"
+              >
+                Hover a photo — {PHOTOS.length} locations.
+              </motion.p>
+            )}
+          </AnimatePresence>
+        </div>
+      </div>
+
+      {/* Mobile / tablet: grid */}
+      <div className="lg:hidden grid grid-cols-2 sm:grid-cols-3 gap-3">
+        {PHOTOS.map((photo) => (
+          <div
+            key={photo.src}
+            className="relative rounded-xl overflow-hidden bg-navy/10"
+            style={{ height: '160px' }}
+          >
+            <Image
+              src={photo.src}
+              alt={photo.alt}
+              fill
+              className="object-cover"
+              sizes="(max-width: 640px) 50vw, 33vw"
+            />
+            <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent" />
+            <p className="absolute bottom-2 left-3 text-[10px] text-white/70 font-medium uppercase tracking-widest">
+              {photo.location}
+            </p>
+          </div>
         ))}
       </div>
     </>
@@ -516,8 +705,64 @@ export default function MediaPage() {
         </div>
       </section>
 
+      {/* ── Books ──────────────────────────────────────────────────────────── */}
+      <section className="mx-auto max-w-7xl px-6 lg:px-10 py-20 border-b border-navy/10">
+        <div className="mb-10">
+          <p className="text-xs font-medium tracking-widest text-navy/40 uppercase mb-2">
+            Written
+          </p>
+          <h2 className="font-serif text-4xl md:text-5xl font-medium text-navy">
+            The books.
+          </h2>
+        </div>
+
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+          {BOOKS.map((book) => (
+            <a
+              key={book.title}
+              href={book.url}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="group flex gap-5 rounded-2xl border border-navy/10 bg-white/70 p-7 hover:border-navy/25 hover:bg-white transition-all"
+            >
+              <div className="flex-shrink-0 w-1.5 rounded-full bg-navy/20 group-hover:bg-navy/40 transition-colors self-stretch min-h-[3rem]" />
+              <div>
+                <p className="font-serif text-xl font-medium text-navy leading-snug group-hover:text-navy/80 transition-colors">
+                  {book.title}
+                </p>
+                <p className="text-xs text-navy/40 uppercase tracking-widest mt-1.5">
+                  {book.author} · {book.publisher} · {book.year}
+                </p>
+                <p className="mt-4 text-sm text-navy/60 leading-relaxed">
+                  {book.description}
+                </p>
+                <span className="mt-4 inline-flex items-center gap-1 text-xs font-medium text-navy/40 group-hover:text-navy/70 transition-colors">
+                  View on Amazon ↗
+                </span>
+              </div>
+            </a>
+          ))}
+        </div>
+      </section>
+
+      {/* ── Photography ────────────────────────────────────────────────────── */}
+      <section className="mx-auto max-w-7xl px-6 lg:px-10 py-20 border-b border-navy/10">
+        <div className="mb-10">
+          <p className="text-xs font-medium tracking-widest text-navy/40 uppercase mb-2">
+            Photography
+          </p>
+          <h2 className="font-serif text-4xl md:text-5xl font-medium text-navy">
+            From the field.
+          </h2>
+          <p className="mt-3 text-navy/55 max-w-lg">
+            Chile, Antarctica, Japan, Switzerland, Colorado. The places that define the program.
+          </p>
+        </div>
+        <PhotoGallery />
+      </section>
+
       {/* ── Filmography ────────────────────────────────────────────────────── */}
-      <section className="mx-auto max-w-7xl px-6 lg:px-10 py-20">
+      <section className="mx-auto max-w-7xl px-6 lg:px-10 py-20 border-b border-navy/10">
         <div className="mb-10">
           <p className="text-xs font-medium tracking-widest text-navy/40 uppercase mb-2">
             Filmography
@@ -530,12 +775,45 @@ export default function MediaPage() {
             still running. Hover a cover to read about the film.
           </p>
         </div>
-
         <FilmGallery />
       </section>
 
+      {/* ── Press ──────────────────────────────────────────────────────────── */}
+      <section className="bg-cream/50 border-b border-navy/10">
+        <div className="mx-auto max-w-7xl px-6 lg:px-10 py-20">
+          <div className="mb-10">
+            <p className="text-xs font-medium tracking-widest text-navy/40 uppercase mb-2">
+              Press
+            </p>
+            <h2 className="font-serif text-4xl md:text-5xl font-medium text-navy">
+              In print.
+            </h2>
+          </div>
+          <div className="max-w-2xl divide-y divide-navy/8">
+            {PRESS.map((article) => (
+              <a
+                key={article.headline}
+                href={article.url}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="group flex items-start gap-4 py-5 hover:opacity-80 transition-opacity"
+              >
+                <div className="flex-1 min-w-0">
+                  <p className="text-sm font-medium text-navy leading-snug">{article.headline}</p>
+                  <p className="text-xs text-navy/40 mt-0.5 uppercase tracking-widest">
+                    {article.outlet} · {article.year}
+                  </p>
+                  <p className="text-xs text-navy/50 mt-1.5 leading-relaxed">{article.description}</p>
+                </div>
+                <span className="flex-shrink-0 text-navy/25 group-hover:text-navy/50 transition-colors text-xs pt-0.5">↗</span>
+              </a>
+            ))}
+          </div>
+        </div>
+      </section>
+
       {/* ── TEDx / Watch ───────────────────────────────────────────────────── */}
-      <section className="bg-navy text-cream">
+      <section className="bg-navy text-cream border-b border-cream/10">
         <div className="mx-auto max-w-7xl px-6 lg:px-10 py-20">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 items-start">
             <div>
@@ -570,7 +848,6 @@ export default function MediaPage() {
             </div>
           </div>
 
-          {/* Additional channels */}
           <div className="mt-16 pt-10 border-t border-cream/10 flex flex-wrap gap-4">
             {[
               { label: 'YouTube', handle: '@ChrisDavenport', url: 'https://www.youtube.com/@ChrisDavenport' },
@@ -592,141 +869,6 @@ export default function MediaPage() {
                 </div>
               </a>
             ))}
-          </div>
-        </div>
-      </section>
-
-      {/* ── Photography ────────────────────────────────────────────────────── */}
-      <section className="py-20">
-        <div className="mx-auto max-w-7xl px-6 lg:px-10 mb-10">
-          <p className="text-xs font-medium tracking-widest text-navy/40 uppercase mb-2">
-            Photography
-          </p>
-          <h2 className="font-serif text-4xl md:text-5xl font-medium text-navy">
-            From the field.
-          </h2>
-          <p className="mt-3 text-navy/55 max-w-lg">
-            Chile, Antarctica, Japan, Switzerland, Colorado. The places that define the program.
-          </p>
-        </div>
-
-        {/* Horizontal scroll */}
-        <div className="overflow-x-auto pb-2 pl-6 lg:pl-10">
-          <div className="flex gap-4" style={{ width: 'max-content' }}>
-            {PHOTOS.map((photo, i) => (
-              <div
-                key={photo.src}
-                className="relative flex-shrink-0 rounded-2xl overflow-hidden bg-navy/10"
-                style={{
-                  width: i % 3 === 0 ? '400px' : i % 3 === 1 ? '310px' : '355px',
-                  height: '272px',
-                }}
-              >
-                <Image
-                  src={photo.src}
-                  alt={photo.alt}
-                  fill
-                  className="object-cover"
-                  sizes="400px"
-                />
-              </div>
-            ))}
-            <div className="flex-shrink-0 w-6 lg:w-10" />
-          </div>
-        </div>
-      </section>
-
-      {/* ── Written Media ──────────────────────────────────────────────────── */}
-      <section className="bg-cream/50 border-t border-navy/10">
-        <div className="mx-auto max-w-7xl px-6 lg:px-10 py-20">
-          <div className="mb-12">
-            <p className="text-xs font-medium tracking-widest text-navy/40 uppercase mb-2">
-              Written
-            </p>
-            <h2 className="font-serif text-4xl md:text-5xl font-medium text-navy">
-              Books &amp; press.
-            </h2>
-          </div>
-
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-16">
-            {/* Books — update titles/details below */}
-            <div>
-              <h3 className="font-serif text-2xl font-medium text-navy mb-6 pb-3 border-b border-navy/10">
-                Books
-              </h3>
-              <div className="space-y-5">
-                {[
-                  {
-                    title: 'REPLACE_WITH_BOOK_1_TITLE',
-                    year: 'YEAR',
-                    publisher: 'PUBLISHER',
-                    description: 'Replace this with the book description.',
-                    url: '#',
-                  },
-                  {
-                    title: 'REPLACE_WITH_BOOK_2_TITLE',
-                    year: 'YEAR',
-                    publisher: 'PUBLISHER',
-                    description: 'Replace this with the book description.',
-                    url: '#',
-                  },
-                ].map((book) => (
-                  <a
-                    key={book.title}
-                    href={book.url}
-                    className="group flex gap-5 rounded-2xl border border-navy/10 bg-white/70 p-6 hover:border-navy/25 hover:bg-white transition-all block"
-                  >
-                    <div className="flex gap-5 items-start">
-                      <div className="flex-shrink-0 w-1.5 rounded-full bg-navy/20 group-hover:bg-navy/40 transition-colors self-stretch min-h-[3rem]" />
-                      <div>
-                        <p className="font-serif text-lg font-medium text-navy leading-tight group-hover:text-navy/80 transition-colors">
-                          {book.title}
-                        </p>
-                        <p className="text-xs text-navy/40 uppercase tracking-widest mt-1">
-                          {book.publisher} · {book.year}
-                        </p>
-                        <p className="mt-3 text-sm text-navy/60 leading-relaxed">
-                          {book.description}
-                        </p>
-                      </div>
-                    </div>
-                  </a>
-                ))}
-              </div>
-            </div>
-
-            {/* Press */}
-            <div>
-              <h3 className="font-serif text-2xl font-medium text-navy mb-6 pb-3 border-b border-navy/10">
-                Press
-              </h3>
-              <div className="divide-y divide-navy/8">
-                {PRESS.map((article) => (
-                  <a
-                    key={article.headline}
-                    href={article.url}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="group flex items-start gap-4 py-5 hover:opacity-80 transition-opacity"
-                  >
-                    <div className="flex-1 min-w-0">
-                      <p className="text-sm font-medium text-navy leading-snug">
-                        {article.headline}
-                      </p>
-                      <p className="text-xs text-navy/40 mt-0.5 uppercase tracking-widest">
-                        {article.outlet} · {article.year}
-                      </p>
-                      <p className="text-xs text-navy/50 mt-1.5 leading-relaxed">
-                        {article.description}
-                      </p>
-                    </div>
-                    <span className="flex-shrink-0 text-navy/25 group-hover:text-navy/50 transition-colors text-xs pt-0.5">
-                      ↗
-                    </span>
-                  </a>
-                ))}
-              </div>
-            </div>
           </div>
         </div>
       </section>
@@ -780,6 +922,19 @@ export default function MediaPage() {
           </div>
         </div>
       </section>
+
+      {/* ── CTA ────────────────────────────────────────────────────────────── */}
+      <div className="border-t border-navy/10 bg-cream/40">
+        <div className="mx-auto max-w-3xl px-6 lg:px-10 py-16 text-center">
+          <p className="text-navy/50 text-sm uppercase tracking-widest mb-4">Ski the same terrain</p>
+          <Link
+            href="/ski-camps"
+            className="inline-block font-medium text-navy border-b-2 border-navy hover:border-navy/40 transition-colors pb-0.5 text-lg"
+          >
+            View upcoming camps ↗
+          </Link>
+        </div>
+      </div>
     </>
   )
 }
