@@ -28,15 +28,15 @@ export function SponsorBar() {
               target="_blank"
               rel="noopener noreferrer"
               aria-label={sponsor.name}
-              className="flex-shrink-0 flex items-center justify-center group transition-opacity duration-200 opacity-50 hover:opacity-100"
+              className="flex-shrink-0 flex items-center justify-center group transition-opacity duration-200 opacity-75 hover:opacity-100"
               title={sponsor.name}
             >
-              <div className="relative h-8 w-24 flex items-center justify-center">
+              <div className="relative h-11 w-36 flex items-center justify-center">
                 {/* eslint-disable-next-line @next/next/no-img-element */}
                 <img
                   src={sponsor.logo}
                   alt={sponsor.name}
-                  className="max-h-8 max-w-[96px] object-contain grayscale group-hover:grayscale-0 transition-all duration-300"
+                  className="max-h-11 max-w-[144px] object-contain transition-opacity duration-300"
                   onError={(e) => {
                     const target = e.currentTarget
                     target.style.display = 'none'
