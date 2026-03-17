@@ -21,7 +21,7 @@ export function SponsorBar() {
         <div className="pointer-events-none absolute left-0 top-0 bottom-0 w-24 z-10 bg-gradient-to-r from-cream/60 to-transparent" />
         <div className="pointer-events-none absolute right-0 top-0 bottom-0 w-24 z-10 bg-gradient-to-l from-cream/60 to-transparent" />
 
-        <div className="flex shrink-0 items-center gap-16 animate-marquee">
+        <div className="flex shrink-0 items-center animate-marquee">
           {all.map((sponsor, i) => (
             <a
               key={`${sponsor.id}-${i}`}
@@ -29,7 +29,7 @@ export function SponsorBar() {
               target="_blank"
               rel="noopener noreferrer"
               aria-label={sponsor.name}
-              className="flex-shrink-0 flex items-center group transition-opacity duration-200 opacity-75 hover:opacity-100"
+              className="flex-shrink-0 flex items-center mr-16 group transition-opacity duration-200 opacity-75 hover:opacity-100"
               title={sponsor.name}
             >
               {/* eslint-disable-next-line @next/next/no-img-element */}
@@ -37,6 +37,7 @@ export function SponsorBar() {
                 src={sponsor.logo}
                 alt={sponsor.name}
                 className="h-10 w-36 object-contain"
+                style={sponsor.scale ? { transform: `scale(${sponsor.scale})` } : undefined}
                 onError={(e) => {
                   const target = e.currentTarget
                   target.style.display = 'none'
