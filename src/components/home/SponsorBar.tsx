@@ -1,61 +1,62 @@
 'use client'
 
+import { useRef } from 'react'
+import { useGSAP } from '@gsap/react'
+import gsap from 'gsap'
 import { sponsors } from '@/data/sponsors'
 
-/**
- * Infinite left-to-right sponsor logo marquee.
- * Shows real brand logos via Clearbit API with a text fallback.
- * All logos are clickable links.
- */
 export function SponsorBar() {
+  const trackRef = useRef<HTMLDivElement>(null)
+  const tweenRef = useRef<gsap.core.Tween | null>(null)
+
+  useGSAP(() => {
+    tweenRef.current = gsap.to(trackRef.current, {
+      xPercent: -50,
+      ease: 'none',
+      duration: 40,
+      repeat: -1,
+    })
+  })
+
+  // Two copies so xPercent: -50 lands exactly at the start of copy 2,
+  // which is identical to copy 1 — GSAP's repeat then resets seamlessly.
+  const all = [...sponsors, ...sponsors]
+
   return (
     <section className="border-t border-navy/10 bg-cream/60 overflow-hidden py-10">
       <p className="mb-6 text-center text-xs font-medium tracking-widest text-navy/35 uppercase">
         Partners &amp; Sponsors
       </p>
 
-      <div className="relative flex overflow-hidden" aria-label="Sponsors">
-        <div className="pointer-events-none absolute left-0 top-0 bottom-0 w-24 z-10 bg-gradient-to-r from-cream/60 to-transparent" />
-        <div className="pointer-events-none absolute right-0 top-0 bottom-0 w-24 z-10 bg-gradient-to-l from-cream/60 to-transparent" />
+      <div
+        className="relative overflow-hidden"
+        aria-label="Sponsors"
+        onMouseEnter={() => tweenRef.current?.pause()}
+        onMouseLeave={() => tweenRef.current?.resume()}
+      >
+        <div className="pointer-events-none absolute inset-y-0 left-0 w-24 z-10 bg-gradient-to-r from-cream/60 to-transparent" />
+        <div className="pointer-events-none absolute inset-y-0 right-0 w-24 z-10 bg-gradient-to-l from-cream/60 to-transparent" />
 
-        {/* Two identical tracks — each animates -100% of its own width.
-            When track 0 exits left, track 1 is already in position.
-            Both reset simultaneously; same content = seamless loop. */}
-        {[0, 1].map((copy) => (
-          <div
-            key={copy}
-            className="flex shrink-0 items-center animate-marquee"
-            aria-hidden={copy === 1 ? true : undefined}
-          >
-            {sponsors.map((sponsor) => (
-              <a
-                key={sponsor.id}
-                href={sponsor.url}
-                target="_blank"
-                rel="noopener noreferrer"
-                aria-label={sponsor.name}
-                className="flex-shrink-0 flex items-center mr-16 group transition-opacity duration-200 opacity-75 hover:opacity-100"
-                title={sponsor.name}
-              >
-                {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img
-                  src={sponsor.logo}
-                  alt={sponsor.name}
-                  className="h-11 w-auto max-w-[180px] object-contain"
-                  onError={(e) => {
-                    const target = e.currentTarget
-                    target.style.display = 'none'
-                    const fallback = target.nextElementSibling as HTMLElement
-                    if (fallback) fallback.style.display = 'block'
-                  }}
-                />
-                <span className="hidden text-xs font-semibold tracking-widest uppercase text-navy/70 whitespace-nowrap">
-                  {sponsor.name}
-                </span>
-              </a>
-            ))}
-          </div>
-        ))}
+        <div ref={trackRef} className="flex items-center">
+          {all.map((sponsor, i) => (
+            <a
+              key={`${sponsor.id}-${i}`}
+              href={sponsor.url}
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label={sponsor.name}
+              title={sponsor.name}
+              className="flex-shrink-0 flex items-center px-10 opacity-75 hover:opacity-100 transition-opacity duration-200 group"
+            >
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img
+                src={sponsor.logo}
+                alt={sponsor.name}
+                className="h-11 w-auto max-w-[160px]"
+              />
+            </a>
+          ))}
+        </div>
       </div>
     </section>
   )
