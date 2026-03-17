@@ -36,7 +36,7 @@ export function SponsorBar() {
               <img
                 src={sponsor.logo}
                 alt={sponsor.name}
-                className="h-11 w-auto max-w-[120px] object-contain"
+                className="h-10 w-36 object-contain"
                 onError={(e) => {
                   const target = e.currentTarget
                   target.style.display = 'none'
