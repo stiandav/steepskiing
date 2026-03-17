@@ -23,16 +23,16 @@ interface NavOverlayProps {
 export function NavOverlay({ onClose }: NavOverlayProps) {
   const photoTiles = [
     {
-      src: 'https://images.unsplash.com/photo-1551524164-687a55dd1126?w=600&q=80',
-      alt: 'Steep ski descent in the Alps',
+      src: '/images/photos/antarctica-cliff-drop.jpg',
+      alt: 'Chris Davenport jumping off a cliff into Antarctic sea',
     },
     {
-      src: 'https://images.unsplash.com/photo-1547201240-67e2f55a3085?w=600&q=80',
-      alt: 'Powder skiing in deep snow',
+      src: '/images/photos/chamonix-powder.jpg',
+      alt: 'Chris Davenport charging powder under a star-burst sun in Chamonix',
     },
     {
-      src: 'https://images.unsplash.com/photo-1605540436563-5bca919ae766?w=600&q=80',
-      alt: 'Mountain guide leading skiers on a ridge',
+      src: '/images/photos/above-clouds.jpg',
+      alt: 'Bootpacking a steep ridge above the clouds',
     },
   ]
 

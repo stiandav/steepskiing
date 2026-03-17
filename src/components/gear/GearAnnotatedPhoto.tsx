@@ -225,7 +225,8 @@ export function GearAnnotatedPhoto() {
                 }`}
                 onMouseEnter={() => setActivePin(pin.id)}
                 onMouseLeave={() => setActivePin(null)}
-                onClick={() => window.open(pin.url, '_blank')}
+                onClick={() => setActivePin(activePin === pin.id ? null : pin.id)}
+                aria-label={`${pin.brand} — ${pin.label}`}
               >
                 {/* Number */}
                 <span
@@ -251,7 +252,7 @@ export function GearAnnotatedPhoto() {
                 {/* Text */}
                 <div className="flex-1 min-w-0">
                   <span className="text-sm font-medium text-navy block leading-tight">{pin.label}</span>
-                  <span className="text-xs text-navy/45">{pin.brand} ↗</span>
+                  <span className="text-xs text-navy/45">{pin.brand}</span>
                 </div>
               </button>
             </li>

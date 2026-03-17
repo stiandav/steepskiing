@@ -100,7 +100,7 @@ export function HeroSection() {
 
           <h1
             data-hero-item
-            className="font-serif text-6xl md:text-8xl font-light text-navy leading-[1.0]"
+            className="font-serif text-6xl sm:text-7xl md:text-8xl font-light text-navy leading-[1.0]"
           >
             Ski the world&apos;s<br />
             <em>best terrain.</em>

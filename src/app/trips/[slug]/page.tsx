@@ -106,7 +106,7 @@ export default async function TripPage({ params }: Props) {
               {[
                 { label: 'Dates', value: trip.dates.label },
                 { label: 'Duration', value: `${trip.duration} ski days` },
-                { label: 'Price', value: formatPrice(trip.price) },
+                { label: 'Price', value: trip.price > 0 ? formatPrice(trip.price) : 'Pricing on request' },
                 {
                   label: 'Group size',
                   value: trip.spotsRemaining

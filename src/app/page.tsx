@@ -1,3 +1,4 @@
+import type { Metadata } from 'next'
 import { HeroSection } from '@/components/home/HeroSection'
 import { TripGrid } from '@/components/home/TripGrid'
 import { BioStrip } from '@/components/home/BioStrip'
@@ -6,6 +7,36 @@ import { AnimateIn } from '@/components/ui/AnimateIn'
 import { trips } from '@/data/trips'
 import { testimonials } from '@/data/testimonials'
 import Link from 'next/link'
+
+export const metadata: Metadata = {
+  title: 'Chris Davenport — Steep Skiing & Guided Ski Camps',
+  description:
+    'IFMGA-certified mountain guide and 2× World Extreme Skiing Champion. Small-group ski camps in Portillo, Switzerland, Japan, and Antarctica.',
+  openGraph: {
+    title: 'Chris Davenport — Steep Skiing & Guided Ski Camps',
+    description:
+      'Small-group ski camps led by a 2× World Extreme Skiing Champion. Portillo, the Swiss Alps, Japan, and Antarctica.',
+    url: 'https://steepskiing.com',
+    siteName: 'Steep Skiing',
+    images: [
+      {
+        url: 'https://steepskiing.com/images/hero_shot.jpg',
+        width: 1200,
+        height: 630,
+        alt: 'Chris Davenport skiing steep open terrain from above',
+      },
+    ],
+    locale: 'en_US',
+    type: 'website',
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'Chris Davenport — Steep Skiing & Guided Ski Camps',
+    description:
+      'Small-group ski camps led by a 2× World Extreme Skiing Champion. Portillo, the Swiss Alps, Japan, and Antarctica.',
+    images: ['https://steepskiing.com/images/hero_shot.jpg'],
+  },
+}
 
 export default function Home() {
   const sortedTrips = [...trips].sort((a, b) => a.sortOrder - b.sortOrder)

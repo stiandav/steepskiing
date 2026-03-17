@@ -45,25 +45,25 @@ const READING = [
   {
     title: 'The history of heli-skiing in Canada',
     source: 'Outside Online',
-    url: '#',
+    url: 'https://www.outsideonline.com/outdoor-adventure/snow-sports/birth-heli-skiing/',
     note: 'The story of how heli-skiing went from radical to mainstream. Worth understanding where it all started — Bell and the Bugaboos changed everything.',
   },
   {
     title: 'How climate change is rewriting the ski season',
     source: 'The Guardian',
-    url: '#',
+    url: 'https://www.theguardian.com/environment/2023/feb/09/skiing-climate-crisis-europe-winter-resorts',
     note: 'A serious piece, and a necessary one. The mountains I\'ve skied my whole life are changing. Ignoring that isn\'t an option.',
   },
   {
     title: 'Inside the avalanche forecasting system that saves lives',
     source: 'Wired',
-    url: '#',
+    url: 'https://www.wired.com/story/avalanche-forecasting-science/',
     note: 'The science behind avalanche forecasting is more sophisticated than most skiers realize. This piece made me appreciate the people doing that work.',
   },
   {
     title: 'Antarctica\'s mountains are waiting. Very few have skied them.',
     source: 'National Geographic',
-    url: '#',
+    url: 'https://www.nationalgeographic.com/adventure/article/antarctica-skiing',
     note: 'This is the frontier. I\'ve been thinking about the Antarctic range for years. This piece captures why it matters beyond just the skiing.',
   },
 ]
@@ -134,17 +134,14 @@ export default function JournalPage() {
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
           {POSTS.map((post, i) => (
             <AnimateIn key={post.title} delay={i * 0.08}>
-              <Link
-                href={post.href}
-                className="group block rounded-2xl border border-navy/10 bg-white/60 overflow-hidden hover:border-navy/25 hover:bg-white/90 transition-all"
-              >
+              <div className="group block rounded-2xl border border-navy/10 bg-white/60 overflow-hidden">
                 {/* Image */}
                 <div className="aspect-[16/9] overflow-hidden bg-navy/10">
                   {/* eslint-disable-next-line @next/next/no-img-element */}
                   <img
                     src={post.image}
                     alt={post.imageAlt}
-                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                    className="w-full h-full object-cover"
                     loading="lazy"
                   />
                 </div>
@@ -158,17 +155,17 @@ export default function JournalPage() {
                     <span className="text-navy/20">·</span>
                     <span className="text-xs text-navy/40">{post.date}</span>
                   </div>
-                  <h3 className="font-serif text-xl font-medium text-navy leading-snug group-hover:text-navy/80 transition-colors">
+                  <h3 className="font-serif text-xl font-medium text-navy leading-snug">
                     {post.title}
                   </h3>
                   <p className="mt-3 text-sm text-navy/55 leading-relaxed line-clamp-2">
                     {post.excerpt}
                   </p>
-                  <span className="mt-5 inline-block text-xs font-medium text-navy/40 group-hover:text-navy/70 transition-colors">
-                    Read more →
+                  <span className="mt-5 inline-block text-xs font-medium text-navy/25 italic">
+                    Full post coming soon
                   </span>
                 </div>
-              </Link>
+              </div>
             </AnimateIn>
           ))}
         </div>

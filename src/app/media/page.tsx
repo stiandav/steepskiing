@@ -318,7 +318,7 @@ const BOOKS = [
     publisher: 'Fulcrum Publishing',
     description: 'The 54 Colorado 14ers in a single ski season. Never done before. Part photographic tribute, part field journal — the whole project in one book.',
     url: 'https://www.amazon.com/Ski-14ers-2nd-Chris-Davenport-dp-0979264456/dp/0979264456/ref=dp_ob_title_bk',
-    cover: '/images/books/ski the 14ers.jpg',
+    cover: '/images/books/ski-the-14ers.jpg',
   },
   {
     title: '50 Classic Ski Descents of North America',

@@ -120,6 +120,7 @@ export const trips: TripData[] = [
     depositAmount: 500,
     currency: 'USD',
     spotsTotal: 8,
+    spotsRemaining: 8,
     status: 'available',
     heroImage: '/images/trips/japan/hero.jpg',
     destination: 'Lotte Arai Resort, Myoko, Japan',
