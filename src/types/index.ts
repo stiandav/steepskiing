@@ -54,7 +54,6 @@ export interface SponsorData {
     | 'ski-care'
     | 'partner'
   description?: string            // optional gear context for Gear page
-  scale?: number                  // optional CSS scale override (default 1)
 }
 
 export interface GuideData {
