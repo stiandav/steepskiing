@@ -37,7 +37,7 @@ export function Footer() {
               <CdLogo variant="light" />
             </Link>
             <p className="mt-4 text-sm text-cream/50 leading-relaxed max-w-xs">
-              IFMGA/AMGA certified mountain guide · 2× World Extreme Skiing Champion · 54 Colorado 14ers in a single season.
+              2× World Extreme Skiing Champion · 54 Colorado 14ers in a single season.
             </p>
             <div className="mt-6 flex gap-5 flex-wrap">
               <a href="https://www.instagram.com/steepskiing/" target="_blank" rel="noopener noreferrer" aria-label="Instagram @steepskiing" className="text-cream/50 hover:text-cream transition-colors">

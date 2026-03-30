@@ -18,9 +18,9 @@ export function BioStrip() {
             Chris Davenport
           </h2>
           <p className="mt-4 text-cream/70 leading-relaxed">
-            2× World Extreme Skiing Champion. IFMGA/AMGA certified mountain guide.
-            First to ski all 54 Colorado 14ers in a single season. Featured in
-            30+ Warren Miller and Matchstick Productions films.
+            2× World Extreme Skiing Champion. First to ski all 54 Colorado 14ers
+            in a single season. Featured in 30+ Warren Miller and Matchstick
+            Productions films.
           </p>
           <p className="mt-3 text-cream/70 leading-relaxed">
             Based in Aspen, Colorado. Has guided clients in the Alps, Andes, Himalayas,

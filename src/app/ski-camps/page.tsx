@@ -45,7 +45,7 @@ export default function SkiCampsPage() {
         {[
           {
             title: 'Expert Guiding',
-            body: 'Every camp is co-led by IFMGA/AMGA certified guides with decades of experience on technical mountain terrain. I hand-pick every co-guide personally.',
+            body: 'Every camp is co-led by world-class guides with decades of experience on technical mountain terrain. I hand-pick every co-guide personally.',
           },
           {
             title: 'Group sizes vary by camp',

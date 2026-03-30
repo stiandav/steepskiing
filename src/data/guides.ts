@@ -5,7 +5,7 @@ export const guides: GuideData[] = [
     id: 'chris-davenport',
     name: 'Chris Davenport',
     role: 'Head Guide',
-    bio: "2x World Extreme Skiing Champion (1996, 1997). IFMGA/AMGA-certified mountain guide with 30+ years leading athletes and guests through the world's most committing ski terrain. First to ski all 54 Colorado 14ers in a single season. 36 Warren Miller and MSP film appearances.",
+    bio: "2x World Extreme Skiing Champion (1996, 1997). Mountain guide with 30+ years leading athletes and guests through the world's most committing ski terrain. First to ski all 54 Colorado 14ers in a single season. 36 Warren Miller and MSP film appearances.",
     image: '/images/guides/chris_portrait.avif',
     instagram: 'steepskiing',
     tripIds: ['switzerland-2026', 'chile-2026', 'japan-2027', 'antarctica-2027'],

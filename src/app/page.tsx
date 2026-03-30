@@ -11,7 +11,7 @@ import Link from 'next/link'
 export const metadata: Metadata = {
   title: 'Chris Davenport — Steep Skiing & Guided Ski Camps',
   description:
-    'IFMGA-certified mountain guide and 2× World Extreme Skiing Champion. Small-group ski camps in Portillo, Switzerland, Japan, and Antarctica.',
+    '2× World Extreme Skiing Champion. Small-group ski camps in Portillo, Switzerland, Japan, and Antarctica.',
   openGraph: {
     title: 'Chris Davenport — Steep Skiing & Guided Ski Camps',
     description:

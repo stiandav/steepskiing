@@ -95,7 +95,7 @@ export function HeroSection() {
             data-hero-item
             className="mb-4 text-xs font-medium tracking-widest text-navy/55 uppercase"
           >
-            IFMGA / AMGA Certified Mountain Guide · 2× World Extreme Skiing Champion
+            2× World Extreme Skiing Champion
           </p>
 
           <h1

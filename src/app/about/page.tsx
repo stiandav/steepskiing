@@ -9,11 +9,10 @@ import { TimelineSection } from '@/components/about/TimelineSection'
 export const metadata: Metadata = {
   title: 'About Chris Davenport — Ski Guide & Mountain Athlete',
   description:
-    '2× World Extreme Skiing Champion, IFMGA/AMGA certified mountain guide, and one of the most accomplished ski mountaineers in history.',
+    '2× World Extreme Skiing Champion and one of the most accomplished ski mountaineers in history.',
 }
 
 const credentials = [
-  { label: 'Certification', value: 'IFMGA / AMGA Certified Mountain Guide' },
   { label: 'World Championships', value: '2× World Extreme Skiing Champion (1996, 1997)' },
   { label: 'Colorado 14ers', value: 'All 54 in a single season — a first in history' },
   { label: 'Ski films', value: '36 Warren Miller & Matchstick Productions appearances' },
@@ -24,7 +23,6 @@ const credentials = [
 const timeline = [
   { year: '1993', event: 'First Warren Miller film appearance. Begins competing on the World Extreme Skiing circuit.' },
   { year: '1996–97', event: 'Wins back-to-back World Extreme Skiing Championships. Establishes myself as one of the world\'s elite big mountain skiers.' },
-  { year: '2003', event: 'Earns AMGA certification, later becoming IFMGA certified — the highest international standard for mountain guiding.' },
   { year: '2007', event: 'Completes all 54 Colorado 14ers in a single ski season — a first in history. Still one of the things I\'m most proud of.' },
   { year: '2010s', event: 'Continue filming for Warren Miller and Matchstick Productions while building the guided ski camp program. Antarctica, the Himalayas, remote first descents worldwide.' },
   { year: '2024', event: '31st consecutive Warren Miller film appearance. Running guided ski camps across four continents with the best co-guides in the business.' },
@@ -63,7 +61,7 @@ export default function AboutPage() {
                 Chris<br /><em>Davenport</em>
               </h1>
               <p className="mt-6 text-cream/70 text-lg leading-relaxed">
-                Two-time World Extreme Skiing Champion. IFMGA/AMGA certified mountain guide.
+                Two-time World Extreme Skiing Champion.
                 First to ski all 54 Colorado 14ers in a single season.
               </p>
               <p className="mt-4 text-cream/70 leading-relaxed">
@@ -132,7 +130,7 @@ export default function AboutPage() {
           <h2 className="font-serif text-3xl font-medium text-navy">My co-guides</h2>
           <p className="mt-3 text-navy/60 max-w-xl">
             These aren&apos;t instructors I hired for the season. They&apos;re world-class pro skiers
-            and certified guides I&apos;ve skied alongside for decades. They&apos;re friends who
+            and experienced guides I&apos;ve skied alongside for decades. They&apos;re friends who
             happen to be some of the best in the business.
           </p>
         </AnimateIn>
