@@ -4,30 +4,12 @@ import Link from 'next/link'
 import { guides } from '@/data/guides'
 import { testimonials } from '@/data/testimonials'
 import { AnimateIn } from '@/components/ui/AnimateIn'
-import { TimelineSection } from '@/components/about/TimelineSection'
 
 export const metadata: Metadata = {
   title: 'About Chris Davenport — Ski Guide & Mountain Athlete',
   description:
     '2× World Extreme Skiing Champion and one of the most accomplished ski mountaineers in history.',
 }
-
-const credentials = [
-  { label: 'World Championships', value: '2× World Extreme Skiing Champion (1996, 1997)' },
-  { label: 'Hall of Fame', value: 'U.S. Ski & Snowboard Hall of Fame (2015) · Colorado Ski & Snowboard Hall of Fame (2021)' },
-  { label: 'Colorado 14ers', value: 'All 54 in a single season — a first in history' },
-  { label: 'Ski films', value: '36 Warren Miller & Matchstick Productions appearances' },
-  { label: 'Based', value: 'Aspen, Colorado' },
-  { label: 'Guiding since', value: 'Early 2000s — Alps, Andes, Himalayas, Antarctica' },
-]
-
-const timeline = [
-  { year: '1993', event: 'First Warren Miller film appearance. Begins competing on the World Extreme Skiing circuit.' },
-  { year: '1996–97', event: 'Wins back-to-back World Extreme Skiing Championships. Establishes myself as one of the world\'s elite big mountain skiers.' },
-  { year: '2007', event: 'Completes all 54 Colorado 14ers in a single ski season — a first in history. Still one of the things I\'m most proud of.' },
-  { year: '2010s', event: 'Continue filming for Warren Miller and Matchstick Productions while building the guided ski camp program. Antarctica, the Himalayas, remote first descents worldwide.' },
-  { year: '2024', event: '31st consecutive Warren Miller film appearance. Running guided ski camps across four continents with the best co-guides in the business.' },
-]
 
 const GUIDE_PHOTOS: Record<string, string> = {
   'mike-douglas':     '/images/guides/mike.jpg',
@@ -98,33 +80,6 @@ export default function AboutPage() {
               <div className="absolute inset-0 bg-gradient-to-t from-navy/30 to-transparent" />
             </AnimateIn>
           </div>
-        </div>
-      </section>
-
-      {/* Credentials */}
-      <section className="mx-auto max-w-7xl px-6 lg:px-10 pt-20 pb-10">
-        <AnimateIn>
-          <h2 className="font-serif text-3xl font-medium text-navy mb-10">Credentials</h2>
-        </AnimateIn>
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-          {credentials.map(({ label, value }, i) => (
-            <AnimateIn key={label} delay={i * 0.06}>
-              <div className="flex gap-6 rounded-xl border border-navy/10 p-5">
-                <span className="text-xs font-medium uppercase tracking-wide text-navy/40 w-36 flex-shrink-0 pt-0.5">{label}</span>
-                <span className="text-sm text-navy leading-relaxed">{value}</span>
-              </div>
-            </AnimateIn>
-          ))}
-        </div>
-      </section>
-
-      {/* Timeline */}
-      <section className="bg-cream/50 border-y border-navy/10 mt-10">
-        <div className="mx-auto max-w-7xl px-6 lg:px-10 py-20">
-          <AnimateIn>
-            <h2 className="font-serif text-3xl font-medium text-navy mb-12">Career highlights</h2>
-          </AnimateIn>
-          <TimelineSection items={timeline} />
         </div>
       </section>
 

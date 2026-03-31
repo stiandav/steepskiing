@@ -33,7 +33,7 @@ export interface TripData {
   }
   carouselImages?: Array<{ src: string; alt: string }>
   inquiryEmails: string[]
-  bookingContacts?: Array<{ name: string; email: string; role?: string }>
+  bookingContacts?: Array<{ name: string; email: string; role?: string; url?: string }>
   status: 'available' | 'nearly-sold-out' | 'sold-out'
   sortOrder: number               // chronological sort (1 = earliest)
 }

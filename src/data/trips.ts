@@ -38,6 +38,12 @@ export const trips: TripData[] = [
       'Food and beverages',
       'Personal ski equipment',
     ],
+    carouselImages: [
+      { src: '/images/photos/chris/DSC00356.jpg', alt: 'Skiing powder in the Chilean Andes at Portillo' },
+      { src: '/images/photos/chris/DSC00127.jpg', alt: 'Chris Davenport with DPS skis against the Andes backdrop' },
+      { src: '/images/photos/chris/DSC00064-2.jpg', alt: 'Chris Davenport at Portillo with the lake below' },
+      { src: '/images/photos/chris/DSC00350.jpg', alt: 'Coaching session on the slopes at Portillo' },
+    ],
     inquiryEmails: ['chris@chrisdavenport.com'],
     bookingContacts: [
       { name: 'Portillo Reservations', email: 'reservas@skiportillo.com' },
@@ -85,9 +91,15 @@ export const trips: TripData[] = [
       'Personal ski equipment',
       'Gratuities',
     ],
+    carouselImages: [
+      { src: '/images/photos/norrona/DSC00315.jpg', alt: 'Skinning alongside icebergs in Antarctica' },
+      { src: '/images/photos/norrona/test export 1-22.jpg', alt: 'Group skinning above the icebergs in Antarctica' },
+      { src: '/images/photos/norrona/test export 1-33.jpg', alt: 'Chris Davenport with glacier and icebergs behind' },
+      { src: '/images/photos/norrona/test export 1-47.jpg', alt: 'Guests on deck approaching Antarctic mountains' },
+    ],
     inquiryEmails: ['chris@chrisdavenport.com'],
     bookingContacts: [
-      { name: 'Ice Axe Expeditions', email: 'info@iceaxe.com', role: 'Expedition partner' },
+      { name: 'Ice Axe Expeditions', email: 'info@iceaxe.com', role: 'Expedition partner', url: 'https://iceaxe.tv' },
     ],
     sortOrder: 2,
   },
@@ -126,6 +138,11 @@ export const trips: TripData[] = [
       'Hotel accommodation',
       'Lift tickets (Ikon Pass or resort day tickets)',
       'Personal ski equipment',
+    ],
+    carouselImages: [
+      { src: '/images/photos/hence/20220122©KeokiFlagg12510.JPG', alt: 'Powder skiing in deep Japanese snow at Lotte Arai' },
+      { src: '/images/photos/hence/20220122©KeokiFlagg12609-2.JPG', alt: 'Skiing through snow-laden trees in Japan' },
+      { src: '/images/photos/hence/20220119©KeokiFlagg09193DavD.JPG', alt: 'Deep powder skiing in Japan with snow ghosts' },
     ],
     logistics: {
       travel: 'Fly into Tokyo (Narita/NRT or Haneda/HND), then Shinkansen bullet train to Myoko Joetsu station — approx. 2 hours',

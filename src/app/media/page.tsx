@@ -1,6 +1,7 @@
 'use client'
 
 import { useRef, useState, useCallback } from 'react'
+import { PhotoLightbox } from '@/components/media/PhotoLightbox'
 import Link from 'next/link'
 import Image from 'next/image'
 import { useGSAP } from '@gsap/react'
@@ -543,6 +544,8 @@ function StackedGallery({
 // ─────────────────────────────────────────────────────────────────────────────
 
 export default function MediaPage() {
+  const [lightboxPhoto, setLightboxPhoto] = useState<typeof PHOTOS[0] | null>(null)
+
   // Build film cards
   const filmCards: GalleryCard[] = FILMS.map((film) => ({
     id: film.id,
@@ -577,7 +580,7 @@ export default function MediaPage() {
   const photoCards: GalleryCard[] = PHOTOS.map((photo) => ({
     id: photo.src,
     render: () => (
-      <div className="w-full h-full rounded-xl overflow-hidden shadow-xl relative ring-1 ring-white/10">
+      <div className="w-full h-full rounded-xl overflow-hidden shadow-xl relative ring-1 ring-white/10 cursor-pointer" onClick={() => setLightboxPhoto(photo)}>
         <Image src={photo.src} alt={photo.alt} fill className="object-cover select-none" sizes="260px" draggable={false} />
         <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent pointer-events-none rounded-xl" />
         <p className="absolute bottom-2 left-2.5 text-[9px] text-white/70 font-medium uppercase tracking-wider">
@@ -659,7 +662,7 @@ export default function MediaPage() {
           <p className="text-xs font-medium tracking-widest text-navy/40 uppercase mb-2">Photography</p>
           <h2 className="font-serif text-3xl md:text-4xl font-medium text-navy">From the field.</h2>
           <p className="mt-3 text-navy/50 max-w-lg text-sm">
-            Antarctica, Alaska, the Alps, Chile, Colorado. Hover a photo to see where it was taken.
+            Antarctica, Alaska, the Alps, Chile, Colorado. Hover a photo — click to enlarge.
           </p>
         </div>
         <StackedGallery
@@ -802,6 +805,8 @@ export default function MediaPage() {
           </div>
         </div>
       </section>
+
+      <PhotoLightbox photo={lightboxPhoto} onClose={() => setLightboxPhoto(null)} />
 
       {/* ── CTA ────────────────────────────────────────────────────────────── */}
       <div className="border-t border-navy/10 bg-cream/40">

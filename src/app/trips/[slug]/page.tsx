@@ -7,6 +7,7 @@ import { guides } from '@/data/guides'
 import { Badge } from '@/components/ui/Badge'
 import { InquiryForm } from '@/components/contact/InquiryForm'
 import { formatPrice, getStatusBadge } from '@/lib/utils'
+import { CampCarousel } from '@/components/trips/CampCarousel'
 
 // Guide portrait photos (local)
 const GUIDE_PHOTOS: Record<string, string> = {
@@ -73,18 +74,8 @@ export default async function TripPage({ params }: Props) {
   return (
     <>
       {/* Hero */}
-      <section className="relative h-[75vh] min-h-[500px] flex items-end bg-navy overflow-hidden">
-        <Image
-          src={heroSrc}
-          alt={`${trip.title} — ${trip.destination}`}
-          fill
-          priority
-          className="object-cover"
-          sizes="100vw"
-        />
-        <div className="absolute inset-0 bg-gradient-to-t from-navy/80 via-navy/20 to-transparent" />
-
-        <div className="relative z-10 mx-auto w-full max-w-7xl px-6 lg:px-10 pb-14">
+      <CampCarousel images={trip.carouselImages ?? [{ src: heroSrc, alt: `${trip.title} — ${trip.destination}` }]}>
+        <div className="mx-auto w-full max-w-7xl px-6 lg:px-10 pb-14">
           <Badge variant={statusVariant} className="mb-4">
             {statusLabel}
           </Badge>
@@ -93,7 +84,7 @@ export default async function TripPage({ params }: Props) {
           </h1>
           <p className="mt-2 text-xl text-cream/70">{trip.destination}</p>
         </div>
-      </section>
+      </CampCarousel>
 
       {/* Main content */}
       <div className="mx-auto max-w-7xl px-6 lg:px-10 py-16">
@@ -204,7 +195,12 @@ export default async function TripPage({ params }: Props) {
                         className="rounded-xl border border-navy/10 p-4"
                       >
                         <div className="flex items-center gap-2">
-                          <p className="font-medium text-navy text-sm">{hotel.name}</p>
+                          {hotel.url ? (
+                            <a href={hotel.url} target="_blank" rel="noopener noreferrer"
+                              className="font-medium text-navy text-sm hover:underline">{hotel.name}</a>
+                          ) : (
+                            <p className="font-medium text-navy text-sm">{hotel.name}</p>
+                          )}
                           <span className="text-xs text-navy/40">{hotel.tier}</span>
                         </div>
                         {hotel.description && (
@@ -214,6 +210,39 @@ export default async function TripPage({ params }: Props) {
                     ))}
                   </div>
                 )}
+              </div>
+            )}
+
+            {/* Booking contacts */}
+            {trip.bookingContacts && trip.bookingContacts.length > 0 && (
+              <div>
+                <h2 className="font-serif text-2xl font-medium text-navy mb-4">
+                  Book directly
+                </h2>
+                <div className="space-y-3">
+                  {trip.bookingContacts.map((contact) => (
+                    <div key={contact.name} className="rounded-xl border border-navy/10 p-4">
+                      <div className="flex items-center justify-between gap-4">
+                        <div>
+                          <p className="font-medium text-navy text-sm">{contact.name}</p>
+                          {contact.role && <p className="text-xs text-navy/40 mt-0.5">{contact.role}</p>}
+                        </div>
+                        <div className="flex items-center gap-3">
+                          {contact.url && (
+                            <a href={contact.url} target="_blank" rel="noopener noreferrer"
+                              className="text-xs font-medium text-navy hover:text-navy/60 transition-colors">
+                              {contact.url.replace('https://', '')} ↗
+                            </a>
+                          )}
+                          <a href={`mailto:${contact.email}`}
+                            className="text-xs text-navy/50 hover:text-navy transition-colors">
+                            {contact.email}
+                          </a>
+                        </div>
+                      </div>
+                    </div>
+                  ))}
+                </div>
               </div>
             )}
 
