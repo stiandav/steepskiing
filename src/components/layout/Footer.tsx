@@ -15,8 +15,8 @@ export function Footer() {
               I send occasional dispatches — early access to camp openings, snow reports, and things worth reading. No noise.
             </p>
           </div>
-          <form action="https://app.flodesk.com/forms/REPLACE_WITH_FORM_ID/subscribe" method="POST" className="flex-1 max-w-md" aria-label="Newsletter signup">
-            <input type="hidden" name="fl_form_id" value="REPLACE_WITH_FORM_ID" />
+          <form action="https://app.flodesk.com/forms/69cb1e9e0866d839895894d3/subscribe" method="POST" className="flex-1 max-w-md" aria-label="Newsletter signup">
+            <input type="hidden" name="fl_form_id" value="69cb1e9e0866d839895894d3" />
             <div className="flex gap-3">
               <label htmlFor="footer-email" className="sr-only">Email address</label>
               <input id="footer-email" type="email" name="email" required placeholder="your@email.com"

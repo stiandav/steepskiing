@@ -68,6 +68,19 @@ const READING = [
   },
 ]
 
+// Past newsletter issues — add entries as Chris sends them.
+// Each `url` is the Flodesk web-view link for that issue
+// (Flodesk auto-generates a public URL for every broadcast you send).
+const NEWSLETTERS: { title: string; date: string; excerpt: string; url: string }[] = [
+  // Example entry — replace with real issues as they go out:
+  // {
+  //   title: 'Portillo is open, and I'm already thinking about August',
+  //   date: 'April 2026',
+  //   excerpt: 'A quick note on what to expect this season, what the snowpack looks like, and why I keep going back to Chile every year.',
+  //   url: 'https://view.flodesk.com/emails/XXXXXXXXXXXXXXXXXXXXXXXX',
+  // },
+]
+
 const FIELD_NOTES = [
   {
     date: 'March 8',
@@ -207,6 +220,54 @@ export default function JournalPage() {
         </div>
       </section>
 
+      {/* ── Newsletter archive ───────────────────────────────────── */}
+      <section className="mx-auto max-w-7xl px-6 lg:px-10 pt-20 pb-20 border-b border-navy/8">
+        <AnimateIn>
+          <p className="text-xs font-medium tracking-widest text-navy/40 uppercase mb-2">
+            Newsletter
+          </p>
+          <h2 className="font-serif text-4xl md:text-5xl font-medium text-navy leading-tight mb-4">
+            Past issues.
+          </h2>
+          <p className="text-navy/50 text-sm max-w-md mb-10">
+            Every dispatch I&apos;ve sent — trip notes, camp updates, things worth reading. Read them below or{' '}
+            <a href="#" className="underline underline-offset-2 hover:text-navy transition-colors">subscribe</a>{' '}
+            to get the next one.
+          </p>
+        </AnimateIn>
+
+        {NEWSLETTERS.length > 0 ? (
+          <div className="max-w-2xl divide-y divide-navy/8">
+            {NEWSLETTERS.map(({ title, date, excerpt, url }) => (
+              <AnimateIn key={url}>
+                <a
+                  href={url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="group flex items-start justify-between gap-6 py-6 hover:opacity-80 transition-opacity"
+                >
+                  <div className="flex-1 min-w-0">
+                    <p className="text-xs font-medium uppercase tracking-widest text-navy/35 mb-2">{date}</p>
+                    <p className="font-serif text-lg font-medium text-navy leading-snug group-hover:text-navy/80 transition-colors">
+                      {title}
+                    </p>
+                    <p className="mt-2 text-sm text-navy/55 leading-relaxed line-clamp-2">{excerpt}</p>
+                  </div>
+                  <span className="flex-shrink-0 text-navy/25 group-hover:text-navy/50 transition-colors text-sm pt-6">↗</span>
+                </a>
+              </AnimateIn>
+            ))}
+          </div>
+        ) : (
+          <div className="max-w-md rounded-2xl border border-navy/10 bg-white/60 p-8">
+            <p className="font-serif text-xl font-medium text-navy mb-2">First issue coming soon.</p>
+            <p className="text-sm text-navy/55 leading-relaxed">
+              Subscribe below and you&apos;ll be first to get it when it goes out.
+            </p>
+          </div>
+        )}
+      </section>
+
       {/* ── Field notes archive ───────────────────────────────────── */}
       <section className="mx-auto max-w-7xl px-6 lg:px-10 pt-20 pb-24">
         <AnimateIn>
@@ -264,11 +325,11 @@ export default function JournalPage() {
               </p>
             </AnimateIn>
             <form
-              action="https://app.flodesk.com/forms/REPLACE_WITH_FORM_ID/subscribe"
+              action="https://app.flodesk.com/forms/69cb1e9e0866d839895894d3/subscribe"
               method="POST"
               className="mt-8"
             >
-              <input type="hidden" name="fl_form_id" value="REPLACE_WITH_FORM_ID" />
+              <input type="hidden" name="fl_form_id" value="69cb1e9e0866d839895894d3" />
               <div className="flex flex-col sm:flex-row gap-3">
                 <input
                   type="email"
