@@ -1,6 +1,7 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
 import { AnimateIn } from '@/components/ui/AnimateIn'
+import { NewsletterSignup } from '@/components/layout/NewsletterSignup'
 
 export const metadata: Metadata = {
   title: 'Journal — Chris Davenport',
@@ -324,31 +325,9 @@ export default function JournalPage() {
                 snow reports from wherever I am. No algorithm. Just email.
               </p>
             </AnimateIn>
-            <form
-              action="https://app.flodesk.com/forms/69cb1e9e0866d839895894d3/subscribe"
-              method="POST"
-              className="mt-8"
-            >
-              <input type="hidden" name="fl_form_id" value="69cb1e9e0866d839895894d3" />
-              <div className="flex flex-col sm:flex-row gap-3">
-                <input
-                  type="email"
-                  name="email"
-                  required
-                  placeholder="your@email.com"
-                  className="flex-1 rounded-full bg-white/10 border border-cream/20 px-5 py-3.5 text-sm text-cream placeholder:text-cream/30 focus:outline-none focus:border-cream/50 focus:bg-white/15 transition-all"
-                />
-                <button
-                  type="submit"
-                  className="rounded-full bg-cream text-navy px-7 py-3.5 text-sm font-medium hover:bg-cream/90 transition-colors flex-shrink-0"
-                >
-                  Subscribe
-                </button>
-              </div>
-              <p className="mt-3 text-xs text-cream/30">
-                No spam, unsubscribe any time.
-              </p>
-            </form>
+            <div className="mt-8">
+              <NewsletterSignup />
+            </div>
           </div>
         </div>
       </section>

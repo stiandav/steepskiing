@@ -1,6 +1,7 @@
 import Link from 'next/link'
 import { footerLinks } from '@/data/nav'
 import { CdLogo } from '@/components/ui/CdLogo'
+import { NewsletterSignup } from '@/components/layout/NewsletterSignup'
 
 export function Footer() {
   const currentYear = new Date().getFullYear()
@@ -15,18 +16,7 @@ export function Footer() {
               I send occasional dispatches — early access to camp openings, snow reports, and things worth reading. No noise.
             </p>
           </div>
-          <form action="https://app.flodesk.com/forms/69cb1e9e0866d839895894d3/subscribe" method="POST" className="flex-1 max-w-md" aria-label="Newsletter signup">
-            <input type="hidden" name="fl_form_id" value="69cb1e9e0866d839895894d3" />
-            <div className="flex gap-3">
-              <label htmlFor="footer-email" className="sr-only">Email address</label>
-              <input id="footer-email" type="email" name="email" required placeholder="your@email.com"
-                className="flex-1 rounded-full border border-cream/20 bg-cream/5 px-5 py-3 text-sm text-cream placeholder-cream/40 focus:outline-none focus:border-cream/50 transition-colors" />
-              <button type="submit" className="rounded-full bg-cream px-6 py-3 text-sm font-medium text-navy hover:bg-cream/90 transition-colors whitespace-nowrap">
-                Subscribe
-              </button>
-            </div>
-            <p className="mt-2 text-xs text-cream/40">No spam. Unsubscribe any time.</p>
-          </form>
+          <NewsletterSignup />
         </div>
       </div>
 

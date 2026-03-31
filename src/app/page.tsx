@@ -4,7 +4,6 @@ import { TripGrid } from '@/components/home/TripGrid'
 import { BioStrip } from '@/components/home/BioStrip'
 import { SponsorBar } from '@/components/home/SponsorBar'
 import { AnimateIn } from '@/components/ui/AnimateIn'
-import NewsletterForm from '@/components/home/NewsletterForm'
 import { trips } from '@/data/trips'
 import { testimonials } from '@/data/testimonials'
 import Link from 'next/link'
@@ -85,7 +84,6 @@ export default function Home() {
       )}
 
       <SponsorBar />
-      <NewsletterForm />
     </>
   )
 }
