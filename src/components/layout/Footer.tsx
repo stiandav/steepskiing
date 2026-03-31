@@ -43,10 +43,7 @@ export function Footer() {
               <a href="https://www.instagram.com/steepskiing/" target="_blank" rel="noopener noreferrer" aria-label="Instagram @steepskiing" className="text-cream/50 hover:text-cream transition-colors">
                 <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5" /><circle cx="12" cy="12" r="4" /><circle cx="17.5" cy="6.5" r="0.5" fill="currentColor" stroke="none" /></svg>
               </a>
-              <a href="https://www.facebook.com/ChrisDavenport/" target="_blank" rel="noopener noreferrer" aria-label="Facebook @steepskiing" className="text-cream/50 hover:text-cream transition-colors">
-                <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z" /></svg>
-              </a>
-              <a href="https://www.linkedin.com/in/chris-davenport-182a233/" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn" className="text-cream/50 hover:text-cream transition-colors">
+<a href="https://www.linkedin.com/in/chris-davenport-182a233/" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn" className="text-cream/50 hover:text-cream transition-colors">
                 <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6zM2 9h4v12H2z"/><circle cx="4" cy="4" r="2"/></svg>
               </a>
               <a href="https://www.youtube.com/@ChrisDavenport" target="_blank" rel="noopener noreferrer" aria-label="YouTube" className="text-cream/50 hover:text-cream transition-colors">
@@ -61,7 +58,7 @@ export function Footer() {
               <li className="pl-3"><Link href="/trips/chile-2026" className="text-sm text-cream/40 hover:text-cream/80 transition-colors">↳ Portillo, Chile</Link></li>
               <li className="pl-3"><Link href="/trips/antarctica-2027" className="text-sm text-cream/40 hover:text-cream/80 transition-colors">↳ Antarctica</Link></li>
               <li className="pl-3"><Link href="/trips/japan-2027" className="text-sm text-cream/40 hover:text-cream/80 transition-colors">↳ Japan</Link></li>
-              <li className="pl-3"><Link href="/trips/switzerland-2026" className="text-sm text-cream/40 hover:text-cream/80 transition-colors">↳ Switzerland</Link></li>
+              <li className="pl-3"><Link href="/trips/switzerland-2027" className="text-sm text-cream/40 hover:text-cream/80 transition-colors">↳ Switzerland</Link></li>
             </ul>
             <ul className="space-y-3">
               <li><Link href="/media" className="text-sm text-cream/60 hover:text-cream transition-colors">Media</Link></li>

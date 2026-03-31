@@ -8,7 +8,7 @@ export const guides: GuideData[] = [
     bio: "2x World Extreme Skiing Champion (1996, 1997). Mountain guide with 30+ years leading athletes and guests through the world's most committing ski terrain. First to ski all 54 Colorado 14ers in a single season. 36 Warren Miller and MSP film appearances.",
     image: '/images/guides/chris_portrait.avif',
     instagram: 'steepskiing',
-    tripIds: ['switzerland-2026', 'chile-2026', 'japan-2027', 'antarctica-2027'],
+    tripIds: ['switzerland-2027', 'chile-2026', 'japan-2027', 'antarctica-2027'],
   },
   {
     id: 'mike-douglas',
@@ -17,7 +17,7 @@ export const guides: GuideData[] = [
     bio: 'Ski pioneer and longtime collaborator. Creator of twin-tip skiing, co-founder of the Newschool movement, and one of the most respected athletes in the ski industry. A force on any mountain.',
     image: '/images/guides/mike.jpg',
     instagram: 'mikedski',
-    tripIds: ['switzerland-2026', 'chile-2026', 'japan-2027'],
+    tripIds: ['switzerland-2027', 'chile-2026', 'japan-2027'],
   },
   {
     id: 'ingrid-backstrom',
@@ -26,7 +26,7 @@ export const guides: GuideData[] = [
     bio: 'One of the most accomplished freeride skiers in the world. Known for her fearless lines in Chamonix and Alaska, Ingrid brings world-class technical skiing and warmth to every camp.',
     image: '/images/guides/ingrid.jpg',
     instagram: 'ingridbackstrom',
-    tripIds: ['switzerland-2026', 'chile-2026', 'japan-2027'],
+    tripIds: ['switzerland-2027', 'chile-2026', 'japan-2027'],
   },
   {
     id: 'cody-townsend',

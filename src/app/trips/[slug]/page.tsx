@@ -30,7 +30,7 @@ const GUIDE_PHOTO_POSITION: Record<string, string> = {
 
 // Destination hero images — replace with Chris's real photography when available
 const DESTINATION_IMAGES: Record<string, string> = {
-  'switzerland-2026':
+  'switzerland-2027':
     '/images/switz.webp',
   'chile-2026':
     '/images/portillo.jpg',
@@ -246,6 +246,16 @@ export default async function TripPage({ params }: Props) {
                           <p className="text-sm text-navy/60 leading-relaxed">
                             {guide.bio}
                           </p>
+                          {guide.instagram && (
+                            <a
+                              href={`https://instagram.com/${guide.instagram}`}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              className="mt-2 inline-flex text-xs text-navy/40 hover:text-navy transition-colors"
+                            >
+                              @{guide.instagram} ↗
+                            </a>
+                          )}
                         </div>
                       </div>
                     )

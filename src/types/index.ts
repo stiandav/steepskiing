@@ -29,8 +29,9 @@ export interface TripData {
   logistics?: {
     travel?: string
     accommodation?: string
-    hotelOptions?: Array<{ name: string; tier: string; description?: string }>
+    hotelOptions?: Array<{ name: string; tier: string; description?: string; url?: string }>
   }
+  carouselImages?: Array<{ src: string; alt: string }>
   inquiryEmails: string[]
   bookingContacts?: Array<{ name: string; email: string; role?: string }>
   status: 'available' | 'nearly-sold-out' | 'sold-out'
@@ -85,4 +86,5 @@ export interface NavLink {
   label: string
   href: string
   external?: boolean
+  children?: NavLink[]
 }

@@ -93,9 +93,9 @@ export function HeroSection() {
         <div className="max-w-2xl">
           <p
             data-hero-item
-            className="mb-4 text-xs font-medium tracking-widest text-navy/55 uppercase"
+            className="mb-4 text-xs font-medium tracking-widest text-cream/80 uppercase"
           >
-            2× World Extreme Skiing Champion
+            2× World Extreme Skiing Champion · US Ski Hall of Famer
           </p>
 
           <h1
@@ -103,15 +103,15 @@ export function HeroSection() {
             className="font-serif text-6xl sm:text-7xl md:text-8xl font-light text-navy leading-[1.0]"
           >
             Ski the world&apos;s<br />
-            <em>best terrain.</em>
+            <em>most beautiful mountains.</em>
           </h1>
 
           <p
             data-hero-item
             className="mt-6 text-base md:text-lg text-navy/65 leading-relaxed max-w-xl"
           >
-            I lead small-group ski camps in the places I love most — Portillo, the Swiss Alps,
-            Japan&apos;s Lotte Arai, and Antarctica. Terrain unlike anywhere else.
+            I run small-group ski camps and private trips to the places I love most — Portillo,
+            the Swiss Alps, Japanese Alps, Antarctica, Alaska, and anywhere the snow is deep.
           </p>
 
           <div data-hero-item className="mt-8 flex flex-wrap gap-4">

@@ -65,7 +65,7 @@ export function InquiryForm({ defaultTrip = '', compact = false }: InquiryFormPr
           Inquiry received!
         </h3>
         <p className="mt-2 text-sm text-emerald-700">
-          Chris or a team member will respond within 24–48 hours.
+          Received — I&apos;ll be in touch soon.
         </p>
       </div>
     )
@@ -132,10 +132,11 @@ export function InquiryForm({ defaultTrip = '', compact = false }: InquiryFormPr
           className={inputClass}
         >
           <option value="">Select a camp…</option>
-          <option value="switzerland-2026">Switzerland — March 14–21, 2026</option>
-          <option value="chile-2026">Chile — August 15–22, 2026</option>
-          <option value="japan-2027">Japan — February 1–7, 2027</option>
+          <option value="chile-2026">Portillo, Chile — August 15–22, 2026</option>
+          <option value="japan-2027">Japan — January 31–February 7, 2027</option>
+          <option value="switzerland-2027">Switzerland — March 13–20, 2027</option>
           <option value="antarctica-2027">Antarctica — Oct 24–Nov 5, 2027</option>
+          <option value="private-week">Private week — Alaska, Japan, Chile, or custom</option>
           <option value="general">General inquiry / not sure yet</option>
         </select>
       </div>
@@ -144,7 +145,6 @@ export function InquiryForm({ defaultTrip = '', compact = false }: InquiryFormPr
         <label htmlFor="experience" className={labelClass}>Skiing experience</label>
         <select id="experience" name="experience" className={inputClass}>
           <option value="">Select…</option>
-          <option value="intermediate">Intermediate — comfortable on most terrain</option>
           <option value="advanced">Advanced — confident on steep/off-piste</option>
           <option value="expert">Expert — seeking challenging terrain</option>
         </select>
@@ -177,8 +177,8 @@ export function InquiryForm({ defaultTrip = '', compact = false }: InquiryFormPr
 
       <p className="text-center text-xs text-navy/40">
         Or email directly:{' '}
-        <a href="mailto:chris@steepskiing.com" className="underline hover:text-navy/70">
-          chris@steepskiing.com
+        <a href="mailto:chris@chrisdavenport.com" className="underline hover:text-navy/70">
+          chris@chrisdavenport.com
         </a>
       </p>
     </form>

@@ -1,7 +1,7 @@
 'use client'
 
 import Link from 'next/link'
-import { useState } from 'react'
+import { useState, useRef, useEffect } from 'react'
 import { motion, AnimatePresence } from 'motion/react'
 import { useScrollProgress } from '@/hooks/useScrollProgress'
 import { navLinks } from '@/data/nav'
@@ -10,7 +10,20 @@ import { CdLogo } from '@/components/ui/CdLogo'
 
 export function StickyNav() {
   const [menuOpen, setMenuOpen] = useState(false)
+  const [openDropdown, setOpenDropdown] = useState<string | null>(null)
+  const dropdownRef = useRef<HTMLUListElement>(null)
   const progress = useScrollProgress()
+
+  // Close dropdown on outside click
+  useEffect(() => {
+    function handleClick(e: MouseEvent) {
+      if (dropdownRef.current && !dropdownRef.current.contains(e.target as Node)) {
+        setOpenDropdown(null)
+      }
+    }
+    document.addEventListener('mousedown', handleClick)
+    return () => document.removeEventListener('mousedown', handleClick)
+  }, [])
   const scrolled = progress > 0.05
   // When at top of page, render as light (cream) text over the hero image.
   // Once the user scrolls, switch to the frosted cream backdrop + navy text.
@@ -40,17 +53,52 @@ export function StickyNav() {
             <CdLogo variant={overHero ? 'light' : 'dark'} />
           </Link>
 
-          <ul className="hidden md:flex items-center gap-7">
+          <ul ref={dropdownRef} className="hidden md:flex items-center gap-7">
             {navLinks.map((link) => (
-              <li key={link.href}>
-                <Link href={link.href}
-                  className={`text-sm font-medium tracking-wide transition-colors ${
-                    overHero
-                      ? 'text-cream/90 hover:text-cream'
-                      : 'text-navy/70 hover:text-navy'
-                  }`}>
-                  {link.label}
-                </Link>
+              <li key={link.href} className="relative">
+                {link.children ? (
+                  <>
+                    <button
+                      onClick={() => setOpenDropdown(openDropdown === link.href ? null : link.href)}
+                      className={`flex items-center gap-1 text-sm font-medium tracking-wide transition-colors ${
+                        overHero ? 'text-cream/90 hover:text-cream' : 'text-navy/70 hover:text-navy'
+                      }`}
+                    >
+                      {link.label}
+                      <span className={`text-xs transition-transform duration-150 ${openDropdown === link.href ? 'rotate-180' : ''}`}>▾</span>
+                    </button>
+                    <AnimatePresence>
+                      {openDropdown === link.href && (
+                        <motion.ul
+                          initial={{ opacity: 0, y: -6 }}
+                          animate={{ opacity: 1, y: 0 }}
+                          exit={{ opacity: 0, y: -6 }}
+                          transition={{ duration: 0.15, ease: 'easeOut' }}
+                          className="absolute left-0 top-full mt-2 min-w-48 rounded-xl bg-cream shadow-lg border border-navy/8 py-1.5 z-50"
+                        >
+                          {link.children.map((child) => (
+                            <li key={child.href}>
+                              <Link
+                                href={child.href}
+                                onClick={() => setOpenDropdown(null)}
+                                className="block px-4 py-2 text-sm text-navy/70 hover:text-navy hover:bg-navy/5 transition-colors"
+                              >
+                                {child.label}
+                              </Link>
+                            </li>
+                          ))}
+                        </motion.ul>
+                      )}
+                    </AnimatePresence>
+                  </>
+                ) : (
+                  <Link href={link.href}
+                    className={`text-sm font-medium tracking-wide transition-colors ${
+                      overHero ? 'text-cream/90 hover:text-cream' : 'text-navy/70 hover:text-navy'
+                    }`}>
+                    {link.label}
+                  </Link>
+                )}
               </li>
             ))}
           </ul>

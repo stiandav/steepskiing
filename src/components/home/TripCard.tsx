@@ -6,7 +6,7 @@ import { formatPrice, getStatusBadge } from '@/lib/utils'
 
 // Real destination photos — swap with Chris's personal shots when available
 const DESTINATION_IMAGES: Record<string, string> = {
-  'switzerland-2026':
+  'switzerland-2027':
     '/images/switz.webp',
   'chile-2026':
     '/images/portillo.jpg',

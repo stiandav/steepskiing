@@ -58,7 +58,7 @@ const GEAR_DESCRIPTIONS: Partial<Record<string, string>> = {
   ortovox:
     "Ortovox avalanche safety — beacon, probe, shovel — is non-negotiable on any backcountry day I ski. The technology has evolved dramatically since I started, but the commitment to carrying and knowing how to use it hasn't.",
   mountainflow:
-    "mountainflow eco-wax is plant-based, non-toxic, and as fast as anything I've skied on. The right choice for anyone who cares about the mountains they're skiing in.",
+    "mountainflow makes the poles I ski with. Lightweight, reliable, and built for the terrain I spend time on.",
   'phantom-glide':
     "PHANTOM Glide is a permanent base treatment I use on my touring skis. One application lasts the season — and it glides as well as any kick wax without the mess.",
   revelshine:
@@ -205,7 +205,7 @@ export default function GearPage() {
           <AnimateIn>
             <div className="max-w-xl">
               <h2 className="font-serif text-2xl md:text-3xl font-medium text-navy mb-4">
-                A note on gear at camp.
+                A note on gear on trips with Chris.
               </h2>
               <p className="text-navy/60 leading-relaxed mb-4">
                 You don&apos;t need my specific brands to ski with me. What matters is that your

@@ -12,5 +12,4 @@ export const sponsors: SponsorData[] = [
   { id: 'outeru',        name: 'OuterU',                logo: '/images/sponsors/outeru.png',         url: 'https://outeru.com',                    category: 'performance' },
   { id: 'aspen-snowmass',name: 'Aspen Snowmass',        logo: '/images/sponsors/aspensnowmass.png',  url: 'https://aspensnowmass.com',             category: 'resort' },
   { id: 'pow',           name: 'Protect Our Winters',   logo: '/images/sponsors/pow.png',            url: 'https://protectourwinters.org',         category: 'advocacy' },
-  { id: 'revelshine',    name: 'Revelshine',            logo: '/images/sponsors/revelshine.png',     url: 'https://www.instagram.com/revelshine/', category: 'partner' },
 ]

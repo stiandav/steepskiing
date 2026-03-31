@@ -1,5 +1,6 @@
 'use client'
 
+import { useState } from 'react'
 import Link from 'next/link'
 import Image from 'next/image'
 import { motion } from 'motion/react'
@@ -9,18 +10,9 @@ interface NavOverlayProps {
   onClose: () => void
 }
 
-/**
- * NavOverlay — full-screen navigation menu.
- *
- * Split-screen layout:
- * - Left: staggered nav links + contact CTA
- * - Right: 3 editorial ski photography tiles (placeholder images,
- *   swap with real assets via the heroImage paths once available)
- *
- * Uses Motion for entry/exit animations. The parent (StickyNav) wraps
- * this in AnimatePresence so the exit animation fires on close.
- */
 export function NavOverlay({ onClose }: NavOverlayProps) {
+  const [expandedItem, setExpandedItem] = useState<string | null>(null)
+
   const photoTiles = [
     {
       src: '/images/photos/antarctica-cliff-drop.jpg',
@@ -72,13 +64,44 @@ export function NavOverlay({ onClose }: NavOverlayProps) {
                   visible: { opacity: 1, x: 0, transition: { duration: 0.4, ease: [0.22, 1, 0.36, 1] } },
                 }}
               >
-                <Link
-                  href={link.href}
-                  onClick={onClose}
-                  className="block font-serif text-4xl md:text-6xl font-medium text-cream hover:text-cream/70 transition-colors leading-tight"
-                >
-                  {link.label}
-                </Link>
+                {link.children ? (
+                  <div>
+                    <button
+                      onClick={() => setExpandedItem(expandedItem === link.href ? null : link.href)}
+                      className="flex items-center gap-3 font-serif text-4xl md:text-6xl font-medium text-cream hover:text-cream/70 transition-colors leading-tight"
+                    >
+                      {link.label}
+                      <span
+                        className={`text-2xl md:text-3xl text-cream/50 transition-transform duration-200 ${expandedItem === link.href ? 'rotate-180' : ''}`}
+                      >
+                        ›
+                      </span>
+                    </button>
+                    {expandedItem === link.href && (
+                      <ul className="mt-2 ml-4 space-y-1">
+                        {link.children.map((child) => (
+                          <li key={child.href}>
+                            <Link
+                              href={child.href}
+                              onClick={onClose}
+                              className="block text-xl md:text-2xl font-medium text-cream/60 hover:text-cream transition-colors leading-tight py-0.5"
+                            >
+                              {child.label}
+                            </Link>
+                          </li>
+                        ))}
+                      </ul>
+                    )}
+                  </div>
+                ) : (
+                  <Link
+                    href={link.href}
+                    onClick={onClose}
+                    className="block font-serif text-4xl md:text-6xl font-medium text-cream hover:text-cream/70 transition-colors leading-tight"
+                  >
+                    {link.label}
+                  </Link>
+                )}
               </motion.li>
             ))}
           </motion.ul>
@@ -101,10 +124,10 @@ export function NavOverlay({ onClose }: NavOverlayProps) {
             <p className="mt-4 text-sm text-cream/50">
               steepskiing.com ·{' '}
               <a
-                href="mailto:info@steepskiing.com"
+                href="mailto:chris@chrisdavenport.com"
                 className="hover:text-cream/80 transition-colors"
               >
-                info@steepskiing.com
+                chris@chrisdavenport.com
               </a>
             </p>
           </motion.div>

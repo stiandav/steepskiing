@@ -17,10 +17,11 @@ interface InquiryBody {
 }
 
 const TRIP_LABELS: Record<string, string> = {
-  'switzerland-2026': 'Switzerland — March 14–21, 2026',
-  'chile-2026': 'Chile — August 15–22, 2026',
-  'japan-2027': 'Japan — February 1–7, 2027',
+  'chile-2026': 'Portillo, Chile — August 15–22, 2026',
+  'japan-2027': 'Japan — January 31–February 7, 2027',
+  'switzerland-2027': 'Switzerland — March 13–20, 2027',
   'antarctica-2027': 'Antarctica — Oct 24–Nov 5, 2027',
+  'private-week': 'Private week',
   general: 'General inquiry',
 }
 

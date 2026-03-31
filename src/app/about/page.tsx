@@ -14,6 +14,7 @@ export const metadata: Metadata = {
 
 const credentials = [
   { label: 'World Championships', value: '2× World Extreme Skiing Champion (1996, 1997)' },
+  { label: 'Hall of Fame', value: 'U.S. Ski & Snowboard Hall of Fame (2015) · Colorado Ski & Snowboard Hall of Fame (2021)' },
   { label: 'Colorado 14ers', value: 'All 54 in a single season — a first in history' },
   { label: 'Ski films', value: '36 Warren Miller & Matchstick Productions appearances' },
   { label: 'Based', value: 'Aspen, Colorado' },
@@ -61,7 +62,7 @@ export default function AboutPage() {
                 Chris<br /><em>Davenport</em>
               </h1>
               <p className="mt-6 text-cream/70 text-lg leading-relaxed">
-                Two-time World Extreme Skiing Champion.
+                Two-time World Extreme Skiing Champion. Honored member of the U.S. and Colorado Ski Halls of Fame.
                 First to ski all 54 Colorado 14ers in a single season.
               </p>
               <p className="mt-4 text-cream/70 leading-relaxed">
@@ -77,6 +78,10 @@ export default function AboutPage() {
                 <a href="https://www.instagram.com/steepskiing/" target="_blank" rel="noopener noreferrer"
                   className="inline-flex items-center rounded-full border border-cream/30 px-7 py-3.5 text-sm font-medium text-cream hover:bg-cream/10 transition-colors">
                   @steepskiing
+                </a>
+                <a href="https://en.wikipedia.org/wiki/Chris_Davenport_(skier)" target="_blank" rel="noopener noreferrer"
+                  className="inline-flex items-center rounded-full border border-cream/30 px-7 py-3.5 text-sm font-medium text-cream hover:bg-cream/10 transition-colors">
+                  Wikipedia ↗
                 </a>
               </div>
             </AnimateIn>

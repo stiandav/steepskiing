@@ -781,10 +781,13 @@ export default function MediaPage() {
           </div>
           <div className="space-y-6">
             {[
-              { year: '1996 & 1997', title: 'World Extreme Skiing Champion', body: 'Back-to-back titles at the World Extreme Skiing Championships.' },
+              { year: '1996 & 1997', title: 'World Extreme Skiing Champion', body: 'Two titles at the World Extreme Skiing Championships — among the most prestigious events in big-mountain skiing.' },
+              { year: '1997', title: 'X Games Bronze Medal', body: 'Bronze at the inaugural Winter X Games ski competition.' },
+              { year: '1998', title: '24 Hours of Aspen — World Champion', body: 'Won the grueling 24-hour endurance ski race held at Aspen Mountain.' },
               { year: '2007', title: 'First to Ski All 54 Colorado 14ers', body: 'Completed all 54 Colorado 14ers in a single ski season — never done before.' },
               { year: '2013', title: 'TEDxVail Speaker', body: '"Managing Risk" — one of the most-watched talks from the Vail series.' },
               { year: '2015', title: 'U.S. Ski & Snowboard Hall of Fame', body: 'Inducted for contributions to alpine skiing and ski mountaineering.' },
+              { year: '2021', title: 'Colorado Ski & Snowboard Hall of Fame', body: 'Inducted for a career that helped define modern big-mountain skiing.' },
             ].map(({ year, title, body }) => (
               <div key={title} className="flex gap-6">
                 <div className="flex-shrink-0 w-20 pt-0.5">
@@ -803,7 +806,7 @@ export default function MediaPage() {
       {/* ── CTA ────────────────────────────────────────────────────────────── */}
       <div className="border-t border-navy/10 bg-cream/40">
         <div className="mx-auto max-w-3xl px-6 lg:px-10 py-16 text-center">
-          <p className="text-navy/50 text-sm uppercase tracking-widest mb-4">Ski the same terrain</p>
+          <p className="text-navy/50 text-sm uppercase tracking-widest mb-4">Ski with Chris</p>
           <Link href="/ski-camps" className="inline-block font-medium text-navy border-b-2 border-navy hover:border-navy/40 transition-colors pb-0.5 text-lg">
             View upcoming camps ↗
           </Link>
