@@ -73,11 +73,11 @@ export function HeroSection() {
       {/* Background — scale-110 gives GSAP room to move without revealing edges */}
       <div ref={imageRef} className="absolute inset-0 scale-125">
         <Image
-          src="/images/hero_shot.jpg"
-          alt="Chris Davenport skiing steep open terrain from above"
+          src="/images/photos/hence/Davpowblast.jpg"
+          alt="Chris Davenport powder blasting on a steep slope"
           fill
           priority
-          className="object-cover object-right md:object-center"
+          className="object-cover object-center"
           sizes="100vw"
         />
       </div>
@@ -93,7 +93,7 @@ export function HeroSection() {
         <div className="max-w-2xl">
           <p
             data-hero-item
-            className="mb-4 text-xs font-medium tracking-widest text-cream/80 uppercase"
+            className="mb-4 text-xs font-medium tracking-widest text-navy/50 uppercase"
           >
             2× World Extreme Skiing Champion · US Ski Hall of Famer
           </p>

@@ -1,4 +1,5 @@
 import type { Metadata } from 'next'
+import Image from 'next/image'
 import Link from 'next/link'
 import { AnimateIn } from '@/components/ui/AnimateIn'
 import { InquiryForm } from '@/components/contact/InquiryForm'
@@ -65,28 +66,42 @@ export default function PrivateGuidingPage() {
       {/* Hero */}
       <section className="relative overflow-hidden bg-navy text-cream pt-20">
         <div className="mx-auto max-w-7xl px-6 lg:px-10 py-20 md:py-28">
-          <AnimateIn>
-            <p className="text-xs font-medium tracking-widest text-cream/40 uppercase mb-4">Private Guiding</p>
-            <h1 className="font-serif text-6xl md:text-8xl font-light leading-tight">
-              Private<br /><em>ski weeks.</em>
-            </h1>
-            <p className="mt-6 text-cream/70 text-lg leading-relaxed max-w-xl">
-              Making your ski dreams come true, anywhere in the world — from Svalbard to Patagonia,
-              Morocco to Alaska. No fixed dates, no group minimums, fully on your terms.
-            </p>
-            <div className="mt-8 flex flex-wrap gap-4">
-              <a href="#inquire"
-                className="inline-flex items-center rounded-full bg-cream px-7 py-3.5 text-sm font-medium text-navy hover:bg-cream/90 transition-colors">
-                Inquire Now
-              </a>
-              <Link href="/ski-camps"
-                className="inline-flex items-center rounded-full border border-cream/30 px-7 py-3.5 text-sm font-medium text-cream hover:bg-cream/10 transition-colors">
-                View Group Camps
-              </Link>
-            </div>
-          </AnimateIn>
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+            <AnimateIn>
+              <p className="text-xs font-medium tracking-widest text-cream/40 uppercase mb-4">Private Guiding</p>
+              <h1 className="font-serif text-6xl md:text-8xl font-light leading-tight">
+                Private<br /><em>ski weeks.</em>
+              </h1>
+              <p className="mt-6 text-cream/70 text-lg leading-relaxed">
+                Making your ski dreams come true, anywhere in the world — from Svalbard to Patagonia,
+                Morocco to Alaska. No fixed dates, no group minimums, fully on your terms.
+              </p>
+              <div className="mt-8 flex flex-wrap gap-4">
+                <a href="#inquire"
+                  className="inline-flex items-center rounded-full bg-cream px-7 py-3.5 text-sm font-medium text-navy hover:bg-cream/90 transition-colors">
+                  Inquire Now
+                </a>
+                <Link href="/ski-camps"
+                  className="inline-flex items-center rounded-full border border-cream/30 px-7 py-3.5 text-sm font-medium text-cream hover:bg-cream/10 transition-colors">
+                  View Group Camps
+                </Link>
+              </div>
+            </AnimateIn>
+
+            {/* Portrait photo */}
+            <AnimateIn delay={0.15}>
+              <div className="relative h-[520px] rounded-3xl overflow-hidden">
+                <Image
+                  src="/images/photos/chris/DSC00405.jpg"
+                  alt="Chris Davenport at Portillo, Chile"
+                  fill
+                  className="object-cover object-top"
+                  sizes="(min-width: 1024px) 50vw, 100vw"
+                />
+              </div>
+            </AnimateIn>
+          </div>
         </div>
-        <div className="absolute inset-0 pointer-events-none bg-gradient-to-br from-navy via-navy to-navy/80" />
       </section>
 
       {/* Intro */}

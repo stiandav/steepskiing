@@ -4,7 +4,7 @@ import { InquiryForm } from '@/components/contact/InquiryForm'
 export const metadata: Metadata = {
   title: 'Contact — Chris Davenport',
   description:
-    'Reach out about a guided ski camp. I personally read every inquiry and will be in touch within 48 hours.',
+    'Reach out about a guided ski camp or private ski week. Fill out the form and I\'ll be in touch soon.',
 }
 
 export default function ContactPage() {
@@ -23,15 +23,14 @@ export default function ContactPage() {
             Fill out the form below or slide into my DMs on Instagram — I&apos;m
             at <a href="https://www.instagram.com/steepskiing/" target="_blank" rel="noopener noreferrer"
               className="text-navy hover:underline">@steepskiing</a>. I personally read every inquiry
-            and will be in touch within 24–48 hours to answer questions and make sure
-            the camp is the right fit for you.
+            and will be in touch to answer questions and make sure it&apos;s the right fit.
           </p>
 
           <div className="mt-10 space-y-5">
             <div>
               <p className="text-xs font-medium uppercase tracking-wide text-navy/40 mb-1">Email</p>
-              <a href="mailto:chris@steepskiing.com" className="text-navy hover:text-navy/70 transition-colors">
-                chris@steepskiing.com
+              <a href="mailto:chris@chrisdavenport.com" className="text-navy hover:text-navy/70 transition-colors">
+                chris@chrisdavenport.com
               </a>
             </div>
             <div>
@@ -42,10 +41,6 @@ export default function ContactPage() {
             <div>
               <p className="text-xs font-medium uppercase tracking-wide text-navy/40 mb-1">Based in</p>
               <p className="text-navy">Aspen, Colorado</p>
-            </div>
-            <div>
-              <p className="text-xs font-medium uppercase tracking-wide text-navy/40 mb-1">Response time</p>
-              <p className="text-navy/70 text-sm">I&apos;ll be in touch within 24–48 hours</p>
             </div>
           </div>
         </div>
